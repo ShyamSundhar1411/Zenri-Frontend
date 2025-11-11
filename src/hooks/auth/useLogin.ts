@@ -12,6 +12,7 @@ export function useLogin(){
     return useMutation<LoginResponse,Error,LoginRequest>({
         mutationFn:(data)=>login(data),
         onSuccess: (data) => {
+            console.log(data);
             setAuth(data);
         }
     })

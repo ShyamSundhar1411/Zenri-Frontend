@@ -23,7 +23,7 @@ export const useAuthStore = create<AuthState>((set) => ({
             token:data.tokens,
             isAuthenticated:true,
         })
-        localStorage.setItem("authTokens",JSON.stringify(data.tokens))
+        localStorage.setItem("auth",JSON.stringify(data))
     },
     logout:()=>{
         set({
@@ -31,12 +31,13 @@ export const useAuthStore = create<AuthState>((set) => ({
             token:null,
             isAuthenticated:false,
         })
-        localStorage.removeItem("authTokens")
+        localStorage.removeItem("auth")
     },
     restoreSession:()=>{
-        const auth = localStorage.getItem("authTokens");
+        const auth = localStorage.getItem("auth");
         if(auth){
             const data = JSON.parse(auth);
+            console.log("Restoring Data",data)
             set({
                 user:data.user,
                 token:data.tokens,

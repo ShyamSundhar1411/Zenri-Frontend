@@ -1,22 +1,37 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useLogin } from "@/hooks/auth/useLogin"
 
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card"
 import { Label } from "@/components/ui/label"
+import { useAuthStore } from "@/store/auth-store"
+import { useRouter } from "next/navigation"
+
 
 export default function Login(){
   const [email,setEmail] = useState("")
+  const router  = useRouter();
   const [password,setPassword] = useState("")
   const {mutate:login,isPending,error} = useLogin()
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated)
+  useEffect(() =>{
+        
+        if(isAuthenticated){
+            router.replace("/")
+        }
+    },[isAuthenticated,router])
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     login({
       email,
       password
+    },{
+      onSuccess: () => {
+        router.replace("/")
+      }
     })
   }
   return (

@@ -20,7 +20,7 @@ export default function Login(){
   useEffect(() =>{
         
         if(isAuthenticated){
-            router.replace("/")
+            router.replace("/home")
         }
     },[isAuthenticated,router])
   const handleSubmit = (e: React.FormEvent) => {
@@ -30,7 +30,7 @@ export default function Login(){
       password
     },{
       onSuccess: () => {
-        router.replace("/")
+        router.replace("/home")
       }
     })
   }

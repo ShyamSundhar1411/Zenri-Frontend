@@ -6,6 +6,7 @@ import { IconMenu2, IconX } from "@tabler/icons-react";
 
 interface Links {
   label: string;
+  onClick?: () => void;
   href: string;
   icon: React.JSX.Element | React.ReactNode;
 }
@@ -163,15 +164,8 @@ export const SidebarLink = ({
   className?: string;
 }) => {
   const { open, animate } = useSidebar();
-  return (
-    <a
-      href={link.href}
-      className={cn(
-        "flex items-center justify-start gap-2  group/sidebar py-2",
-        className
-      )}
-      {...props}
-    >
+  const content = (
+    <>
       {link.icon}
 
       <motion.span
@@ -179,10 +173,40 @@ export const SidebarLink = ({
           display: animate ? (open ? "inline-block" : "none") : "inline-block",
           opacity: animate ? (open ? 1 : 0) : 1,
         }}
-        className="text-neutral-700 dark:text-neutral-200 text-sm group-hover/sidebar:translate-x-1 transition duration-150 whitespace-pre inline-block !p-0 !m-0"
+        className="text-neutral-700 dark:text-neutral-200 text-sm group-hover/sidebar:translate-x-1 transition duration-150 whitespace-pre inline-block"
       >
         {link.label}
       </motion.span>
+    </>
+  );
+
+  
+  if (link.onClick) {
+    return (
+      <button
+        onClick={link.onClick}
+        className={cn(
+          "flex items-center justify-start gap-2 group/sidebar py-2 w-full text-left",
+          className
+        )}
+        {...props}
+      >
+        {content}
+      </button>
+    );
+  }
+
+  
+  return (
+    <a
+      href={link.href || "#"}
+      className={cn(
+        "flex items-center justify-start gap-2 group/sidebar py-2",
+        className
+      )}
+      {...props}
+    >
+      {content}
     </a>
   );
 };

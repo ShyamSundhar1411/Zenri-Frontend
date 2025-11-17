@@ -1,7 +1,7 @@
-export default function MyTransactions(){
-    return (
-        <>
-            <h1>My Transactions</h1>
-        </>
-    )
+export default function MyTransactions() {
+  return (
+    <>
+      <h1>My Transactions</h1>
+    </>
+  );
 }

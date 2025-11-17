@@ -3,7 +3,7 @@ import type { components } from "@/types/api";
 
 type Ledger = components["schemas"]["Ledger"];
 interface LedgerCardProps {
-  ledger: Ledger
+  ledger: Ledger;
 }
 
 export function LedgerCard({ ledger }: LedgerCardProps) {

@@ -1,7 +1,7 @@
-export default function MyAccounts(){
-    return (
-        <>
-            <h1>My Accounts</h1>
-        </>
-    )
+export default function MyAccounts() {
+  return (
+    <>
+      <h1>My Accounts</h1>
+    </>
+  );
 }

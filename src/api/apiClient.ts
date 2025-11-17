@@ -1,14 +1,14 @@
 import axios from "axios";
 import { components } from "@/types/api";
 
-type Tokens = components["schemas"]["Tokens"]
+type Tokens = components["schemas"]["Tokens"];
 export const API_URL =
   process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
 
 // Axios instance — used everywhere in your frontend
 export const api = axios.create({
   baseURL: API_URL,
-  withCredentials:false,
+  withCredentials: false,
   headers: {
     "Content-Type": "application/json",
   },
@@ -19,10 +19,10 @@ api.interceptors.request.use(
       const auth = localStorage.getItem("auth");
       if (auth) {
         try {
-          const data = JSON.parse(auth)
-          const token: Tokens = data.tokens
+          const data = JSON.parse(auth);
+          const token: Tokens = data.tokens;
           if (token?.accessToken) {
-            config.headers.Authorization = `Bearer ${token.accessToken}`
+            config.headers.Authorization = `Bearer ${token.accessToken}`;
           }
         } catch (err) {
           console.warn("Invalid auth token format in localStorage");
@@ -31,5 +31,5 @@ api.interceptors.request.use(
     }
     return config;
   },
-  (error) => Promise.reject(error)
+  (error) => Promise.reject(error),
 );

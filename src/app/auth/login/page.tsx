@@ -1,43 +1,50 @@
-"use client"
+"use client";
 
-import { useEffect, useState } from "react"
-import { useLogin } from "@/hooks/auth/useLogin"
+import { useEffect, useState } from "react";
+import { useLogin } from "@/hooks/auth/useLogin";
 
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
-import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card"
-import { Label } from "@/components/ui/label"
-import { useAuthStore } from "@/store/auth-store"
-import { useRouter } from "next/navigation"
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+  CardFooter,
+} from "@/components/ui/card";
+import { Label } from "@/components/ui/label";
+import { useAuthStore } from "@/store/auth-store";
+import { useRouter } from "next/navigation";
 
-
-export default function Login(){
-  const [email,setEmail] = useState("")
-  const router  = useRouter();
-  const [password,setPassword] = useState("")
-  const {mutate:login,isPending,error} = useLogin()
-  const isAuthenticated = useAuthStore((state) => state.isAuthenticated)
-  useEffect(() =>{
-        
-        if(isAuthenticated){
-            router.replace("/home")
-        }
-    },[isAuthenticated,router])
+export default function Login() {
+  const [email, setEmail] = useState("");
+  const router = useRouter();
+  const [password, setPassword] = useState("");
+  const { mutate: login, isPending, error } = useLogin();
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+  useEffect(() => {
+    if (isAuthenticated) {
+      router.replace("/home");
+    }
+  }, [isAuthenticated, router]);
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    login({
-      email,
-      password
-    },{
-      onSuccess: () => {
-        router.replace("/home")
-      }
-    })
-  }
+    e.preventDefault();
+    login(
+      {
+        email,
+        password,
+      },
+      {
+        onSuccess: () => {
+          router.replace("/home");
+        },
+      },
+    );
+  };
   return (
     <div className="flex items-center justify-center min-h-screen bg-muted/30">
-        <Card className="w-[380px] shadow-md">
-          <CardHeader>
+      <Card className="w-[380px] shadow-md">
+        <CardHeader>
           <CardTitle className="text-center text-2xl font-semibold">
             Sign in to Zenri
           </CardTitle>
@@ -79,5 +86,5 @@ export default function Login(){
         </CardFooter>
       </Card>
     </div>
-  )
+  );
 }

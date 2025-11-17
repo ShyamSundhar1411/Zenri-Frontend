@@ -15,7 +15,6 @@ export function WelcomeMessage() {
 
   return (
     <div className="flex flex-col items-start justify-center px-4 py-10 w-full">
-      
       <h1
         className="
           font-bold text-gray-800 dark:text-white
@@ -26,7 +25,6 @@ export function WelcomeMessage() {
         {message} 👋
       </h1>
 
-     
       <h2
         className="
         font-semibold text-gray-700 dark:text-gray-300

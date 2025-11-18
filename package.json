@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "format": "prettier --write . --ignore-path .gitignore"
+    "format": "prettier --write . --ignore-path .gitignore",
+    "gen:types": "openapi-typescript http://localhost:8000/swagger.json -o src/types/api.d.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
@@ -39,6 +40,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.0.1",
+    "jwt-decode": "^4.0.0",
     "openapi-typescript": "^7.10.1",
     "prettier": "^3.6.2",
     "tailwindcss": "^4",

@@ -1,5 +1,5 @@
 "use client";
-import { useLedgers } from "@/hooks/ledger/useLedgers";
+import { useLedgers } from "@/hooks/ledger/queries/useLedgers";
 import { useAuthStore } from "@/store/auth-store";
 import { WelcomeMessage } from "./components/welcome-message";
 import LedgerListComponent from "./components/ledgers-list-component";
@@ -15,7 +15,6 @@ export default function Home() {
   }
   return (
     <div className="flex flex-col items-start justify-center h-full w-full p-6">
-      
       <WelcomeMessage />
       <DashboardComponent />
       <LedgerListComponent />

@@ -1,7 +1,7 @@
 "use client";
 
 import { useMutation } from "@tanstack/react-query";
-import { signUp } from "@/api/auth";
+import { signUp } from "@/api/auth/signup";
 import type { components } from "@/types/api";
 import { useAuthStore } from "@/store/auth-store";
 

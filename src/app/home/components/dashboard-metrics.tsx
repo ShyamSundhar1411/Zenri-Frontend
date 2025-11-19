@@ -35,10 +35,14 @@ export function DashboardMetrics() {
         >
           <CardContent className="flex flex-col gap-2 mt-4">
             <div className="flex justify-between items-center">
-              <h2 className="text-sm font-medium text-foreground">{metric.title}</h2>
+              <h2 className="text-sm font-medium text-foreground">
+                {metric.title}
+              </h2>
               <metric.Icon className={`w-5 h-5 ${metric.color}`} />
             </div>
-            <p className="text-2xl font-semibold text-foreground">{metric.value}</p>
+            <p className="text-2xl font-semibold text-foreground">
+              {metric.value}
+            </p>
             <p className={`text-sm ${metric.color}/80`}>{metric.trend}</p>
           </CardContent>
         </Card>

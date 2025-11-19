@@ -1,6 +1,6 @@
 "use client";
 
-import { useLedgers } from "@/hooks/ledger/useLedgers";
+import { useLedgers } from "@/hooks/ledger/queries/useLedgers";
 import { toast } from "sonner";
 import { useEffect, useState } from "react";
 import { Input } from "@/components/ui/input";
@@ -10,6 +10,7 @@ import { IconSearch } from "@tabler/icons-react";
 
 export default function LedgerListComponent() {
   const { data: ledgers, isLoading, isError, error } = useLedgers();
+
   const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
@@ -22,12 +23,11 @@ export default function LedgerListComponent() {
     ledgers?.filter((ledger) =>
       `${ledger.month} ${ledger.year}`
         .toLowerCase()
-        .includes(searchQuery.toLowerCase())
+        .includes(searchQuery.toLowerCase()),
     ) || [];
 
   return (
     <div className="flex flex-col w-full px-4 py-6">
-      
       <div className="flex flex-col sm:flex-row w-full items-start sm:items-center justify-between gap-4">
         <h1 className="text-2xl font-bold text-foreground">My Ledgers</h1>
         <div className="relative w-full sm:w-[400px]">
@@ -44,10 +44,8 @@ export default function LedgerListComponent() {
         </div>
       </div>
 
-      
       <div className="mt-6 flex flex-wrap justify-start gap-4">
-        {isLoading &&
-          [...Array(6)].map((_, i) => <LedgerSkeleton key={i} />)}
+        {isLoading && [...Array(6)].map((_, i) => <LedgerSkeleton key={i} />)}
 
         {!isLoading && !isError && (
           <>

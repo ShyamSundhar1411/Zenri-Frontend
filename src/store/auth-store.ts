@@ -10,12 +10,12 @@ interface AuthState {
   isAuthLoaded: boolean;
   isAuthenticated: boolean;
   setAuth: (data: LoginResponse | SignupResponse) => void;
-  refreshSession:(data:TokenResponse)=>void;
+  refreshSession: (data: TokenResponse) => void;
   logout: () => void;
   restoreSession: () => void;
 }
 
-export const useAuthStore = create<AuthState>((set,get) => ({
+export const useAuthStore = create<AuthState>((set, get) => ({
   user: null,
   tokens: null,
   isAuthLoaded: false,
@@ -60,21 +60,20 @@ export const useAuthStore = create<AuthState>((set,get) => ({
     }
   },
   refreshSession: (newTokens) => {
-     const current = get();
+    const current = get();
 
-      const updated = {
-        user: current.user,
-        tokens: {
-          ...current.tokens,
-          ...newTokens,       
-        },
-      };
+    const updated = {
+      user: current.user,
+      tokens: {
+        ...current.tokens,
+        ...newTokens,
+      },
+    };
 
-      set({
-        tokens: updated.tokens,
-      });
+    set({
+      tokens: updated.tokens,
+    });
 
-      localStorage.setItem("auth", JSON.stringify(updated));
-    
-    }
+    localStorage.setItem("auth", JSON.stringify(updated));
+  },
 }));

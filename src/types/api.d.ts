@@ -281,7 +281,7 @@ export interface paths {
           };
           content?: never;
         };
-        /** @description Invalid credentials */
+        /** @description Invalid credential */
         401: {
           headers: {
             [name: string]: unknown;
@@ -2075,7 +2075,7 @@ export interface components {
        */
       nextBillingDate: string;
       paymentCycle: components["schemas"]["PaymentCycle"];
-      subscriptionStatus: components["schemas"]["SubscriptionStatus"];
+      status?: components["schemas"]["SubscriptionStatus"];
       /** @example usr_67890 */
       userId: string;
       /** @example false */

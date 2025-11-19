@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { IconPlus } from "@tabler/icons-react";
 import SubscriptionListComponent from "./components/subscriptions-list-component";
+import { SubscriptionDashboardMetric } from "./components/subscription-dashboard-metrics";
 
 export default function MySubscriptions() {
   return (
@@ -18,6 +19,7 @@ export default function MySubscriptions() {
         <p className="text-gray-500 dark:text-gray-400 text-lg">
           Manage your susbcriptions
         </p>
+        <SubscriptionDashboardMetric />
         <SubscriptionListComponent />
       </div>
     </div>

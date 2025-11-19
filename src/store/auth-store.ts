@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import type { components } from "@/types/api";
+import { isAccessTokenExpired } from "@/lib/jwt-utils";
 
 type LoginResponse = components["schemas"]["LoginResponse"];
 type SignupResponse = components["schemas"]["SignupResponse"];
@@ -44,6 +45,14 @@ export const useAuthStore = create<AuthState>((set, get) => ({
     if (auth) {
       const data = JSON.parse(auth);
       console.log("Restoring Data", data);
+      if (isAccessTokenExpired(data.tokens.accessToken)) {
+        set({
+          user: null,
+          tokens: null,
+          isAuthLoaded: true,
+          isAuthenticated: false,
+        });
+      }
       set({
         user: data.user,
         tokens: data.tokens,

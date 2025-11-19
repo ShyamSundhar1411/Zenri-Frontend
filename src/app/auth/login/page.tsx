@@ -15,18 +15,24 @@ import {
 import { Label } from "@/components/ui/label";
 import { useAuthStore } from "@/store/auth-store";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const router = useRouter();
   const [password, setPassword] = useState("");
-  const { mutate: login, isPending, error } = useLogin();
+  const { mutate: login, isPending, error, isError } = useLogin();
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
   useEffect(() => {
     if (isAuthenticated) {
       router.replace("/home");
     }
   }, [isAuthenticated, router]);
+  useEffect(() => {
+    if (isError) {
+      toast.error(error?.message || "Something went wrong");
+    }
+  }, [isError, error]);
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     login(

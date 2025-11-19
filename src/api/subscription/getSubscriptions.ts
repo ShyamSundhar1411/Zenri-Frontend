@@ -6,7 +6,7 @@ type Subscription = components["schemas"]["Subscription"];
 type Subscriptions = components["schemas"]["Subscriptions"];
 
 export async function getMySubscriptions(): Promise<Subscriptions> {
-  const res = await api.post<APIResponse<Subscriptions>>(
+  const res = await api.get<APIResponse<Subscriptions>>(
     "/api/v1/subscriptions",
   );
   if (res.data.error) {

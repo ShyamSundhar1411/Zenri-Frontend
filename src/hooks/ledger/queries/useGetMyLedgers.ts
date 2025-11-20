@@ -5,7 +5,7 @@ import { getMyLedgers } from "@/api/ledger/getLedgers";
 import { useAuthStore } from "@/store/auth-store";
 type Ledger = components["schemas"]["Ledger"];
 
-export function useLedgers() {
+export function useGetMyLedgers() {
   const isAuthLoaded = useAuthStore((state) => state.isAuthLoaded);
   const tokens = useAuthStore((state) => state.tokens);
   return useQuery({

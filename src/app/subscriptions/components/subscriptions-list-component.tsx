@@ -1,7 +1,7 @@
 "use client";
 
 import { SearchBarComponent } from "@/app/components/search-bar";
-import { useSubscriptions } from "@/hooks/subscription/mutations/useSubscriptions";
+import { useGetMySubscriptions } from "@/hooks/subscription/queries/useGetMySubscriptions";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { SubscriptionSkeleton } from "./subscription-skeleton-component";
@@ -9,7 +9,12 @@ import { SubscriptionCard } from "./subscription-card-component";
 
 export default function SubscriptionListComponent() {
   const [searchQuery, setSearchQuery] = useState("");
-  const { data: subscriptions, isLoading, error, isError } = useSubscriptions();
+  const {
+    data: subscriptions,
+    isLoading,
+    error,
+    isError,
+  } = useGetMySubscriptions();
   useEffect(() => {
     if (isError) {
       toast.error(error?.message || "Something went wrong");

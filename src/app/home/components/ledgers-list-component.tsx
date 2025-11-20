@@ -1,6 +1,6 @@
 "use client";
 
-import { useLedgers } from "@/hooks/ledger/queries/useLedgers";
+import { useGetMyLedgers } from "@/hooks/ledger/queries/useGetMyLedgers";
 import { toast } from "sonner";
 import { useEffect, useState } from "react";
 import { LedgerSkeleton } from "./ledger-skeleton-component";
@@ -8,7 +8,7 @@ import { LedgerCard } from "./ledger-card-component";
 import { SearchBarComponent } from "@/app/components/search-bar";
 
 export default function LedgerListComponent() {
-  const { data: ledgers, isLoading, isError, error } = useLedgers();
+  const { data: ledgers, isLoading, isError, error } = useGetMyLedgers();
 
   const [searchQuery, setSearchQuery] = useState("");
 

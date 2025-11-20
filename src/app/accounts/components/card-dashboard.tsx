@@ -1,12 +1,23 @@
 import { SearchBarComponent } from "@/app/components/search-bar";
 import { Button } from "@/components/ui/button";
+import { useGetMyCards } from "@/hooks/account/queries/useGetMyCards";
 import { IconPlus } from "@tabler/icons-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { toast } from "sonner";
+import { MotionBankCard } from "./motion-bank-card-component";
+import { MotionBankCardSkeleton } from "./motion-bank-card-skeleton-component";
 
 export function CardDashboard() {
   const [searchQuery, setSearchQuery] = useState("");
+  const { data: cards, isLoading, isError, error } = useGetMyCards();
+  useEffect(() => {
+    if (isError) {
+      toast.error(error?.message || "Something went wrong");
+    }
+  }, [isError, error]);
+
   return (
-    <div className="flex flex-col items-center justify-start py-6">
+    <div className="flex flex-col items-start w-full">
       <div className="flex flex-col w-full px-4">
         <div className="flex flex-col sm:flex-row w-full items-start sm:items-center justify-between gap-4">
           <SearchBarComponent
@@ -20,6 +31,26 @@ export function CardDashboard() {
             Add Card
           </Button>
         </div>
+      </div>
+      <div className="mt-6 w-full px-4">
+        {isLoading ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {Array.from({ length: 6 }).map((_, i) => (
+              <MotionBankCardSkeleton key={i} />
+            ))}
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <>
+              {cards?.creditCards?.map((creditCard, index) => (
+                <MotionBankCard key={index} card={creditCard} />
+              ))}
+              {cards?.debitCards?.map((debitCard, index) => (
+                <MotionBankCard key={index} card={debitCard} />
+              ))}
+            </>
+          </div>
+        )}
       </div>
     </div>
   );

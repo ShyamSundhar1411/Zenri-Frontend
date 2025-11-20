@@ -7,7 +7,7 @@ type BankAccount = components["schemas"]["BankAccount"];
 
 export async function getMyBankAccounts(): Promise<BankAccount[]> {
   const res = await api.get<GetMyBankAccountsResponse>(
-    "/api/v1/ledger/my-bank-accounts",
+    "/api/v1/accounts/bank-accounts",
   );
   if (res.data.error) {
     throw new Error(res.data.error || "Failed to fetch bank accounts");

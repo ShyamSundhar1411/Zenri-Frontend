@@ -1,5 +1,4 @@
 "use client";
-import { useLedgers } from "@/hooks/ledger/queries/useGetMyLedgers";
 import { useAuthStore } from "@/store/auth-store";
 import { WelcomeMessage } from "./components/welcome-message";
 import LedgerListComponent from "./components/ledgers-list-component";

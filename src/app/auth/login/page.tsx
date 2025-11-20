@@ -48,7 +48,7 @@ export default function Login() {
     );
   };
   return (
-    <div className="flex items-center justify-center min-h-screen bg-muted/30">
+    <div className="flex items-center justify-center min-h-screen ">
       <Card className="w-[380px] shadow-md">
         <CardHeader>
           <CardTitle className="text-center text-2xl font-semibold">

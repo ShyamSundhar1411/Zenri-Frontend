@@ -46,12 +46,14 @@ export const useAuthStore = create<AuthState>((set, get) => ({
       const data = JSON.parse(auth);
       console.log("Restoring Data", data);
       if (isAccessTokenExpired(data.tokens.accessToken)) {
+        console.log("Access Token Expired");
         set({
           user: null,
           tokens: null,
           isAuthLoaded: true,
           isAuthenticated: false,
         });
+        localStorage.removeItem("auth");
       }
       set({
         user: data.user,

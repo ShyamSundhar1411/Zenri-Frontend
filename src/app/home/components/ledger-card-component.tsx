@@ -13,7 +13,7 @@ interface LedgerCardProps {
 export function LedgerCard({ ledger }: LedgerCardProps) {
   return (
     <Card className="w-full sm:w-[300px] hover:shadow-lg border border-foreground transition-shadow duration-300">
-      <CardHeader className="bg-background/50">
+      <CardHeader className="bg-transparent">
         <CardTitle className="flex items-center gap-2 text-lg font-semibold text-foreground">
           <IconCalendarEvent className="w-5 h-5" />
           {ledger.month} {ledger.year}

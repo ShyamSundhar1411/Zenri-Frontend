@@ -1,6 +1,6 @@
 import { api } from "../apiClient";
 import type { components } from "@/types/api";
-import { APIResponse } from "@/types/global";
+import { APIResponse } from "@/types/common";
 
 type SignupRequest = components["schemas"]["SignupRequest"];
 type SignupResponse = components["schemas"]["SignupResponse"];

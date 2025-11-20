@@ -1,4 +1,4 @@
-import { APIResponse } from "@/types/global";
+import { APIResponse } from "@/types/common";
 import { api } from "../apiClient";
 import type { components } from "@/types/api";
 

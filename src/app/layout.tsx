@@ -2,13 +2,14 @@
 
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import TanstackProvider from "./components/providers/TanstackProvider";
+import TanstackProvider from "./components/providers/tanstack-provider";
 import { useAuthStore } from "@/store/auth-store";
 import { useEffect } from "react";
 import { SideBarComponent } from "./components/side-bar";
 import { Toaster } from "@/components/ui/sonner";
 import { usePathname, useRouter } from "next/navigation";
 import { Spinner } from "@/components/ui/spinner";
+import { ThemeProvider } from "./components/providers/theme-provider";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -39,20 +40,27 @@ export default function RootLayout({
   }, [isAuthenticated, pathname, isAuthLoaded, router]);
 
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <TanstackProvider>
-          <div className="flex">
-            {isAuthenticated && <SideBarComponent />}
-            <main className="flex-1 overflow-y-auto flex items-center justify-center">
-              {children}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <TanstackProvider>
+            <div className="flex">
+              {isAuthenticated && <SideBarComponent />}
+              <main className="flex-1 overflow-y-auto flex items-center justify-center">
+                {children}
 
-              <Toaster />
-            </main>
-          </div>
-        </TanstackProvider>
+                <Toaster />
+              </main>
+            </div>
+          </TanstackProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

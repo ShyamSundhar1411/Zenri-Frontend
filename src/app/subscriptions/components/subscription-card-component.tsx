@@ -32,7 +32,8 @@ export function SubscriptionCard({ subscription }: SusbcriptionCardProps) {
             <CardTitle className="text-base font-semibold">
               {subscription.subscriptionName}
             </CardTitle>
-            <p className="text-sm text-muted-foreground mt-1">Entertainment</p>
+            
+            {subscription.category&&<p className="text-sm text-muted-foreground mt-1">{subscription.category.categoryName}</p>}
           </div>
         </div>
         <DropdownMenu>

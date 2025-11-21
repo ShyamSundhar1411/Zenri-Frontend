@@ -8,7 +8,9 @@ import { CardDashboard } from "./components/card-dashboard";
 import { BankAccountDashboard } from "./components/bank-account-dashboard";
 
 export default function MyAccounts() {
-  const [selected, setSelected] = useState<"bank" | "cards">("bank");
+  const [selected, setSelected] = useState<
+    "bank" | "cards" | "payment methods"
+  >("bank");
 
   return (
     <div className="flex flex-col items-center justify-center h-full w-full p-6">
@@ -28,6 +30,7 @@ export default function MyAccounts() {
           items={[
             { label: "Bank Accounts", value: "bank" },
             { label: "Cards", value: "cards" },
+            { label: "Payment Methods", value: "payment methods" },
           ]}
         />
 

@@ -8,6 +8,7 @@ import {
   IconCreditCard,
 } from "@tabler/icons-react";
 import { components } from "@/types/api";
+import { getNetworkLogo } from "./get-network-logo";
 
 type DebitCard = components["schemas"]["DebitCard"];
 type CreditCard = components["schemas"]["CreditCard"];
@@ -18,12 +19,12 @@ interface MotionBankCardProps {
 }
 
 export function MotionBankCard({ card, className }: MotionBankCardProps) {
-  const masked = card.cardNumber
-    ? "•••• •••• •••• " + card.cardNumber.slice(-4)
-    : "•••• •••• •••• ••••";
+  const masked =
+    card.cardNumber && card.cardNumber.length >= 4
+      ? `•••• •••• •••• ${card.cardNumber.slice(-4)}`
+      : "•••• •••• •••• ••••";
 
   const gradients = [
-    "bg-gradient-to-br from-[#003087] via-[#00246b] to-[#001a52]",
     "bg-gradient-to-br from-[#1b4e9b] via-[#123b7a] to-[#0c2b5a]",
     "bg-gradient-to-br from-[#7a003c] via-[#5c002d] to-[#3e001f]",
     "bg-gradient-to-br from-[#8b0000] via-[#6b0000] to-[#4a0000]",
@@ -37,39 +38,37 @@ export function MotionBankCard({ card, className }: MotionBankCardProps) {
     "bg-gradient-to-br from-[#002a8f] via-[#001f6b] to-[#00154b]",
     "bg-gradient-to-br from-[#009f8b] via-[#008070] to-[#006256]",
     "bg-gradient-to-br from-[#d4a017] via-[#b78613] to-[#9b6f0f]",
+    "bg-gradient-to-br from-[#003087] via-[#00246b] to-[#001a52]",
   ];
 
-  const selectedGradient =
-    gradients[Math.floor(Math.random() * gradients.length)];
+  const last4 = card.cardNumber?.slice(-4) ?? "0000";
+  const gradientIndex = parseInt(last4) % gradients.length;
+
+  const selectedGradient = gradients[gradientIndex];
+  console.log(gradientIndex);
 
   const formattedExpiry = card.expiresAt
     ? (() => {
-        const date = new Date(card.expiresAt);
-        return `${String(date.getMonth() + 1).padStart(2, "0")}/${String(
-          date.getFullYear(),
+        const d = new Date(card.expiresAt);
+        return `${String(d.getMonth() + 1).padStart(2, "0")}/${String(
+          d.getFullYear(),
         ).slice(-2)}`;
       })()
     : "--/--";
 
-  const network = (card as any).issuer || card.cardNetworkId || "CARD";
-
-  const NetworkLogo = (() => {
-    const id = network.toLowerCase();
-    if (id.includes("visa"))
-      return <IconBrandVisa className="h-9 w-9 text-white/90 mt-2" />;
-    if (id.includes("master"))
-      return <IconBrandMastercard className="h-9 w-9 text-white/90 mt-2" />;
-    return <IconCreditCard className="h-9 w-9 text-white/70 mt-2" />;
-  })();
+  const network =
+    (card as CreditCard).issuer || card.cardNetwork?.networkName || "Card";
+  const NetworkLogo = getNetworkLogo(network);
 
   const status = card.status ?? "ACTIVE";
-
   const statusClass =
     status === "ACTIVE"
       ? "bg-green-400/15 text-green-200 border border-green-400/25"
       : status === "BLOCKED"
         ? "bg-red-400/15 text-red-200 border border-red-400/25"
         : "bg-yellow-400/15 text-yellow-200 border border-yellow-400/25";
+
+  const cardHolder = card.cardHolderName || "Card Holder";
 
   return (
     <motion.div
@@ -113,7 +112,7 @@ export function MotionBankCard({ card, className }: MotionBankCardProps) {
       <div className="flex justify-between items-end mt-6 pb-1">
         <div>
           <p className="text-xs opacity-60">Card Holder</p>
-          <p className="text-base font-medium">Shyam Sundhar</p>
+          <p className="text-base font-medium">{cardHolder}</p>
         </div>
 
         <div className="text-right">

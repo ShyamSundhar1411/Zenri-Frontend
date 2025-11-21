@@ -89,7 +89,7 @@ export function BankAccountCard({ account, className }: BankAcccountCardProps) {
 
           <div className="flex items-center justify-between pt-1">
             <span className="text-sm text-muted-foreground">Balance</span>
-            <span className="text-2xl font-semibold">{`₹${formattedBalance}`}</span>
+            <span className="text-2xl font-semibold">{`${formattedBalance} ${account.currencyCode}`}</span>
           </div>
 
           {account.createdAt && (

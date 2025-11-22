@@ -7,21 +7,21 @@ export function DashboardMetrics() {
       title: "Total Balance",
       value: "₹45,230",
       trend: "+12.5% from last month",
-      Icon: IconTrendingUp,
+      icon: IconTrendingUp,
       color: "text-green-500",
     },
     {
       title: "Income",
       value: "₹65,000",
       trend: "This month",
-      Icon: IconTrendingUp,
+      icon: IconTrendingUp,
       color: "text-green-500",
     },
     {
       title: "Expenses",
       value: "₹19,770",
       trend: "This month",
-      Icon: IconTrendingDown,
+      icon: IconTrendingDown,
       color: "text-red-500",
     },
   ];
@@ -38,7 +38,7 @@ export function DashboardMetrics() {
               <h2 className="text-sm font-medium text-foreground">
                 {metric.title}
               </h2>
-              <metric.Icon className={`w-5 h-5 ${metric.color}`} />
+              <metric.icon className={`w-5 h-5 ${metric.color}`} />
             </div>
             <p className="text-2xl font-semibold text-foreground">
               {metric.value}

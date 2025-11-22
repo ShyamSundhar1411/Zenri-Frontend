@@ -51,11 +51,10 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <TanstackProvider>
-            <div className="flex">
+            <div className="flex h-screen overflow-hidden">
               {isAuthenticated && <SideBarComponent />}
               <main className="flex-1 overflow-y-auto flex items-center justify-center">
                 {children}
-
                 <Toaster />
               </main>
             </div>

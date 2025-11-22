@@ -60,10 +60,10 @@ export function SideBarComponent() {
 
   const [open, setOpen] = useState(false);
   return (
-    <div className={cn("mx-auto flex  rounded-md border", "h-screen")}>
+    <div className="mx-auto flex h-screen rounded-md border overflow-hidden">
       <Sidebar open={open} setOpen={setOpen}>
         <SidebarBody className="justify-between gap-10">
-          <div className="flex flex-1 flex-col overflow-x-hidden overflow-y-auto">
+          <div className="flex flex-col justify-between gap-10 overflow-y-auto">
             {open ? <Logo /> : <LogoIcon />}
             <div className="mt-8 flex flex-col gap-2">
               {links.map((link, idx) => (

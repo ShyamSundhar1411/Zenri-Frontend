@@ -7,9 +7,11 @@ export default function MyTransactions() {
     <div className="flex flex-col items-center justify-start h-full w-full p-6">
       <div className="flex flex-col w-full px-4 py-6">
         <div className="flex flex-col sm:flex-row w-full items-start sm:items-center justify-between gap-4">
-          <h1 className="text-4xl font-bold text-foreground">My Transactions</h1>
+          <h1 className="text-4xl font-bold text-foreground">
+            My Transactions
+          </h1>
         </div>
-        
+
         <p className="text-gray-500 dark:text-gray-400 text-lg">
           Complete transaction history across all periods
         </p>

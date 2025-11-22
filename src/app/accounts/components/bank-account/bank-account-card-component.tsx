@@ -92,19 +92,15 @@ export function BankAccountCard({ account, className }: BankAcccountCardProps) {
             <span className="text-2xl font-semibold">{`${formattedBalance} ${account.currencyCode}`}</span>
           </div>
 
-          {account.createdAt && (
-            <div className="flex items-center justify-between">
-              <span className="text-sm text-muted-foreground">Created On</span>
-              <span className="text-sm">{formatDate(account.createdAt)}</span>
-            </div>
-          )}
+          <div className="flex items-center justify-between">
+            <span className="text-sm text-muted-foreground">Created On</span>
+            <span className="text-sm">{formatDate(account.createdAt)}</span>
+          </div>
 
-          {account.updatedAt && (
-            <div className="flex items-center gap-2 pt-1 text-xs text-muted-foreground">
-              <Clock className="w-4 h-4" />
-              <span>Last updated on {formatDate(account.updatedAt)}</span>
-            </div>
-          )}
+          <div className="flex items-center gap-2 pt-1 text-xs text-muted-foreground">
+            <Clock className="w-4 h-4" />
+            <span>Last updated on {formatDate(account.updatedAt)}</span>
+          </div>
         </CardContent>
       </Card>
     </motion.div>

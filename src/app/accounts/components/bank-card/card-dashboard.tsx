@@ -18,7 +18,7 @@ export function CardDashboard() {
   }, [isError, error]);
 
   return (
-    <div className="flex flex-col items-start w-full">
+    <div className="flex flex-col items-start w-full py-6">
       <div className="flex flex-col w-full px-4">
         <div className="flex flex-col sm:flex-row w-full items-start sm:items-center justify-between gap-4">
           <SearchBarComponent

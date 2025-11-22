@@ -9,6 +9,7 @@ import {
 } from "@tabler/icons-react";
 import { components } from "@/types/api";
 import { getNetworkLogo } from "./get-network-logo";
+import { formatExpiry } from "@/lib/date-utils";
 
 type DebitCard = components["schemas"]["DebitCard"];
 type CreditCard = components["schemas"]["CreditCard"];
@@ -46,15 +47,6 @@ export function MotionBankCard({ card, className }: MotionBankCardProps) {
 
   const selectedGradient = gradients[gradientIndex];
   console.log(gradientIndex);
-
-  const formattedExpiry = card.expiresAt
-    ? (() => {
-        const d = new Date(card.expiresAt);
-        return `${String(d.getMonth() + 1).padStart(2, "0")}/${String(
-          d.getFullYear(),
-        ).slice(-2)}`;
-      })()
-    : "--/--";
 
   const network =
     (card as CreditCard).issuer || card.cardNetwork?.networkName || "Card";
@@ -117,7 +109,9 @@ export function MotionBankCard({ card, className }: MotionBankCardProps) {
 
         <div className="text-right">
           <p className="text-xs opacity-60">Expires</p>
-          <p className="text-base font-medium">{formattedExpiry}</p>
+          <p className="text-base font-medium">
+            {formatExpiry(card.expiresAt)}
+          </p>
         </div>
       </div>
     </motion.div>

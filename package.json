@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "eslint",
     "format": "prettier --write . --ignore-path .gitignore",
-    "gen:types": "openapi-typescript http://localhost:8000/swagger.json -o src/types/api.d.ts"
+    "gen:types": "openapi-typescript http://localhost:8081/swagger.json -o src/types/api.d.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",

@@ -2203,12 +2203,16 @@ export interface components {
       id?: string;
       /** @example pmtype_001 */
       paymentMethodTypeId?: string;
+      paymentMethodType?: components["schemas"]["PaymentMethodType"];
       /** @example cc_001 */
       creditCardId?: string | null;
+      creditCard?: components["schemas"]["CreditCard"];
       /** @example null */
       debitCardId?: string | null;
+      debitCard?: components["schemas"]["DebitCard"];
       /** @example null */
       bankAccountId?: string | null;
+      bankAccount?: components["schemas"]["BankAccount"];
       /** @example Personal payment method */
       notes?: string | null;
       /** @example Stripe */

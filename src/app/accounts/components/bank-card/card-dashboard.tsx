@@ -1,3 +1,4 @@
+"use client";
 import { SearchBarComponent } from "@/app/components/search-bar";
 import { Button } from "@/components/ui/button";
 import { useGetMyCards } from "@/hooks/account/queries/useGetMyCards";

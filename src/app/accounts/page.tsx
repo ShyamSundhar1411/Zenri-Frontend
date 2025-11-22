@@ -4,8 +4,9 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { IconPlus } from "@tabler/icons-react";
 import { UnderlineNav } from "../components/underline-nav";
-import { CardDashboard } from "./components/card-dashboard";
-import { BankAccountDashboard } from "./components/bank-account-dashboard";
+import { CardDashboard } from "./components/bank-card/card-dashboard";
+import { BankAccountDashboard } from "./components/bank-account/bank-account-dashboard";
+import { PaymentMethodDashboard } from "./components/payment-method/payment-method-dashboard";
 
 export default function MyAccounts() {
   const [selected, setSelected] = useState<
@@ -13,14 +14,14 @@ export default function MyAccounts() {
   >("bank");
 
   return (
-    <div className="flex flex-col items-center justify-center h-full w-full p-6">
+    <div className="flex flex-col items-center justify-start h-full w-full p-6">
       <div className="flex flex-col w-full px-4 py-6">
         <div className="flex flex-col sm:flex-row w-full items-start sm:items-center justify-between gap-4">
           <h1 className="text-4xl font-bold text-foreground">My Accounts</h1>
         </div>
 
         <p className="text-gray-500 dark:text-gray-400 text-lg">
-          Manage your accounts
+          Manage your accounts, cards and payment methods
         </p>
 
         <UnderlineNav
@@ -38,6 +39,8 @@ export default function MyAccounts() {
           {selected === "bank" && <BankAccountDashboard />}
 
           {selected === "cards" && <CardDashboard />}
+
+          {selected === "payment methods" && <PaymentMethodDashboard />}
         </div>
       </div>
     </div>

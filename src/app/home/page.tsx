@@ -13,7 +13,7 @@ export default function Home() {
     return <Loader />;
   }
   return (
-    <div className="flex flex-col items-start justify-center h-full w-full p-6">
+    <div className="flex flex-col h-full w-full p-6 overflow-y-auto">
       <WelcomeMessage />
       <DashboardComponent />
       <LedgerListComponent />

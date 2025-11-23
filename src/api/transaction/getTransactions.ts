@@ -6,7 +6,9 @@ type GetMyTransactionResponse =
 type Transaction = components["schemas"]["Transaction"];
 
 export async function getMyTransactions(): Promise<Transaction[]> {
-  const res = await api.get<GetMyTransactionResponse>("/transactions");
+  const res = await api.get<GetMyTransactionResponse>(
+    "/api/v1/transactions/my-transactions",
+  );
   if (res.data.error) {
     throw new Error(res.data.error || "Failed to fetch transactions");
   }

@@ -14,7 +14,7 @@ export default function MyAccounts() {
   >("bank");
 
   return (
-    <div className="flex flex-col items-center justify-start h-full w-full p-6">
+    <div className="flex flex-col h-full w-full p-6 overflow-y-auto">
       <div className="flex flex-col w-full px-4 py-6">
         <div className="flex flex-col sm:flex-row w-full items-start sm:items-center justify-between gap-4">
           <h1 className="text-4xl font-bold text-foreground">My Accounts</h1>

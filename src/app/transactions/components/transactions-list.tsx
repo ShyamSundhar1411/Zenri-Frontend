@@ -16,99 +16,25 @@ import {
 import { components } from "@/types/api";
 import { ArrowUpDown, Filter } from "lucide-react";
 import { TransactionItem } from "./transaction-item";
+import { TransactionItemSkeleton } from "./transaction-item-skeleton";
+import { Skeleton } from "@/components/ui/skeleton";
 
 type Transaction = components["schemas"]["Transaction"];
-const DUMMY_TRANSACTIONS: Transaction[] = [
-  {
-    id: "1",
-    amount: 65000,
-    currencyCode: "₹",
-    transactionType: "CREDIT",
-    categoryId: "Salary",
-    description: "Salary",
-    transactedOn: "2024-11-15",
-    ledgerId: "",
-    userId: "",
-    isDeleted: false,
-    createdAt: "",
-    updatedAt: "",
-  },
-  {
-    id: "2",
-    amount: 3500,
-    currencyCode: "₹",
-    transactionType: "DEBIT",
-    categoryId: "Grocery",
-    description: "Grocery Shopping",
-    transactedOn: "2024-11-14",
-    ledgerId: "",
-    userId: "",
-    isDeleted: false,
-    createdAt: "",
-    updatedAt: "",
-  },
-  {
-    id: "3",
-    amount: 450,
-    currencyCode: "₹",
-    transactionType: "DEBIT",
-    categoryId: "Food",
-    description: "Coffee",
-    transactedOn: "2024-11-13",
-    ledgerId: "",
-    userId: "",
-    isDeleted: false,
-    createdAt: "",
-    updatedAt: "",
-  },
-  {
-    id: "4",
-    amount: 2800,
-    currencyCode: "₹",
-    transactionType: "DEBIT",
-    categoryId: "Utilities",
-    description: "Electricity Bill",
-    transactedOn: "2024-11-12",
-    ledgerId: "",
-    userId: "",
-    isDeleted: false,
-    createdAt: "",
-    updatedAt: "",
-  },
-  {
-    id: "5",
-    amount: 2500,
-    currencyCode: "₹",
-    transactionType: "DEBIT",
-    categoryId: "Transport",
-    description: "Fuel",
-    transactedOn: "2024-11-11",
-    ledgerId: "",
-    userId: "",
-    isDeleted: false,
-    createdAt: "",
-    updatedAt: "",
-  },
-  {
-    id: "6",
-    amount: 599,
-    currencyCode: "₹",
-    transactionType: "DEBIT",
-    categoryId: "Bills",
-    description: "Phone Recharge",
-    transactedOn: "2024-11-10",
-    ledgerId: "",
-    userId: "",
-    isDeleted: false,
-    createdAt: "",
-    updatedAt: "",
-  },
-];
-export function TransactionsList() {
+
+interface TransactionListProps {
+  transactions: Transaction[] | undefined;
+  isLoading: boolean;
+  isError: boolean;
+}
+export function TransactionsList({
+  transactions,
+  isLoading,
+  isError,
+}: TransactionListProps) {
   const [search, setSearch] = useState("");
   const [filterCategory, setFilterCategory] = useState<string>("all");
   const [sort, setSort] = useState("newest");
-  const filteredTransactions = DUMMY_TRANSACTIONS;
+
   return (
     <Card className="mb-8">
       <CardHeader>
@@ -149,14 +75,34 @@ export function TransactionsList() {
       </CardHeader>
       <CardContent>
         <ScrollArea className="h-[calc(100vh-400px)]">
-          <div className="space-y-2">
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-semibold">16 Transactions</h3>
-              <Badge variant="outline">Sorted by date {sort}</Badge>
-            </div>
-            {filteredTransactions.map((transaction) => (
-              <TransactionItem key={transaction.id} transaction={transaction} />
-            ))}
+          <div className="space-y-2 pb-4 pr-8 pl-8">
+            {isLoading && (
+              <>
+                <div className="flex items-center justify-between mb-4">
+                  <Skeleton className="h-6 w-48" />
+                  <Skeleton className="h-6 w-32 rounded-full" />
+                </div>
+                {[...Array(6)].map((_, i) => (
+                  <TransactionItemSkeleton key={i} />
+                ))}
+              </>
+            )}
+            {transactions && (
+              <>
+                <div className="flex items-center justify-between pb-2 pl-2 pr-2">
+                  <h3 className="text-lg font-semibold">
+                    {transactions.length} Transactions
+                  </h3>
+                  <Badge variant="outline">Sorted by date {sort}</Badge>
+                </div>
+                {transactions.map((transaction) => (
+                  <TransactionItem
+                    key={transaction.id}
+                    transaction={transaction}
+                  />
+                ))}
+              </>
+            )}
           </div>
         </ScrollArea>
       </CardContent>

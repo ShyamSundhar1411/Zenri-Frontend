@@ -1,6 +1,7 @@
 "use client";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
+import { formatDate, formatDateTime } from "@/lib/date-utils";
 import type { components } from "@/types/api";
 import {
   IconCar,
@@ -42,60 +43,46 @@ export function TransactionItem({ transaction }: TransactionItemProps) {
   const isCredit = transaction.transactionType === "CREDIT";
   const description = transaction.description || "No description";
   const categoryDisplayName = getCategoryDisplayName(transaction.categoryId);
-  const dateString = transaction.transactedOn
-    ? new Date(transaction.transactedOn).toLocaleDateString()
-    : "N/A";
-  const month = transaction.transactedOn
-    ? new Date(transaction.transactedOn).toLocaleString("default", {
-        month: "short",
-      })
-    : "N/A";
+  const dateString = formatDateTime(transaction.transactedOn);
+
+  const month = formatDateTime(transaction.transactedOn, "MMM");
 
   const sign = isCredit ? "+" : "-";
-  const amountString = `${sign}${transaction.currencyCode}${transaction.amount.toLocaleString("en-IN")}`;
+  const amountString = `${sign} ${transaction.amount.toLocaleString("en-IN")} ${transaction.currencyCode} `;
   const amountColor = isCredit ? "text-green-500" : "text-foreground";
   return (
-    <Card className="hover:shadow-lg transition-shadow cursor-pointer p-4">
-      <CardContent className="flex items-center justify-between py-0 pt-1 pb-1 px-2">
+    <Card className="hover:shadow-lg transition-shadow cursor-pointer">
+      <CardContent className="flex items-center justify-between">
         <div className="flex items-center gap-4">
           <div
             className={`
-              p-2 rounded-lg flex items-center justify-center h-8 w-8 
-              ${
-                isCredit
-                  ? "bg-green-100 dark:bg-green-900/40"
-                  : "bg-gray-100 dark:bg-gray-700/50"
-              }
-          `}
+                    p-2 rounded-lg flex items-center justify-center h-9 w-9
+                ${
+                  isCredit
+                    ? "bg-green-100 dark:bg-green-900/40"
+                    : "bg-gray-100 dark:bg-gray-700/50"
+                }`}
           >
             {getIcon(transaction.categoryId)}
           </div>
 
           <div className="flex flex-col gap-0">
-            <p className="font-semibold text-sm leading-tight text-foreground">
+            <p className="font-semibold text-sm laeding-tight text-foreground">
               {description}
             </p>
-
-            <div className="flex items-center gap-2 text-xs mt-1 text-gray-500 dark:text-gray-400">
-              <Badge
-                variant="secondary"
-                className="h-4 text-xs px-2 py-0 font-normal bg-gray-200 dark:bg-gray-700/80"
-              >
+            <div className="flex items-center gap-2 mt-0.5">
+              <Badge variant="outline" className="text-xs">
                 {categoryDisplayName}
               </Badge>
-
-              <span className="text-xs">{dateString}</span>
-
-              <Badge
-                variant="secondary"
-                className="h-4 text-xs px-2 py-0 font-normal bg-gray-200 dark:bg-gray-700/80"
-              >
+              <span className="text-xs text-muted-foreground">
+                {dateString}
+              </span>
+              <Badge variant="secondary" className="text-xs">
                 {month}
               </Badge>
             </div>
           </div>
         </div>
-
         <p className={`font-semibold text-base ${amountColor}`}>
           {amountString}
         </p>

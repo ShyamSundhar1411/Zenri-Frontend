@@ -7,16 +7,19 @@ import {
   IconLayoutDashboard,
   IconListDetails,
   IconLogout,
+  IconMoon,
+  IconSun,
   IconUser,
   IconWallet,
 } from "@tabler/icons-react";
 import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
 import { useAuthStore } from "@/store/auth-store";
+import { useTheme } from "next-themes";
 
 export function SideBarComponent() {
   const user = useAuthStore((state) => state.user);
-
+  const { theme, setTheme } = useTheme();
   const links = [
     {
       label: "Dashboard",
@@ -57,20 +60,42 @@ export function SideBarComponent() {
       ),
     },
   ];
+  const customizationLinks = [
+    {
+      label: `${theme === "light" ? "Light" : "Dark"} Theme`,
+      href: "#",
+      icon:
+        theme === "light" ? (
+          <IconMoon className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
+        ) : (
+          <IconSun className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
+        ),
+      onClick: () => {
+        setTheme(theme === "light" ? "dark" : "light");
+      },
+    },
+  ];
 
   const [open, setOpen] = useState(false);
   return (
     <div className="mx-auto flex h-screen rounded-md border overflow-hidden">
       <Sidebar open={open} setOpen={setOpen}>
         <SidebarBody className="justify-between gap-10">
-          <div className="flex flex-col justify-between gap-10 overflow-y-auto">
+          <div className="flex flex-col justify-between">
             {open ? <Logo /> : <LogoIcon />}
             <div className="mt-8 flex flex-col gap-2">
               {links.map((link, idx) => (
                 <SidebarLink key={idx} link={link} />
               ))}
             </div>
+            <div className="border-t border-neutral-300 dark:border-neutral-700 mt-4" />
+            <div className="flex flex-col gap-2 mt-4">
+              {customizationLinks.map((link, idx) => (
+                <SidebarLink key={idx} link={link} />
+              ))}
+            </div>
           </div>
+
           <div>
             <SidebarLink
               link={{

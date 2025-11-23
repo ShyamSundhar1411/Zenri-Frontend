@@ -21,7 +21,11 @@ export function TransactionDashboard() {
   return (
     <div className="space-y-6">
       <TransactionDashboardMetrics />
-      <TransactionsList />
+      <TransactionsList
+        transactions={transactions}
+        isLoading={isLoading}
+        isError={isError}
+      />
     </div>
   );
 }

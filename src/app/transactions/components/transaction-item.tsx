@@ -17,8 +17,9 @@ interface TransactionItemProps {
   transaction: Transaction;
 }
 
-const getIcon = (categoryId: string) => {
-  const category = categoryId.toLowerCase();
+const getIcon = (categoryName: string|undefined) => {
+  if (!categoryName) return <IconWallet className="h-4 w-4 text-gray-500" />;
+  const category = categoryName.toLowerCase();
 
   if (category.includes("income") || category.includes("salary")) {
     return <IconTrendingUp className="h-4 w-4 text-green-500" />;
@@ -35,14 +36,14 @@ const getIcon = (categoryId: string) => {
 
   return <IconWallet className="h-4 w-4 text-gray-500" />;
 };
-const getCategoryDisplayName = (categoryId: string) => {
-  if (!categoryId) return "General";
-  return categoryId.charAt(0).toUpperCase() + categoryId.slice(1).toLowerCase();
+const getCategoryDisplayName = (categoryName: string|undefined) => {
+  if (!categoryName) return "General";
+  return categoryName.charAt(0).toUpperCase() + categoryName.slice(1).toLowerCase();
 };
 export function TransactionItem({ transaction }: TransactionItemProps) {
   const isCredit = transaction.transactionType === "CREDIT";
   const description = transaction.description || "No description";
-  const categoryDisplayName = getCategoryDisplayName(transaction.categoryId);
+  const categoryDisplayName = getCategoryDisplayName(transaction.category?.categoryName);
   const dateString = formatDateTime(transaction.transactedOn);
 
   const month = formatDateTime(transaction.transactedOn, "MMM");
@@ -63,7 +64,7 @@ export function TransactionItem({ transaction }: TransactionItemProps) {
                     : "bg-gray-100 dark:bg-gray-700/50"
                 }`}
           >
-            {getIcon(transaction.categoryId)}
+            {getIcon(transaction.category?.categoryName)}
           </div>
 
           <div className="flex flex-col gap-0">

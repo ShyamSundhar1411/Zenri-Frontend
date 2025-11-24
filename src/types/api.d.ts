@@ -4,2309 +4,2298 @@
  */
 
 export interface paths {
-  "/api/v1/accounts/account-types": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /** Get all account types */
-    get: {
-      parameters: {
-        query?: never;
-        header?: never;
-        path?: never;
-        cookie?: never;
-      };
-      requestBody?: never;
-      responses: {
-        /** @description List of all account types */
-        200: {
-          headers: {
-            [name: string]: unknown;
-          };
-          content: {
-            "application/json": components["schemas"]["GetAllAccountTypesResponse"];
-          };
+    "/api/v1/accounts/account-types": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
         };
-        /** @description Bad request */
-        400: {
-          headers: {
-            [name: string]: unknown;
-          };
-          content?: never;
-        };
-      };
-    };
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/api/v1/accounts/bank-accounts": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /** Get all bank accounts for the authenticated user */
-    get: {
-      parameters: {
-        query?: never;
-        header?: never;
-        path?: never;
-        cookie?: never;
-      };
-      requestBody?: never;
-      responses: {
-        /** @description List of all bank accounts for the user */
-        200: {
-          headers: {
-            [name: string]: unknown;
-          };
-          content: {
-            "application/json": components["schemas"]["GetMyBankAccountsResponse"];
-          };
-        };
-        /** @description No bank accounts found or bad request */
-        400: {
-          headers: {
-            [name: string]: unknown;
-          };
-          content?: never;
-        };
-        /** @description Unauthorized - Invalid or missing token */
-        401: {
-          headers: {
-            [name: string]: unknown;
-          };
-          content?: never;
-        };
-      };
-    };
-    put?: never;
-    /** Create a new bank account for the authenticated user */
-    post: {
-      parameters: {
-        query?: never;
-        header?: never;
-        path?: never;
-        cookie?: never;
-      };
-      requestBody: {
-        content: {
-          "application/json": components["schemas"]["CreateBankAccountRequest"];
-        };
-      };
-      responses: {
-        /** @description Bank account successfully created */
-        201: {
-          headers: {
-            [name: string]: unknown;
-          };
-          content: {
-            "application/json": components["schemas"]["CreateBankAccountResponse"];
-          };
-        };
-        /** @description Invalid input or account type not found */
-        400: {
-          headers: {
-            [name: string]: unknown;
-          };
-          content?: never;
-        };
-        /** @description Unauthorized - Invalid or missing token */
-        401: {
-          headers: {
-            [name: string]: unknown;
-          };
-          content?: never;
-        };
-      };
-    };
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/api/v1/accounts/bank-accounts/{id}": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /** Get a bank account by ID for the authenticated user */
-    get: {
-      parameters: {
-        query?: never;
-        header?: never;
-        path: {
-          /** @description Bank account ID */
-          id: string;
-        };
-        cookie?: never;
-      };
-      requestBody?: never;
-      responses: {
-        /** @description Bank account object */
-        200: {
-          headers: {
-            [name: string]: unknown;
-          };
-          content: {
-            "application/json": components["schemas"]["BankAccount"];
-          };
-        };
-        /** @description Unauthorized - Invalid or missing token */
-        401: {
-          headers: {
-            [name: string]: unknown;
-          };
-          content?: never;
-        };
-        /** @description Forbidden - Bank account does not belong to the user */
-        403: {
-          headers: {
-            [name: string]: unknown;
-          };
-          content?: never;
-        };
-        /** @description Bank account not found */
-        404: {
-          headers: {
-            [name: string]: unknown;
-          };
-          content?: never;
-        };
-        /** @description Internal server error */
-        500: {
-          headers: {
-            [name: string]: unknown;
-          };
-          content?: never;
-        };
-      };
-    };
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/api/v1/auth/signup": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    /** User signup */
-    post: {
-      parameters: {
-        query?: never;
-        header?: never;
-        path?: never;
-        cookie?: never;
-      };
-      requestBody: {
-        content: {
-          "application/json": components["schemas"]["SignupRequest"];
-        };
-      };
-      responses: {
-        /** @description Created */
-        201: {
-          headers: {
-            [name: string]: unknown;
-          };
-          content: {
-            "application/json": components["schemas"]["SignupResponse"];
-          };
-        };
-      };
-    };
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/api/v1/auth/login": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    /** User login */
-    post: {
-      parameters: {
-        query?: never;
-        header?: never;
-        path?: never;
-        cookie?: never;
-      };
-      requestBody: {
-        content: {
-          "application/json": components["schemas"]["LoginRequest"];
-        };
-      };
-      responses: {
-        /** @description User logged in successfully */
-        200: {
-          headers: {
-            [name: string]: unknown;
-          };
-          content: {
-            "application/json": components["schemas"]["LoginResponse"];
-          };
-        };
-        /** @description Bad request */
-        400: {
-          headers: {
-            [name: string]: unknown;
-          };
-          content?: never;
-        };
-        /** @description Invalid credential */
-        401: {
-          headers: {
-            [name: string]: unknown;
-          };
-          content?: never;
-        };
-      };
-    };
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/api/v1/auth/refresh-token": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    /** Refresh access token using refresh token */
-    post: {
-      parameters: {
-        query?: never;
-        header?: never;
-        path?: never;
-        cookie?: never;
-      };
-      requestBody: {
-        content: {
-          "application/json": components["schemas"]["RefreshTokenRequest"];
-        };
-      };
-      responses: {
-        /** @description Tokens refreshed successfully */
-        200: {
-          headers: {
-            [name: string]: unknown;
-          };
-          content: {
-            "application/json": components["schemas"]["Token"];
-          };
-        };
-        /** @description Bad request */
-        400: {
-          headers: {
-            [name: string]: unknown;
-          };
-          content?: never;
-        };
-        /** @description Invalid or expired refresh token */
-        401: {
-          headers: {
-            [name: string]: unknown;
-          };
-          content?: never;
-        };
-        /** @description Internal server error */
-        500: {
-          headers: {
-            [name: string]: unknown;
-          };
-          content?: never;
-        };
-      };
-    };
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/api/v1/cards/networks": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /** Get all card networks */
-    get: {
-      parameters: {
-        query?: never;
-        header?: never;
-        path?: never;
-        cookie?: never;
-      };
-      requestBody?: never;
-      responses: {
-        /** @description List of all card networks */
-        200: {
-          headers: {
-            [name: string]: unknown;
-          };
-          content: {
-            "application/json": {
-              data?: components["schemas"]["CardNetwork"][];
-              /** @example 200 */
-              statusCode?: number;
+        /** Get all account types */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
             };
-          };
-        };
-        /** @description Bad request */
-        400: {
-          headers: {
-            [name: string]: unknown;
-          };
-          content?: never;
-        };
-      };
-    };
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/api/v1/cards/my-cards": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /** Get all credit and debit cards for the authenticated user */
-    get: {
-      parameters: {
-        query?: never;
-        header?: never;
-        path?: never;
-        cookie?: never;
-      };
-      requestBody?: never;
-      responses: {
-        /** @description List of credit and debit cards for the user */
-        200: {
-          headers: {
-            [name: string]: unknown;
-          };
-          content: {
-            "application/json": components["schemas"]["GetUserCardsResponse"];
-          };
-        };
-        /** @description Bad request */
-        400: {
-          headers: {
-            [name: string]: unknown;
-          };
-          content?: never;
-        };
-        /** @description Unauthorized - Invalid or missing token */
-        401: {
-          headers: {
-            [name: string]: unknown;
-          };
-          content?: never;
-        };
-      };
-    };
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/api/v1/cards/my-cards/debit": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /** Get all debit cards for authenticated user */
-    get: {
-      parameters: {
-        query?: never;
-        header?: never;
-        path?: never;
-        cookie?: never;
-      };
-      requestBody?: never;
-      responses: {
-        /** @description List of user's debit cards */
-        200: {
-          headers: {
-            [name: string]: unknown;
-          };
-          content: {
-            "application/json": components["schemas"]["DebitCard"][];
-          };
-        };
-        /** @description Unauthorized */
-        401: {
-          headers: {
-            [name: string]: unknown;
-          };
-          content?: never;
-        };
-      };
-    };
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/api/v1/cards/my-cards/credit": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /** Get all credit cards for authenticated user */
-    get: {
-      parameters: {
-        query?: never;
-        header?: never;
-        path?: never;
-        cookie?: never;
-      };
-      requestBody?: never;
-      responses: {
-        /** @description List of user's credit cards */
-        200: {
-          headers: {
-            [name: string]: unknown;
-          };
-          content: {
-            "application/json": components["schemas"]["CreditCard"][];
-          };
-        };
-        /** @description Unauthorized */
-        401: {
-          headers: {
-            [name: string]: unknown;
-          };
-          content?: never;
-        };
-      };
-    };
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/api/v1/cards/debit": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    /** Create a new debit card for the authenticated user */
-    post: {
-      parameters: {
-        query?: never;
-        header?: never;
-        path?: never;
-        cookie?: never;
-      };
-      requestBody: {
-        content: {
-          "application/json": components["schemas"]["CreateDebitCardRequest"];
-        };
-      };
-      responses: {
-        /** @description Debit card successfully created */
-        201: {
-          headers: {
-            [name: string]: unknown;
-          };
-          content: {
-            "application/json": components["schemas"]["DebitCard"];
-          };
-        };
-        /** @description Invalid input */
-        400: {
-          headers: {
-            [name: string]: unknown;
-          };
-          content?: never;
-        };
-        /** @description Unauthorized */
-        401: {
-          headers: {
-            [name: string]: unknown;
-          };
-          content?: never;
-        };
-      };
-    };
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/api/v1/cards/credit": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    /** Create a new credit card for the authenticated user */
-    post: {
-      parameters: {
-        query?: never;
-        header?: never;
-        path?: never;
-        cookie?: never;
-      };
-      requestBody: {
-        content: {
-          "application/json": components["schemas"]["CreateCreditCardRequest"];
-        };
-      };
-      responses: {
-        /** @description Credit card successfully created */
-        201: {
-          headers: {
-            [name: string]: unknown;
-          };
-          content: {
-            "application/json": components["schemas"]["CreditCard"];
-          };
-        };
-        /** @description Invalid input */
-        400: {
-          headers: {
-            [name: string]: unknown;
-          };
-          content?: never;
-        };
-        /** @description Unauthorized */
-        401: {
-          headers: {
-            [name: string]: unknown;
-          };
-          content?: never;
-        };
-      };
-    };
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/api/v1/cards/my-cards/debit/{id}": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /** Get debit card by ID for authenticated user */
-    get: {
-      parameters: {
-        query?: never;
-        header?: never;
-        path: {
-          /** @description Debit card ID */
-          id: string;
-        };
-        cookie?: never;
-      };
-      requestBody?: never;
-      responses: {
-        /** @description Debit card details */
-        200: {
-          headers: {
-            [name: string]: unknown;
-          };
-          content: {
-            "application/json": components["schemas"]["DebitCard"];
-          };
-        };
-        /** @description Unauthorized */
-        401: {
-          headers: {
-            [name: string]: unknown;
-          };
-          content?: never;
-        };
-        /** @description Debit card not found */
-        404: {
-          headers: {
-            [name: string]: unknown;
-          };
-          content?: never;
-        };
-      };
-    };
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/api/v1/cards/my-cards/credit/{id}": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /** Get credit card by ID for authenticated user */
-    get: {
-      parameters: {
-        query?: never;
-        header?: never;
-        path: {
-          /** @description Credit card ID */
-          id: string;
-        };
-        cookie?: never;
-      };
-      requestBody?: never;
-      responses: {
-        /** @description Credit card details */
-        200: {
-          headers: {
-            [name: string]: unknown;
-          };
-          content: {
-            "application/json": components["schemas"]["CreditCard"];
-          };
-        };
-        /** @description Unauthorized */
-        401: {
-          headers: {
-            [name: string]: unknown;
-          };
-          content?: never;
-        };
-        /** @description Credit card not found */
-        404: {
-          headers: {
-            [name: string]: unknown;
-          };
-          content?: never;
-        };
-      };
-    };
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/api/v1/categories": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /** Get all categories of the authenticated user */
-    get: {
-      parameters: {
-        query?: never;
-        header?: never;
-        path?: never;
-        cookie?: never;
-      };
-      requestBody?: never;
-      responses: {
-        /** @description Successfully retrieved user's categories */
-        200: {
-          headers: {
-            [name: string]: unknown;
-          };
-          content: {
-            "application/json": components["schemas"]["GetMyCategoriesResponse"];
-          };
-        };
-        /** @description Unauthorized - Invalid or missing token */
-        401: {
-          headers: {
-            [name: string]: unknown;
-          };
-          content: {
-            "application/json": {
-              /** @example Unauthorized */
-              error?: string;
-              /** @example 401 */
-              statusCode?: number;
+            requestBody?: never;
+            responses: {
+                /** @description List of all account types */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["GetAllAccountTypesResponse"];
+                    };
+                };
+                /** @description Bad request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
             };
-          };
         };
-        /** @description Internal server error */
-        500: {
-          headers: {
-            [name: string]: unknown;
-          };
-          content: {
-            "application/json": {
-              /** @example Internal server error */
-              error?: string;
-              /** @example 500 */
-              statusCode?: number;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/accounts/bank-accounts": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get all bank accounts for the authenticated user */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
             };
-          };
-        };
-      };
-    };
-    put?: never;
-    /** Create a new category */
-    post: {
-      parameters: {
-        query?: never;
-        header?: never;
-        path?: never;
-        cookie?: never;
-      };
-      requestBody: {
-        content: {
-          "application/json": components["schemas"]["CategoryCreateRequest"];
-        };
-      };
-      responses: {
-        /** @description Successfully created category */
-        201: {
-          headers: {
-            [name: string]: unknown;
-          };
-          content: {
-            "application/json": {
-              data?: components["schemas"]["Category"];
-              /** @example 201 */
-              statusCode?: number;
+            requestBody?: never;
+            responses: {
+                /** @description List of all bank accounts for the user */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["GetMyBankAccountsResponse"];
+                    };
+                };
+                /** @description No bank accounts found or bad request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Unauthorized - Invalid or missing token */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
             };
-          };
         };
-        /** @description Bad request - invalid input */
-        400: {
-          headers: {
-            [name: string]: unknown;
-          };
-          content: {
-            "application/json": {
-              /** @example Category name already exists */
-              error?: string;
-              /** @example 400 */
-              statusCode?: number;
+        put?: never;
+        /** Create a new bank account for the authenticated user */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
             };
-          };
-        };
-        /** @description Unauthorized - Invalid or missing token */
-        401: {
-          headers: {
-            [name: string]: unknown;
-          };
-          content: {
-            "application/json": {
-              /** @example Unauthorized */
-              error?: string;
-              /** @example 401 */
-              statusCode?: number;
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["CreateBankAccountRequest"];
+                };
             };
-          };
-        };
-        /** @description Internal server error */
-        500: {
-          headers: {
-            [name: string]: unknown;
-          };
-          content: {
-            "application/json": {
-              /** @example Internal server error */
-              error?: string;
-              /** @example 500 */
-              statusCode?: number;
+            responses: {
+                /** @description Bank account successfully created */
+                201: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["CreateBankAccountResponse"];
+                    };
+                };
+                /** @description Invalid input or account type not found */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Unauthorized - Invalid or missing token */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
             };
-          };
         };
-      };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/api/v1/ledger/my-ledgers": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /** Get all ledgers of the authenticated user */
-    get: {
-      parameters: {
-        query?: never;
-        header?: never;
-        path?: never;
-        cookie?: never;
-      };
-      requestBody?: never;
-      responses: {
-        /** @description Successfully retrieved user's ledgers */
-        200: {
-          headers: {
-            [name: string]: unknown;
-          };
-          content: {
-            "application/json": components["schemas"]["GetMyLedgersResponse"];
-          };
+    "/api/v1/accounts/bank-accounts/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
         };
-        /** @description Unauthorized - Invalid or missing token */
-        401: {
-          headers: {
-            [name: string]: unknown;
-          };
-          content: {
-            "application/json": {
-              /** @example Unauthorized */
-              error?: string;
-              /** @example 401 */
-              statusCode?: number;
+        /** Get a bank account by ID for the authenticated user */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    /** @description Bank account ID */
+                    id: string;
+                };
+                cookie?: never;
             };
-          };
-        };
-        /** @description Internal server error */
-        500: {
-          headers: {
-            [name: string]: unknown;
-          };
-          content: {
-            "application/json": {
-              /** @example Internal server error */
-              error?: string;
-              /** @example 500 */
-              statusCode?: number;
+            requestBody?: never;
+            responses: {
+                /** @description Bank account object */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["BankAccount"];
+                    };
+                };
+                /** @description Unauthorized - Invalid or missing token */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Forbidden - Bank account does not belong to the user */
+                403: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Bank account not found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Internal server error */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
             };
-          };
         };
-      };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/api/v1/ledger/": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    /**
-     * Create a new ledger entry
-     * @description Creates a ledger for the given user for a specific month and year.
-     *     If a ledger already exists for the provided month and year, the API returns a 400 error.
-     *     If `month` and `year` are omitted, the system automatically uses the current month and year.
-     */
-    post: {
-      parameters: {
-        query?: never;
-        header?: never;
-        path?: never;
-        cookie?: never;
-      };
-      requestBody: {
-        content: {
-          "application/json": components["schemas"]["CreateLedgerRequest"];
+    "/api/v1/auth/signup": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
         };
-      };
-      responses: {
-        /** @description Successfully created a new ledger */
-        200: {
-          headers: {
-            [name: string]: unknown;
-          };
-          content: {
-            "application/json": components["schemas"]["CreateLedgerResponse"];
-          };
-        };
-        /** @description Bad request — Ledger already exists or invalid input */
-        400: {
-          headers: {
-            [name: string]: unknown;
-          };
-          content: {
-            "application/json": {
-              /** @example Ledger already exists for this month */
-              error?: string;
-              /** @example 400 */
-              statusCode?: number;
+        get?: never;
+        put?: never;
+        /** User signup */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
             };
-          };
-        };
-        /** @description Unauthorized — Invalid or missing token */
-        401: {
-          headers: {
-            [name: string]: unknown;
-          };
-          content: {
-            "application/json": {
-              /** @example Unauthorized */
-              error?: string;
-              /** @example 401 */
-              statusCode?: number;
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["SignupRequest"];
+                };
             };
-          };
-        };
-        /** @description Internal server error */
-        500: {
-          headers: {
-            [name: string]: unknown;
-          };
-          content: {
-            "application/json": {
-              /** @example Unexpected error occurred while creating ledger */
-              error?: string;
-              /** @example 500 */
-              statusCode?: number;
+            responses: {
+                /** @description Created */
+                201: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["SignupResponse"];
+                    };
+                };
             };
-          };
         };
-      };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/api/v1/payment-methods": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /**
-     * Get all payment methods of the authenticated user
-     * @description Retrieve all payment methods associated with the currently logged-in user.
-     */
-    get: {
-      parameters: {
-        query?: never;
-        header?: never;
-        path?: never;
-        cookie?: never;
-      };
-      requestBody?: never;
-      responses: {
-        /** @description Successfully retrieved payment methods */
-        200: {
-          headers: {
-            [name: string]: unknown;
-          };
-          content: {
-            "application/json": components["schemas"]["PaymentMethod"][];
-          };
+    "/api/v1/auth/login": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
         };
-      };
-    };
-    put?: never;
-    /**
-     * Create a new payment method
-     * @description Adds a new payment method for the authenticated user.
-     */
-    post: {
-      parameters: {
-        query?: never;
-        header?: never;
-        path?: never;
-        cookie?: never;
-      };
-      requestBody: {
-        content: {
-          "application/json": components["schemas"]["PaymentMethodCreateRequest"];
-        };
-      };
-      responses: {
-        /** @description Payment method successfully created */
-        201: {
-          headers: {
-            [name: string]: unknown;
-          };
-          content: {
-            "application/json": components["schemas"]["PaymentMethod"];
-          };
-        };
-      };
-    };
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/api/v1/payment-methods/types": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /**
-     * Retrieve all available payment method types
-     * @description Returns a list of all supported payment method types such as GPay, Debit Card, and NetBanking.
-     */
-    get: {
-      parameters: {
-        query?: never;
-        header?: never;
-        path?: never;
-        cookie?: never;
-      };
-      requestBody?: never;
-      responses: {
-        /** @description List of payment method types retrieved successfully */
-        200: {
-          headers: {
-            [name: string]: unknown;
-          };
-          content: {
-            "application/json": components["schemas"]["PaymentMethodTypes"];
-          };
-        };
-      };
-    };
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/api/v1/subscriptions": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /** Get all subscriptions for the authenticated user */
-    get: {
-      parameters: {
-        query?: never;
-        header?: never;
-        path?: never;
-        cookie?: never;
-      };
-      requestBody?: never;
-      responses: {
-        /** @description List of subscriptions for the user */
-        200: {
-          headers: {
-            [name: string]: unknown;
-          };
-          content: {
-            "application/json": {
-              data?: components["schemas"]["Subscription"][];
-              /** @example 200 */
-              statusCode?: number;
+        get?: never;
+        put?: never;
+        /** User login */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
             };
-          };
-        };
-        /** @description Bad request */
-        400: {
-          headers: {
-            [name: string]: unknown;
-          };
-          content?: never;
-        };
-        /** @description Unauthorized - Invalid or missing token */
-        401: {
-          headers: {
-            [name: string]: unknown;
-          };
-          content?: never;
-        };
-      };
-    };
-    put?: never;
-    /** Create a new subscription for the authenticated user */
-    post: {
-      parameters: {
-        query?: never;
-        header?: never;
-        path?: never;
-        cookie?: never;
-      };
-      requestBody: {
-        content: {
-          /**
-           * @example {
-           *       "subscriptionName": "Pro Plan",
-           *       "amount": 49.99,
-           *       "currencyCode": "USD",
-           *       "subscribedOn": "2025-10-31T00:00:00Z",
-           *       "expiresOn": "2026-10-31T00:00:00Z",
-           *       "lastBilledAt": "2025-10-01T00:00:00Z",
-           *       "nextBillingDate": "2025-11-01T00:00:00Z",
-           *       "paymentCycle": "MONTHLY",
-           *       "subscriptionStatus": "SUBSCRIBED"
-           *     }
-           */
-          "application/json": components["schemas"]["CreateSubscriptionRequest"];
-        };
-      };
-      responses: {
-        /** @description Subscription successfully created */
-        201: {
-          headers: {
-            [name: string]: unknown;
-          };
-          content: {
-            "application/json": components["schemas"]["Subscription"];
-          };
-        };
-        /** @description Bad request - Validation failed or missing fields */
-        400: {
-          headers: {
-            [name: string]: unknown;
-          };
-          content?: never;
-        };
-        /** @description Unauthorized - Invalid or missing token */
-        401: {
-          headers: {
-            [name: string]: unknown;
-          };
-          content?: never;
-        };
-        /** @description Conflict - Subscription with the same name already exists */
-        409: {
-          headers: {
-            [name: string]: unknown;
-          };
-          content?: never;
-        };
-      };
-    };
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/api/v1/subscriptions/{subscriptionId}": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /** Get a subscription by its ID for the authenticated user */
-    get: {
-      parameters: {
-        query?: never;
-        header?: never;
-        path: {
-          /** @description Unique ID of the subscription */
-          subscriptionId: string;
-        };
-        cookie?: never;
-      };
-      requestBody?: never;
-      responses: {
-        /** @description Subscription details */
-        200: {
-          headers: {
-            [name: string]: unknown;
-          };
-          content: {
-            "application/json": components["schemas"]["Subscription"];
-          };
-        };
-        /** @description Bad request */
-        400: {
-          headers: {
-            [name: string]: unknown;
-          };
-          content?: never;
-        };
-        /** @description Unauthorized - Invalid or missing token */
-        401: {
-          headers: {
-            [name: string]: unknown;
-          };
-          content?: never;
-        };
-        /** @description Subscription not found */
-        404: {
-          headers: {
-            [name: string]: unknown;
-          };
-          content?: never;
-        };
-      };
-    };
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/api/v1/transactions/my-transactions": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /** Get all transactions for the authenticated user */
-    get: {
-      parameters: {
-        query?: never;
-        header?: never;
-        path?: never;
-        cookie?: never;
-      };
-      requestBody?: never;
-      responses: {
-        /** @description Successfully fetched transactions */
-        200: {
-          headers: {
-            [name: string]: unknown;
-          };
-          content: {
-            "application/json": components["schemas"]["Transaction"][];
-          };
-        };
-        /** @description Unauthorized */
-        401: {
-          headers: {
-            [name: string]: unknown;
-          };
-          content: {
-            "application/json": {
-              /** @example Unauthorized */
-              error?: string;
-              /** @example 401 */
-              statusCode?: number;
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["LoginRequest"];
+                };
             };
-          };
-        };
-      };
-    };
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/api/v1/transactions/my-transactions/{transactionId}": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /** Get a specific transaction by ID */
-    get: {
-      parameters: {
-        query?: never;
-        header?: never;
-        path: {
-          /** @description The ID of the transaction to retrieve */
-          transactionId: string;
-        };
-        cookie?: never;
-      };
-      requestBody?: never;
-      responses: {
-        /** @description Successfully fetched transaction */
-        200: {
-          headers: {
-            [name: string]: unknown;
-          };
-          content: {
-            "application/json": components["schemas"]["Transaction"];
-          };
-        };
-        /** @description Unauthorized */
-        401: {
-          headers: {
-            [name: string]: unknown;
-          };
-          content?: never;
-        };
-        /** @description Transaction not found */
-        404: {
-          headers: {
-            [name: string]: unknown;
-          };
-          content?: never;
-        };
-      };
-    };
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/api/v1/transactions/": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    /** Create a new transaction for the current month or the month of the provided `transactedOn` */
-    post: {
-      parameters: {
-        query?: never;
-        header?: never;
-        path?: never;
-        cookie?: never;
-      };
-      requestBody: {
-        content: {
-          "application/json": components["schemas"]["TransactionCreateRequest"];
-        };
-      };
-      responses: {
-        /** @description Successfully created transaction */
-        201: {
-          headers: {
-            [name: string]: unknown;
-          };
-          content: {
-            "application/json": components["schemas"]["Transaction"];
-          };
-        };
-        /** @description Bad request */
-        400: {
-          headers: {
-            [name: string]: unknown;
-          };
-          content?: never;
-        };
-        /** @description Unauthorized */
-        401: {
-          headers: {
-            [name: string]: unknown;
-          };
-          content?: never;
-        };
-      };
-    };
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/api/v1/transactions/{ledgerId}": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /** Get all transactions for the given ledger ID */
-    get: {
-      parameters: {
-        query?: never;
-        header?: never;
-        path: {
-          /** @description The ID of the ledger whose transactions should be retrieved */
-          ledgerId: string;
-        };
-        cookie?: never;
-      };
-      requestBody?: never;
-      responses: {
-        /** @description Successfully fetched transactions */
-        200: {
-          headers: {
-            [name: string]: unknown;
-          };
-          content: {
-            "application/json": {
-              /** @example true */
-              success?: boolean;
-              transactions?: components["schemas"]["Transaction"][];
+            responses: {
+                /** @description User logged in successfully */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["LoginResponse"];
+                    };
+                };
+                /** @description Bad request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Invalid credential */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
             };
-          };
         };
-        /** @description Unauthorized */
-        401: {
-          headers: {
-            [name: string]: unknown;
-          };
-          content?: never;
-        };
-        /** @description Ledger not found */
-        404: {
-          headers: {
-            [name: string]: unknown;
-          };
-          content?: never;
-        };
-        /** @description Internal server error */
-        500: {
-          headers: {
-            [name: string]: unknown;
-          };
-          content?: never;
-        };
-      };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
+    "/api/v1/auth/refresh-token": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Refresh access token using refresh token */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["RefreshTokenRequest"];
+                };
+            };
+            responses: {
+                /** @description Tokens refreshed successfully */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Token"];
+                    };
+                };
+                /** @description Bad request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Invalid or expired refresh token */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Internal server error */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/cards/networks": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get all card networks */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description List of all card networks */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data?: components["schemas"]["CardNetwork"][];
+                            /** @example 200 */
+                            statusCode?: number;
+                        };
+                    };
+                };
+                /** @description Bad request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/cards/my-cards": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get all credit and debit cards for the authenticated user */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description List of credit and debit cards for the user */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["GetUserCardsResponse"];
+                    };
+                };
+                /** @description Bad request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Unauthorized - Invalid or missing token */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/cards/my-cards/debit": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get all debit cards for authenticated user */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description List of user's debit cards */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["DebitCard"][];
+                    };
+                };
+                /** @description Unauthorized */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/cards/my-cards/credit": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get all credit cards for authenticated user */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description List of user's credit cards */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["CreditCard"][];
+                    };
+                };
+                /** @description Unauthorized */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/cards/debit": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Create a new debit card for the authenticated user */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["CreateDebitCardRequest"];
+                };
+            };
+            responses: {
+                /** @description Debit card successfully created */
+                201: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["DebitCard"];
+                    };
+                };
+                /** @description Invalid input */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Unauthorized */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/cards/credit": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Create a new credit card for the authenticated user */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["CreateCreditCardRequest"];
+                };
+            };
+            responses: {
+                /** @description Credit card successfully created */
+                201: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["CreditCard"];
+                    };
+                };
+                /** @description Invalid input */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Unauthorized */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/cards/my-cards/debit/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get debit card by ID for authenticated user */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    /** @description Debit card ID */
+                    id: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Debit card details */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["DebitCard"];
+                    };
+                };
+                /** @description Unauthorized */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Debit card not found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/cards/my-cards/credit/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get credit card by ID for authenticated user */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    /** @description Credit card ID */
+                    id: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Credit card details */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["CreditCard"];
+                    };
+                };
+                /** @description Unauthorized */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Credit card not found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/categories": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get all categories of the authenticated user */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Successfully retrieved user's categories */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["GetMyCategoriesResponse"];
+                    };
+                };
+                /** @description Unauthorized - Invalid or missing token */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            /** @example Unauthorized */
+                            error?: string;
+                            /** @example 401 */
+                            statusCode?: number;
+                        };
+                    };
+                };
+                /** @description Internal server error */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            /** @example Internal server error */
+                            error?: string;
+                            /** @example 500 */
+                            statusCode?: number;
+                        };
+                    };
+                };
+            };
+        };
+        put?: never;
+        /** Create a new category */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["CategoryCreateRequest"];
+                };
+            };
+            responses: {
+                /** @description Successfully created category */
+                201: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data?: components["schemas"]["Category"];
+                            /** @example 201 */
+                            statusCode?: number;
+                        };
+                    };
+                };
+                /** @description Bad request - invalid input */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            /** @example Category name already exists */
+                            error?: string;
+                            /** @example 400 */
+                            statusCode?: number;
+                        };
+                    };
+                };
+                /** @description Unauthorized - Invalid or missing token */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            /** @example Unauthorized */
+                            error?: string;
+                            /** @example 401 */
+                            statusCode?: number;
+                        };
+                    };
+                };
+                /** @description Internal server error */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            /** @example Internal server error */
+                            error?: string;
+                            /** @example 500 */
+                            statusCode?: number;
+                        };
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/ledger/my-ledgers": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get all ledgers of the authenticated user */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Successfully retrieved user's ledgers */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["GetMyLedgersResponse"];
+                    };
+                };
+                /** @description Unauthorized - Invalid or missing token */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            /** @example Unauthorized */
+                            error?: string;
+                            /** @example 401 */
+                            statusCode?: number;
+                        };
+                    };
+                };
+                /** @description Internal server error */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            /** @example Internal server error */
+                            error?: string;
+                            /** @example 500 */
+                            statusCode?: number;
+                        };
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/ledger/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Create a new ledger entry
+         * @description Creates a ledger for the given user for a specific month and year.
+         *     If a ledger already exists for the provided month and year, the API returns a 400 error.
+         *     If `month` and `year` are omitted, the system automatically uses the current month and year.
+         */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["CreateLedgerRequest"];
+                };
+            };
+            responses: {
+                /** @description Successfully created a new ledger */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["CreateLedgerResponse"];
+                    };
+                };
+                /** @description Bad request — Ledger already exists or invalid input */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            /** @example Ledger already exists for this month */
+                            error?: string;
+                            /** @example 400 */
+                            statusCode?: number;
+                        };
+                    };
+                };
+                /** @description Unauthorized — Invalid or missing token */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            /** @example Unauthorized */
+                            error?: string;
+                            /** @example 401 */
+                            statusCode?: number;
+                        };
+                    };
+                };
+                /** @description Internal server error */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            /** @example Unexpected error occurred while creating ledger */
+                            error?: string;
+                            /** @example 500 */
+                            statusCode?: number;
+                        };
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/payment-methods": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get all payment methods of the authenticated user
+         * @description Retrieve all payment methods associated with the currently logged-in user.
+         */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Successfully retrieved payment methods */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["PaymentMethod"][];
+                    };
+                };
+            };
+        };
+        put?: never;
+        /**
+         * Create a new payment method
+         * @description Adds a new payment method for the authenticated user.
+         */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["PaymentMethodCreateRequest"];
+                };
+            };
+            responses: {
+                /** @description Payment method successfully created */
+                201: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["PaymentMethod"];
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/payment-methods/types": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Retrieve all available payment method types
+         * @description Returns a list of all supported payment method types such as GPay, Debit Card, and NetBanking.
+         */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description List of payment method types retrieved successfully */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["PaymentMethodTypes"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/subscriptions": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get all subscriptions for the authenticated user */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description List of subscriptions for the user */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data?: components["schemas"]["Subscription"][];
+                            /** @example 200 */
+                            statusCode?: number;
+                        };
+                    };
+                };
+                /** @description Bad request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Unauthorized - Invalid or missing token */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+            };
+        };
+        put?: never;
+        /** Create a new subscription for the authenticated user */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    /**
+                     * @example {
+                     *       "subscriptionName": "Pro Plan",
+                     *       "amount": 49.99,
+                     *       "currencyCode": "USD",
+                     *       "subscribedOn": "2025-10-31T00:00:00Z",
+                     *       "expiresOn": "2026-10-31T00:00:00Z",
+                     *       "lastBilledAt": "2025-10-01T00:00:00Z",
+                     *       "nextBillingDate": "2025-11-01T00:00:00Z",
+                     *       "paymentCycle": "MONTHLY",
+                     *       "subscriptionStatus": "SUBSCRIBED"
+                     *     }
+                     */
+                    "application/json": components["schemas"]["CreateSubscriptionRequest"];
+                };
+            };
+            responses: {
+                /** @description Subscription successfully created */
+                201: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Subscription"];
+                    };
+                };
+                /** @description Bad request - Validation failed or missing fields */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Unauthorized - Invalid or missing token */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Conflict - Subscription with the same name already exists */
+                409: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/subscriptions/{subscriptionId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get a subscription by its ID for the authenticated user */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    /** @description Unique ID of the subscription */
+                    subscriptionId: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Subscription details */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Subscription"];
+                    };
+                };
+                /** @description Bad request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Unauthorized - Invalid or missing token */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Subscription not found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/transactions/my-transactions": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get all transactions for the authenticated user */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Successfully fetched transactions */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Transaction"][];
+                    };
+                };
+                /** @description Unauthorized */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            /** @example Unauthorized */
+                            error?: string;
+                            /** @example 401 */
+                            statusCode?: number;
+                        };
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/transactions/my-transactions/{transactionId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get a specific transaction by ID */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    /** @description The ID of the transaction to retrieve */
+                    transactionId: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Successfully fetched transaction */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Transaction"];
+                    };
+                };
+                /** @description Unauthorized */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Transaction not found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/transactions/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Create a new transaction for the current month or the month of the provided `transactedOn` */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["TransactionCreateRequest"];
+                };
+            };
+            responses: {
+                /** @description Successfully created transaction */
+                201: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Transaction"];
+                    };
+                };
+                /** @description Bad request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Unauthorized */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/transactions/{ledgerId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get all transactions for the given ledger ID */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    /** @description The ID of the ledger whose transactions should be retrieved */
+                    ledgerId: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Successfully fetched transactions */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            /** @example true */
+                            success?: boolean;
+                            transactions?: components["schemas"]["Transaction"][];
+                        };
+                    };
+                };
+                /** @description Unauthorized */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Ledger not found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Internal server error */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
-  schemas: {
-    SignupRequest: {
-      /**
-       * Format: email
-       * @example user@example.com
-       */
-      email: string;
-      /** @example john_doe */
-      userName: string;
-      /** @example P@ssw0rd */
-      password: string;
+    schemas: {
+        SignupRequest: {
+            /**
+             * Format: email
+             * @example user@example.com
+             */
+            email: string;
+            /** @example john_doe */
+            userName: string;
+            /** @example P@ssw0rd */
+            password: string;
+        };
+        LoginRequest: {
+            /**
+             * Format: email
+             * @example user@example.com
+             */
+            email: string;
+            /** @example P@ssw0rd */
+            password: string;
+        };
+        User: {
+            id?: string;
+            /** Format: email */
+            email?: string;
+            userName?: string;
+            supabaseUserId?: string | null;
+            /** Format: date-time */
+            createdAt?: string;
+            /** Format: date-time */
+            updatedAt?: string;
+        };
+        Tokens: {
+            accessToken?: string;
+            refreshToken?: string;
+        };
+        SignupResponse: {
+            user?: components["schemas"]["User"];
+            tokens?: components["schemas"]["Tokens"];
+        };
+        LoginResponse: {
+            user?: components["schemas"]["User"];
+            tokens?: components["schemas"]["Tokens"];
+        };
+        AccountType: {
+            id?: string;
+            accountTypeName?: string;
+            isDisabled?: boolean;
+            /** Format: date-time */
+            createdAt?: string;
+            /** Format: date-time */
+            updatedAt?: string;
+        };
+        GetAllAccountTypesResponse: {
+            data?: components["schemas"]["AccountType"][];
+        };
+        BankAccount: {
+            /** @example acc_12345 */
+            id?: string;
+            /** @example 123456789012 */
+            accountNumber?: string;
+            accountType?: components["schemas"]["AccountType"];
+            /** @example Chase Bank */
+            bankName?: string;
+            /** @example INR */
+            currencyCode?: string;
+            /** @example 2500.75 */
+            balance?: number;
+            /** @example user_12345 */
+            userId?: string;
+            /**
+             * @default ACTIVE
+             * @enum {string}
+             */
+            status: "ACTIVE" | "INACTIVE" | "CLOSED";
+            /**
+             * Format: date-time
+             * @example 2025-09-29T12:34:56Z
+             */
+            createdAt?: string;
+            /**
+             * Format: date-time
+             * @example 2025-09-29T12:34:56Z
+             */
+            updatedAt?: string;
+        };
+        GetMyBankAccountsResponse: {
+            data?: components["schemas"]["BankAccount"][];
+            /** @example null */
+            error?: string | null;
+            /** @example 200 */
+            statusCode?: number;
+        };
+        CreateBankAccountRequest: {
+            /** @example 1234567890 */
+            accountNumber: string;
+            /**
+             * @description Account type name (e.g., SAVINGS, CHECKING)
+             * @example SAVINGS
+             */
+            accountType: string;
+            /** @example Chase Bank */
+            bankName: string;
+            /** @example INR */
+            currencyCode?: string;
+            /** @example 5000.75 */
+            balance: number;
+        };
+        CreateBankAccountResponse: {
+            data?: components["schemas"]["BankAccount"];
+            /** @example null */
+            error?: string | null;
+            /** @example 201 */
+            statusCode?: number;
+        };
+        /** @enum {string} */
+        CardStatus: "ACTIVE" | "BLOCKED" | "EXPIRED";
+        CreditCard: {
+            /** @example c1234567-89ab-cdef-0123-456789abcdef */
+            id?: string;
+            /** @example 4111111111111111 */
+            cardNumber?: string;
+            /** @example John Doe */
+            cardHolderName?: string;
+            /** @example VISA */
+            cardNetworkId?: string;
+            cardNetwork?: components["schemas"]["CardNetwork"];
+            /**
+             * @description Decimal value from Prisma
+             * @example 100.50
+             */
+            issuer?: string;
+            /** @example 5000.75 */
+            balance?: number;
+            /**
+             * Format: date-time
+             * @example 2026-12-31T23:59:59.000Z
+             */
+            expiresAt?: string;
+            /** @example user_12345 */
+            userId?: string;
+            status?: components["schemas"]["CardStatus"];
+            /**
+             * Format: date-time
+             * @example 2025-09-29T07:37:13.218Z
+             */
+            createdAt?: string;
+            /**
+             * Format: date-time
+             * @example 2025-09-29T07:37:13.218Z
+             */
+            updatedAt?: string;
+        };
+        DebitCard: {
+            /** @example d1234567-89ab-cdef-0123-456789abcdef */
+            id?: string;
+            /** @example 5123456789012345 */
+            cardNumber?: string;
+            /** @example John Doe */
+            cardHolderName?: string;
+            cardNetwork?: components["schemas"]["CardNetwork"];
+            /** @example MASTERCARD */
+            cardNetworkId?: string;
+            /** @example acc_12345 */
+            bankAccountId?: string;
+            /**
+             * Format: date-time
+             * @example 2026-12-31T23:59:59.000Z
+             */
+            expiresAt?: string;
+            /** @example user_12345 */
+            userId?: string;
+            status?: components["schemas"]["CardStatus"];
+            /**
+             * Format: date-time
+             * @example 2025-09-29T07:37:13.218Z
+             */
+            createdAt?: string;
+            /**
+             * Format: date-time
+             * @example 2025-09-29T07:37:13.218Z
+             */
+            updatedAt?: string;
+        };
+        Card: {
+            creditCards?: components["schemas"]["CreditCard"][];
+            debitCards?: components["schemas"]["DebitCard"][];
+        };
+        GetUserCardsResponse: {
+            data?: components["schemas"]["Card"];
+            /** @example 200 */
+            statusCode?: number;
+        };
+        CreateDebitCardRequest: {
+            /** @example 5123456789012345 */
+            cardNumber: string;
+            /** @example John Doe */
+            cardHolderName: string;
+            /** @example MASTERCARD */
+            cardNetwork: string;
+            /**
+             * @description Bank account ID to link the debit card
+             * @example acc_12345
+             */
+            bankAccount: string;
+            /**
+             * Format: date-time
+             * @example 2026-12-31T23:59:59.000Z
+             */
+            expiresAt: string;
+        };
+        CreateCreditCardRequest: {
+            /** @example 4111111111111111 */
+            cardNumber: string;
+            /** @example VISA */
+            cardNetwork: string;
+            /** @example John Doe */
+            cardHolderName: string;
+            /**
+             * @description Issuer of the credit card
+             * @example Bank of America
+             */
+            issuer: string;
+            /** @example 10000 */
+            limit: number;
+            /** @example 5000.75 */
+            balance: number;
+            /**
+             * Format: date-time
+             * @example 2026-12-31T23:59:59.000Z
+             */
+            expiresAt: string;
+        };
+        CardNetwork: {
+            /** @example net_123456 */
+            id?: string;
+            /** @example VISA */
+            networkName?: string;
+            /** @example false */
+            isDisabled?: boolean;
+            /**
+             * Format: date-time
+             * @example 2025-09-29T12:34:56Z
+             */
+            createdAt?: string;
+            /**
+             * Format: date-time
+             * @example 2025-09-29T12:34:56Z
+             */
+            updatedAt?: string;
+        };
+        /**
+         * @description Specifies whether the category is system-defined or user-defined.
+         * @example SYSTEM
+         * @enum {string}
+         */
+        CategoryType: "SYSTEM" | "CUSTOM";
+        /**
+         * Category
+         * @description Represents a category entity.
+         */
+        Category: {
+            /**
+             * Format: uuid
+             * @example b7f4b4b1-2e1f-4f3b-9e5a-1c2c89e4b92a
+             */
+            id: string;
+            /** @example Cafes & Restaurants */
+            categoryName: string;
+            /**
+             * @description Type of category, defaults to SYSTEM.
+             * @example USER
+             * @enum {string}
+             */
+            categoryType: components["schemas"]["CategoryType"];
+            /**
+             * Format: uuid
+             * @description User ID associated with the category (null if system category).
+             * @example b1a9d9df-3b41-4ed1-889e-75d8eae8332c
+             */
+            userId?: string | null;
+            /**
+             * @description Indicates whether the category is soft-deleted.
+             * @example false
+             */
+            isDeleted: boolean;
+            /**
+             * Format: date-time
+             * @description Timestamp when the category was created.
+             * @example 2025-10-08T07:24:06.416Z
+             */
+            createdAt: string;
+            /**
+             * Format: date-time
+             * @description Timestamp when the category was last updated.
+             * @example 2025-10-08T07:24:06.416Z
+             */
+            updatedAt: string;
+        };
+        /**
+         * Categories
+         * @description List of Category objects.
+         */
+        Categories: components["schemas"]["Category"][];
+        GetMyCategoriesResponse: {
+            data?: components["schemas"]["Categories"];
+            /** @example null */
+            error?: string | null;
+            /** @example 200 */
+            statusCode?: number;
+        };
+        /**
+         * Ledger
+         * @description Represents a user's financial ledger entry.
+         */
+        Ledger: {
+            /**
+             * @description Unique identifier for the ledger.
+             * @example led_12345
+             */
+            id: string;
+            /**
+             * @description The month this ledger entry represents.
+             * @example September
+             */
+            month: string;
+            /**
+             * @description The year this ledger entry represents.
+             * @example 2025
+             */
+            year: string;
+            /**
+             * @description ID of the user who owns this ledger.
+             * @example usr_67890
+             */
+            userId: string;
+            /**
+             * @description Indicates whether this ledger entry has been soft-deleted.
+             * @example false
+             */
+            isDeleted: boolean;
+            /**
+             * Format: date-time
+             * @description Timestamp when the ledger was created.
+             * @example 2025-10-08T12:34:56Z
+             */
+            createdAt: string;
+            /**
+             * Format: date-time
+             * @description Timestamp when the ledger was last updated.
+             * @example 2025-10-08T12:34:56Z
+             */
+            updatedAt: string;
+        };
+        /**
+         * Ledgers
+         * @description List of ledger entries.
+         */
+        Ledgers: components["schemas"]["Ledger"][];
+        GetMyLedgersResponse: {
+            data?: components["schemas"]["Ledgers"];
+            /** @example null */
+            error?: string | null;
+            /** @example 200 */
+            statusCode?: number;
+        };
+        CreateLedgerResponse: {
+            data?: components["schemas"]["Ledger"];
+            /** @example null */
+            error?: string | null;
+            /** @example 200 */
+            statusCode?: number;
+        };
+        CreateLedgerRequest: {
+            /**
+             * @description Full English month name (e.g., January, February, etc.)
+             * @example September
+             * @enum {string}
+             */
+            month: "January" | "February" | "March" | "April" | "May" | "June" | "July" | "August" | "September" | "October" | "November" | "December";
+            /**
+             * @description Four-digit year
+             * @example 2025
+             */
+            year: string;
+        };
+        /**
+         * @example DEBIT
+         * @enum {string}
+         */
+        TransactionType: "CREDIT" | "DEBIT";
+        /**
+         * Transaction
+         * @description Represents a financial transaction entry.
+         */
+        Transaction: {
+            /** @example tx_abc123 */
+            id: string;
+            /**
+             * @description Decimal amount of the transaction.
+             * @example 500.75
+             */
+            amount: number;
+            /** @example USD */
+            currencyCode: string;
+            /**
+             * @example DEBIT
+             * @enum {string}
+             */
+            transactionType: components["schemas"]["TransactionType"];
+            /** @example cat_001 */
+            categoryId: string;
+            /** @example led_001 */
+            ledgerId: string;
+            /** @example usr_001 */
+            userId: string;
+            /** @example pm_001 */
+            paymentMethodId?: string | null;
+            /** @example Grocery purchase */
+            description?: string | null;
+            /**
+             * Format: date-time
+             * @example 2025-10-18T10:30:00Z
+             */
+            transactedOn?: string;
+            /** @example false */
+            isDeleted: boolean;
+            /**
+             * Format: date-time
+             * @example 2025-10-18T12:34:56Z
+             */
+            createdAt: string;
+            /**
+             * Format: date-time
+             * @example 2025-10-18T12:34:56Z
+             */
+            updatedAt: string;
+            category?: components["schemas"]["Category"];
+        };
+        /**
+         * Transactions
+         * @description List of transaction entries.
+         */
+        Transactions: components["schemas"]["Transaction"][];
+        /**
+         * TransactionCreateRequest
+         * @description Payload to create a new transaction.
+         */
+        TransactionCreateRequest: {
+            /** @example 200.5 */
+            amount: number;
+            /** @example INR */
+            currencyCode: string;
+            /**
+             * @example CREDIT
+             * @enum {string}
+             */
+            transactionType: components["schemas"]["TransactionType"];
+            /** @example pm_123 */
+            paymentMethodId: string;
+            /** @example cat_123 */
+            categoryId: string;
+            /** @example Freelance income */
+            description?: string | null;
+            /**
+             * Format: date-time
+             * @example 2025-10-15T12:00:00Z
+             */
+            transactedOn?: string;
+        };
+        CreateTransactionResponse: {
+            data?: components["schemas"]["Transaction"];
+            /** @example null */
+            error?: string | null;
+            /** @example 201 */
+            statusCode?: number;
+        };
+        GetMyTransactionsResponse: {
+            data?: components["schemas"]["Transactions"];
+            /** @example null */
+            error?: string | null;
+            /** @example 200 */
+            statusCode?: number;
+        };
+        GetTransactionByIdResponse: {
+            data?: components["schemas"]["Transaction"];
+            /** @example null */
+            error?: string | null;
+            /** @example 200 */
+            statusCode?: number;
+        };
+        /**
+         * @example MONTHLY
+         * @enum {string}
+         */
+        PaymentCycle: "WEEKLY" | "MONTHLY" | "YEARLY";
+        /**
+         * @example SUBSCRIBED
+         * @enum {string}
+         */
+        SubscriptionStatus: "SUBSCRIBED" | "UNSUBSCRIBED" | "BILL_OVERDUE";
+        /**
+         * Subscription
+         * @description Represents a user's active or inactive subscription plan.
+         */
+        Subscription: {
+            /** @example sub_12345 */
+            id: string;
+            /** @example Netflix Premium Plan */
+            subscriptionName: string;
+            category?: components["schemas"]["Category"];
+            /**
+             * @description Decimal amount representing subscription cost (Prisma.Decimal)
+             * @example 999.99
+             */
+            amount: string;
+            /** @example USD */
+            currencyCode: string;
+            /**
+             * Format: date-time
+             * @example 2025-09-01T12:00:00Z
+             */
+            subscribedOn: string;
+            /**
+             * Format: date-time
+             * @example 2026-09-01T12:00:00Z
+             */
+            expiresOn: string;
+            /**
+             * Format: date-time
+             * @example 2025-10-01T12:00:00Z
+             */
+            lastBilledAt: string;
+            /**
+             * Format: date-time
+             * @example 2025-11-01T12:00:00Z
+             */
+            nextBillingDate: string;
+            paymentCycle: components["schemas"]["PaymentCycle"];
+            status?: components["schemas"]["SubscriptionStatus"];
+            /** @example usr_67890 */
+            userId: string;
+            /** @example false */
+            isDeleted: boolean;
+            /**
+             * Format: date-time
+             * @example 2025-09-29T12:34:56Z
+             */
+            createdAt: string;
+            /**
+             * Format: date-time
+             * @example 2025-09-29T12:34:56Z
+             */
+            updatedAt: string;
+        };
+        /**
+         * Subscriptions
+         * @description List of Subscription objects.
+         */
+        Subscriptions: components["schemas"]["Subscription"][];
+        GetMySubscriptionsResponse: {
+            data?: components["schemas"]["Subscriptions"];
+            /** @example null */
+            error?: string | null;
+            /** @example 200 */
+            statusCode?: number;
+        };
+        CreateSubscriptionRequest: {
+            /** @example Pro Plan */
+            subscriptionName: string;
+            /**
+             * Format: decimal
+             * @description Decimal amount representing subscription cost.
+             * @example 49.99
+             */
+            amount: number;
+            /** @example USD */
+            currencyCode: string;
+            /** @example 123456789 */
+            categoryId?: string;
+            /**
+             * @example MONTHLY
+             * @enum {string}
+             */
+            paymentCycle: components["schemas"]["PaymentCycle"];
+            /**
+             * @example SUBSCRIBED
+             * @enum {string}
+             */
+            subscriptionStatus: components["schemas"]["SubscriptionStatus"];
+            /**
+             * Format: date-time
+             * @example 2025-10-31T00:00:00Z
+             */
+            subscribedOn: string;
+            /**
+             * Format: date-time
+             * @example 2026-10-31T00:00:00Z
+             */
+            expiresOn: string;
+            /**
+             * Format: date-time
+             * @example 2025-10-01T00:00:00Z
+             */
+            lastBilledAt: string | null;
+            /**
+             * Format: date-time
+             * @example 2025-11-01T00:00:00Z
+             */
+            nextBillingDate: string | null;
+        };
+        CreateSubscriptionResponse: {
+            data?: components["schemas"]["Subscription"];
+            /** @example null */
+            error?: string | null;
+            /** @example 201 */
+            statusCode?: number;
+        };
+        PaymentMethodType: {
+            /**
+             * @description Unique identifier for the payment method type
+             * @example pmtype_001
+             */
+            id?: string;
+            /**
+             * @description Human-readable name of the payment method type
+             * @example Debit Card
+             */
+            paymentMethodTypeName?: string;
+            /**
+             * @description Indicates if the payment method type is currently disabled
+             * @example false
+             */
+            isDisabled?: boolean;
+            /**
+             * Format: date-time
+             * @description Timestamp when this payment method type was created
+             * @example 2025-11-01T10:00:00Z
+             */
+            createdAt?: string;
+            /**
+             * Format: date-time
+             * @description Timestamp when this payment method type was last updated
+             * @example 2025-11-02T10:00:00Z
+             */
+            updatedAt?: string;
+        };
+        PaymentMethod: {
+            /** @example pm_12345 */
+            id?: string;
+            /** @example pmtype_001 */
+            paymentMethodTypeId?: string;
+            paymentMethodType?: components["schemas"]["PaymentMethodType"];
+            /** @example cc_001 */
+            creditCardId?: string | null;
+            creditCard?: components["schemas"]["CreditCard"];
+            /** @example null */
+            debitCardId?: string | null;
+            debitCard?: components["schemas"]["DebitCard"];
+            /** @example null */
+            bankAccountId?: string | null;
+            bankAccount?: components["schemas"]["BankAccount"];
+            /** @example Personal payment method */
+            notes?: string | null;
+            /** @example Stripe */
+            providerName?: string | null;
+            /** @example stripe_12345 */
+            externalHandle?: string | null;
+            /** @example user_789 */
+            userId?: string;
+            /** @example true */
+            isDefault?: boolean;
+            /** @example false */
+            isDeleted?: boolean;
+            /**
+             * Format: date-time
+             * @example 2025-11-01T10:00:00Z
+             */
+            createdAt?: string;
+            /**
+             * Format: date-time
+             * @example 2025-11-02T10:00:00Z
+             */
+            updatedAt?: string;
+        };
+        PaymentMethodCreateRequest: {
+            /** @example pmtype_001 */
+            paymentMethodTypeId: string;
+            /** @example cc_123 */
+            creditCardId?: string | null;
+            /** @example null */
+            debitCardId?: string | null;
+            /** @example null */
+            bankAccountId?: string | null;
+            /** @example For recurring subscriptions */
+            notes?: string | null;
+            /** @example Stripe */
+            providerName?: string | null;
+            /** @example stripe_67890 */
+            externalHandle?: string | null;
+            /** @example true */
+            isDefault: boolean;
+        };
+        /**
+         * @description List of available payment method types
+         * @example [
+         *       {
+         *         "id": "pmtype_001",
+         *         "paymentMethodTypeName": "GPay",
+         *         "isDisabled": false,
+         *         "createdAt": "2025-11-01T10:00:00Z",
+         *         "updatedAt": "2025-11-02T10:00:00Z"
+         *       },
+         *       {
+         *         "id": "pmtype_002",
+         *         "paymentMethodTypeName": "Debit Card",
+         *         "isDisabled": false,
+         *         "createdAt": "2025-11-01T10:00:00Z",
+         *         "updatedAt": "2025-11-02T10:00:00Z"
+         *       },
+         *       {
+         *         "id": "pmtype_003",
+         *         "paymentMethodTypeName": "NetBanking",
+         *         "isDisabled": false,
+         *         "createdAt": "2025-11-01T10:00:00Z",
+         *         "updatedAt": "2025-11-02T10:00:00Z"
+         *       }
+         *     ]
+         */
+        PaymentMethodTypes: components["schemas"]["PaymentMethodType"][];
+        CategoryCreateRequest: {
+            /** @example Cafes & Restaurants */
+            categoryName: string;
+        };
+        RefreshTokenRequest: {
+            /** @example def50200a73dbf49... */
+            refreshToken: string;
+        };
+        Token: {
+            /**
+             * @description Newly issued access token
+             * @example eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+             */
+            accessToken: string;
+            /**
+             * @description Newly issued refresh token
+             * @example def502007a8c42b9a3b3f5c4e6283b...
+             */
+            refreshToken: string;
+        };
     };
-    LoginRequest: {
-      /**
-       * Format: email
-       * @example user@example.com
-       */
-      email: string;
-      /** @example P@ssw0rd */
-      password: string;
-    };
-    User: {
-      id?: string;
-      /** Format: email */
-      email?: string;
-      userName?: string;
-      supabaseUserId?: string | null;
-      /** Format: date-time */
-      createdAt?: string;
-      /** Format: date-time */
-      updatedAt?: string;
-    };
-    Tokens: {
-      accessToken?: string;
-      refreshToken?: string;
-    };
-    SignupResponse: {
-      user?: components["schemas"]["User"];
-      tokens?: components["schemas"]["Tokens"];
-    };
-    LoginResponse: {
-      user?: components["schemas"]["User"];
-      tokens?: components["schemas"]["Tokens"];
-    };
-    AccountType: {
-      id?: string;
-      accountTypeName?: string;
-      isDisabled?: boolean;
-      /** Format: date-time */
-      createdAt?: string;
-      /** Format: date-time */
-      updatedAt?: string;
-    };
-    GetAllAccountTypesResponse: {
-      data?: components["schemas"]["AccountType"][];
-    };
-    BankAccount: {
-      /** @example acc_12345 */
-      id?: string;
-      /** @example 123456789012 */
-      accountNumber?: string;
-      accountType?: components["schemas"]["AccountType"];
-      /** @example Chase Bank */
-      bankName?: string;
-      /** @example INR */
-      currencyCode?: string;
-      /** @example 2500.75 */
-      balance?: number;
-      /** @example user_12345 */
-      userId?: string;
-      /**
-       * @default ACTIVE
-       * @enum {string}
-       */
-      status: "ACTIVE" | "INACTIVE" | "CLOSED";
-      /**
-       * Format: date-time
-       * @example 2025-09-29T12:34:56Z
-       */
-      createdAt?: string;
-      /**
-       * Format: date-time
-       * @example 2025-09-29T12:34:56Z
-       */
-      updatedAt?: string;
-    };
-    GetMyBankAccountsResponse: {
-      data?: components["schemas"]["BankAccount"][];
-      /** @example null */
-      error?: string | null;
-      /** @example 200 */
-      statusCode?: number;
-    };
-    CreateBankAccountRequest: {
-      /** @example 1234567890 */
-      accountNumber: string;
-      /**
-       * @description Account type name (e.g., SAVINGS, CHECKING)
-       * @example SAVINGS
-       */
-      accountType: string;
-      /** @example Chase Bank */
-      bankName: string;
-      /** @example INR */
-      currencyCode?: string;
-      /** @example 5000.75 */
-      balance: number;
-    };
-    CreateBankAccountResponse: {
-      data?: components["schemas"]["BankAccount"];
-      /** @example null */
-      error?: string | null;
-      /** @example 201 */
-      statusCode?: number;
-    };
-    /** @enum {string} */
-    CardStatus: "ACTIVE" | "BLOCKED" | "EXPIRED";
-    CreditCard: {
-      /** @example c1234567-89ab-cdef-0123-456789abcdef */
-      id?: string;
-      /** @example 4111111111111111 */
-      cardNumber?: string;
-      /** @example John Doe */
-      cardHolderName?: string;
-      /** @example VISA */
-      cardNetworkId?: string;
-      cardNetwork?: components["schemas"]["CardNetwork"];
-      /**
-       * @description Decimal value from Prisma
-       * @example 100.50
-       */
-      issuer?: string;
-      /** @example 5000.75 */
-      balance?: number;
-      /**
-       * Format: date-time
-       * @example 2026-12-31T23:59:59.000Z
-       */
-      expiresAt?: string;
-      /** @example user_12345 */
-      userId?: string;
-      status?: components["schemas"]["CardStatus"];
-      /**
-       * Format: date-time
-       * @example 2025-09-29T07:37:13.218Z
-       */
-      createdAt?: string;
-      /**
-       * Format: date-time
-       * @example 2025-09-29T07:37:13.218Z
-       */
-      updatedAt?: string;
-    };
-    DebitCard: {
-      /** @example d1234567-89ab-cdef-0123-456789abcdef */
-      id?: string;
-      /** @example 5123456789012345 */
-      cardNumber?: string;
-      /** @example John Doe */
-      cardHolderName?: string;
-      cardNetwork?: components["schemas"]["CardNetwork"];
-      /** @example MASTERCARD */
-      cardNetworkId?: string;
-      /** @example acc_12345 */
-      bankAccountId?: string;
-      /**
-       * Format: date-time
-       * @example 2026-12-31T23:59:59.000Z
-       */
-      expiresAt?: string;
-      /** @example user_12345 */
-      userId?: string;
-      status?: components["schemas"]["CardStatus"];
-      /**
-       * Format: date-time
-       * @example 2025-09-29T07:37:13.218Z
-       */
-      createdAt?: string;
-      /**
-       * Format: date-time
-       * @example 2025-09-29T07:37:13.218Z
-       */
-      updatedAt?: string;
-    };
-    Card: {
-      creditCards?: components["schemas"]["CreditCard"][];
-      debitCards?: components["schemas"]["DebitCard"][];
-    };
-    GetUserCardsResponse: {
-      data?: components["schemas"]["Card"];
-      /** @example 200 */
-      statusCode?: number;
-    };
-    CreateDebitCardRequest: {
-      /** @example 5123456789012345 */
-      cardNumber: string;
-      /** @example John Doe */
-      cardHolderName: string;
-      /** @example MASTERCARD */
-      cardNetwork: string;
-      /**
-       * @description Bank account ID to link the debit card
-       * @example acc_12345
-       */
-      bankAccount: string;
-      /**
-       * Format: date-time
-       * @example 2026-12-31T23:59:59.000Z
-       */
-      expiresAt: string;
-    };
-    CreateCreditCardRequest: {
-      /** @example 4111111111111111 */
-      cardNumber: string;
-      /** @example VISA */
-      cardNetwork: string;
-      /** @example John Doe */
-      cardHolderName: string;
-      /**
-       * @description Issuer of the credit card
-       * @example Bank of America
-       */
-      issuer: string;
-      /** @example 10000 */
-      limit: number;
-      /** @example 5000.75 */
-      balance: number;
-      /**
-       * Format: date-time
-       * @example 2026-12-31T23:59:59.000Z
-       */
-      expiresAt: string;
-    };
-    CardNetwork: {
-      /** @example net_123456 */
-      id?: string;
-      /** @example VISA */
-      networkName?: string;
-      /** @example false */
-      isDisabled?: boolean;
-      /**
-       * Format: date-time
-       * @example 2025-09-29T12:34:56Z
-       */
-      createdAt?: string;
-      /**
-       * Format: date-time
-       * @example 2025-09-29T12:34:56Z
-       */
-      updatedAt?: string;
-    };
-    /**
-     * @description Specifies whether the category is system-defined or user-defined.
-     * @example SYSTEM
-     * @enum {string}
-     */
-    CategoryType: "SYSTEM" | "CUSTOM";
-    /**
-     * Category
-     * @description Represents a category entity.
-     */
-    Category: {
-      /**
-       * Format: uuid
-       * @example b7f4b4b1-2e1f-4f3b-9e5a-1c2c89e4b92a
-       */
-      id: string;
-      /** @example Cafes & Restaurants */
-      categoryName: string;
-      /**
-       * @description Type of category, defaults to SYSTEM.
-       * @example USER
-       * @enum {string}
-       */
-      categoryType: components["schemas"]["CategoryType"];
-      /**
-       * Format: uuid
-       * @description User ID associated with the category (null if system category).
-       * @example b1a9d9df-3b41-4ed1-889e-75d8eae8332c
-       */
-      userId?: string | null;
-      /**
-       * @description Indicates whether the category is soft-deleted.
-       * @example false
-       */
-      isDeleted: boolean;
-      /**
-       * Format: date-time
-       * @description Timestamp when the category was created.
-       * @example 2025-10-08T07:24:06.416Z
-       */
-      createdAt: string;
-      /**
-       * Format: date-time
-       * @description Timestamp when the category was last updated.
-       * @example 2025-10-08T07:24:06.416Z
-       */
-      updatedAt: string;
-    };
-    /**
-     * Categories
-     * @description List of Category objects.
-     */
-    Categories: components["schemas"]["Category"][];
-    GetMyCategoriesResponse: {
-      data?: components["schemas"]["Categories"];
-      /** @example null */
-      error?: string | null;
-      /** @example 200 */
-      statusCode?: number;
-    };
-    /**
-     * Ledger
-     * @description Represents a user's financial ledger entry.
-     */
-    Ledger: {
-      /**
-       * @description Unique identifier for the ledger.
-       * @example led_12345
-       */
-      id: string;
-      /**
-       * @description The month this ledger entry represents.
-       * @example September
-       */
-      month: string;
-      /**
-       * @description The year this ledger entry represents.
-       * @example 2025
-       */
-      year: string;
-      /**
-       * @description ID of the user who owns this ledger.
-       * @example usr_67890
-       */
-      userId: string;
-      /**
-       * @description Indicates whether this ledger entry has been soft-deleted.
-       * @example false
-       */
-      isDeleted: boolean;
-      /**
-       * Format: date-time
-       * @description Timestamp when the ledger was created.
-       * @example 2025-10-08T12:34:56Z
-       */
-      createdAt: string;
-      /**
-       * Format: date-time
-       * @description Timestamp when the ledger was last updated.
-       * @example 2025-10-08T12:34:56Z
-       */
-      updatedAt: string;
-    };
-    /**
-     * Ledgers
-     * @description List of ledger entries.
-     */
-    Ledgers: components["schemas"]["Ledger"][];
-    GetMyLedgersResponse: {
-      data?: components["schemas"]["Ledgers"];
-      /** @example null */
-      error?: string | null;
-      /** @example 200 */
-      statusCode?: number;
-    };
-    CreateLedgerResponse: {
-      data?: components["schemas"]["Ledger"];
-      /** @example null */
-      error?: string | null;
-      /** @example 200 */
-      statusCode?: number;
-    };
-    CreateLedgerRequest: {
-      /**
-       * @description Full English month name (e.g., January, February, etc.)
-       * @example September
-       * @enum {string}
-       */
-      month:
-        | "January"
-        | "February"
-        | "March"
-        | "April"
-        | "May"
-        | "June"
-        | "July"
-        | "August"
-        | "September"
-        | "October"
-        | "November"
-        | "December";
-      /**
-       * @description Four-digit year
-       * @example 2025
-       */
-      year: string;
-    };
-    /**
-     * @example DEBIT
-     * @enum {string}
-     */
-    TransactionType: "CREDIT" | "DEBIT";
-    /**
-     * Transaction
-     * @description Represents a financial transaction entry.
-     */
-    Transaction: {
-      /** @example tx_abc123 */
-      id: string;
-      /**
-       * @description Decimal amount of the transaction.
-       * @example 500.75
-       */
-      amount: number;
-      /** @example USD */
-      currencyCode: string;
-      /**
-       * @example DEBIT
-       * @enum {string}
-       */
-      transactionType: components["schemas"]["TransactionType"];
-      /** @example cat_001 */
-      categoryId: string;
-      /** @example led_001 */
-      ledgerId: string;
-      /** @example usr_001 */
-      userId: string;
-      /** @example pm_001 */
-      paymentMethodId?: string | null;
-      /** @example Grocery purchase */
-      description?: string | null;
-      /**
-       * Format: date-time
-       * @example 2025-10-18T10:30:00Z
-       */
-      transactedOn?: string;
-      /** @example false */
-      isDeleted: boolean;
-      /**
-       * Format: date-time
-       * @example 2025-10-18T12:34:56Z
-       */
-      createdAt: string;
-      /**
-       * Format: date-time
-       * @example 2025-10-18T12:34:56Z
-       */
-      updatedAt: string;
-    };
-    /**
-     * Transactions
-     * @description List of transaction entries.
-     */
-    Transactions: components["schemas"]["Transaction"][];
-    /**
-     * TransactionCreateRequest
-     * @description Payload to create a new transaction.
-     */
-    TransactionCreateRequest: {
-      /** @example 200.5 */
-      amount: number;
-      /** @example INR */
-      currencyCode: string;
-      /**
-       * @example CREDIT
-       * @enum {string}
-       */
-      transactionType: components["schemas"]["TransactionType"];
-      /** @example pm_123 */
-      paymentMethodId: string;
-      /** @example cat_123 */
-      categoryId: string;
-      /** @example Freelance income */
-      description?: string | null;
-      /**
-       * Format: date-time
-       * @example 2025-10-15T12:00:00Z
-       */
-      transactedOn?: string;
-    };
-    CreateTransactionResponse: {
-      data?: components["schemas"]["Transaction"];
-      /** @example null */
-      error?: string | null;
-      /** @example 201 */
-      statusCode?: number;
-    };
-    GetMyTransactionsResponse: {
-      data?: components["schemas"]["Transactions"];
-      /** @example null */
-      error?: string | null;
-      /** @example 200 */
-      statusCode?: number;
-    };
-    GetTransactionByIdResponse: {
-      data?: components["schemas"]["Transaction"];
-      /** @example null */
-      error?: string | null;
-      /** @example 200 */
-      statusCode?: number;
-    };
-    /**
-     * @example MONTHLY
-     * @enum {string}
-     */
-    PaymentCycle: "WEEKLY" | "MONTHLY" | "YEARLY";
-    /**
-     * @example SUBSCRIBED
-     * @enum {string}
-     */
-    SubscriptionStatus: "SUBSCRIBED" | "UNSUBSCRIBED" | "BILL_OVERDUE";
-    /**
-     * Subscription
-     * @description Represents a user's active or inactive subscription plan.
-     */
-    Subscription: {
-      /** @example sub_12345 */
-      id: string;
-      /** @example Netflix Premium Plan */
-      subscriptionName: string;
-      category?: components["schemas"]["Category"];
-      /**
-       * @description Decimal amount representing subscription cost (Prisma.Decimal)
-       * @example 999.99
-       */
-      amount: string;
-      /** @example USD */
-      currencyCode: string;
-      /**
-       * Format: date-time
-       * @example 2025-09-01T12:00:00Z
-       */
-      subscribedOn: string;
-      /**
-       * Format: date-time
-       * @example 2026-09-01T12:00:00Z
-       */
-      expiresOn: string;
-      /**
-       * Format: date-time
-       * @example 2025-10-01T12:00:00Z
-       */
-      lastBilledAt: string;
-      /**
-       * Format: date-time
-       * @example 2025-11-01T12:00:00Z
-       */
-      nextBillingDate: string;
-      paymentCycle: components["schemas"]["PaymentCycle"];
-      status?: components["schemas"]["SubscriptionStatus"];
-      /** @example usr_67890 */
-      userId: string;
-      /** @example false */
-      isDeleted: boolean;
-      /**
-       * Format: date-time
-       * @example 2025-09-29T12:34:56Z
-       */
-      createdAt: string;
-      /**
-       * Format: date-time
-       * @example 2025-09-29T12:34:56Z
-       */
-      updatedAt: string;
-    };
-    /**
-     * Subscriptions
-     * @description List of Subscription objects.
-     */
-    Subscriptions: components["schemas"]["Subscription"][];
-    GetMySubscriptionsResponse: {
-      data?: components["schemas"]["Subscriptions"];
-      /** @example null */
-      error?: string | null;
-      /** @example 200 */
-      statusCode?: number;
-    };
-    CreateSubscriptionRequest: {
-      /** @example Pro Plan */
-      subscriptionName: string;
-      /**
-       * Format: decimal
-       * @description Decimal amount representing subscription cost.
-       * @example 49.99
-       */
-      amount: number;
-      /** @example USD */
-      currencyCode: string;
-      /** @example 123456789 */
-      categoryId?: string;
-      /**
-       * @example MONTHLY
-       * @enum {string}
-       */
-      paymentCycle: components["schemas"]["PaymentCycle"];
-      /**
-       * @example SUBSCRIBED
-       * @enum {string}
-       */
-      subscriptionStatus: components["schemas"]["SubscriptionStatus"];
-      /**
-       * Format: date-time
-       * @example 2025-10-31T00:00:00Z
-       */
-      subscribedOn: string;
-      /**
-       * Format: date-time
-       * @example 2026-10-31T00:00:00Z
-       */
-      expiresOn: string;
-      /**
-       * Format: date-time
-       * @example 2025-10-01T00:00:00Z
-       */
-      lastBilledAt: string | null;
-      /**
-       * Format: date-time
-       * @example 2025-11-01T00:00:00Z
-       */
-      nextBillingDate: string | null;
-    };
-    CreateSubscriptionResponse: {
-      data?: components["schemas"]["Subscription"];
-      /** @example null */
-      error?: string | null;
-      /** @example 201 */
-      statusCode?: number;
-    };
-    PaymentMethodType: {
-      /**
-       * @description Unique identifier for the payment method type
-       * @example pmtype_001
-       */
-      id?: string;
-      /**
-       * @description Human-readable name of the payment method type
-       * @example Debit Card
-       */
-      paymentMethodTypeName?: string;
-      /**
-       * @description Indicates if the payment method type is currently disabled
-       * @example false
-       */
-      isDisabled?: boolean;
-      /**
-       * Format: date-time
-       * @description Timestamp when this payment method type was created
-       * @example 2025-11-01T10:00:00Z
-       */
-      createdAt?: string;
-      /**
-       * Format: date-time
-       * @description Timestamp when this payment method type was last updated
-       * @example 2025-11-02T10:00:00Z
-       */
-      updatedAt?: string;
-    };
-    PaymentMethod: {
-      /** @example pm_12345 */
-      id?: string;
-      /** @example pmtype_001 */
-      paymentMethodTypeId?: string;
-      paymentMethodType?: components["schemas"]["PaymentMethodType"];
-      /** @example cc_001 */
-      creditCardId?: string | null;
-      creditCard?: components["schemas"]["CreditCard"];
-      /** @example null */
-      debitCardId?: string | null;
-      debitCard?: components["schemas"]["DebitCard"];
-      /** @example null */
-      bankAccountId?: string | null;
-      bankAccount?: components["schemas"]["BankAccount"];
-      /** @example Personal payment method */
-      notes?: string | null;
-      /** @example Stripe */
-      providerName?: string | null;
-      /** @example stripe_12345 */
-      externalHandle?: string | null;
-      /** @example user_789 */
-      userId?: string;
-      /** @example true */
-      isDefault?: boolean;
-      /** @example false */
-      isDeleted?: boolean;
-      /**
-       * Format: date-time
-       * @example 2025-11-01T10:00:00Z
-       */
-      createdAt?: string;
-      /**
-       * Format: date-time
-       * @example 2025-11-02T10:00:00Z
-       */
-      updatedAt?: string;
-    };
-    PaymentMethodCreateRequest: {
-      /** @example pmtype_001 */
-      paymentMethodTypeId: string;
-      /** @example cc_123 */
-      creditCardId?: string | null;
-      /** @example null */
-      debitCardId?: string | null;
-      /** @example null */
-      bankAccountId?: string | null;
-      /** @example For recurring subscriptions */
-      notes?: string | null;
-      /** @example Stripe */
-      providerName?: string | null;
-      /** @example stripe_67890 */
-      externalHandle?: string | null;
-      /** @example true */
-      isDefault: boolean;
-    };
-    /**
-     * @description List of available payment method types
-     * @example [
-     *       {
-     *         "id": "pmtype_001",
-     *         "paymentMethodTypeName": "GPay",
-     *         "isDisabled": false,
-     *         "createdAt": "2025-11-01T10:00:00Z",
-     *         "updatedAt": "2025-11-02T10:00:00Z"
-     *       },
-     *       {
-     *         "id": "pmtype_002",
-     *         "paymentMethodTypeName": "Debit Card",
-     *         "isDisabled": false,
-     *         "createdAt": "2025-11-01T10:00:00Z",
-     *         "updatedAt": "2025-11-02T10:00:00Z"
-     *       },
-     *       {
-     *         "id": "pmtype_003",
-     *         "paymentMethodTypeName": "NetBanking",
-     *         "isDisabled": false,
-     *         "createdAt": "2025-11-01T10:00:00Z",
-     *         "updatedAt": "2025-11-02T10:00:00Z"
-     *       }
-     *     ]
-     */
-    PaymentMethodTypes: components["schemas"]["PaymentMethodType"][];
-    CategoryCreateRequest: {
-      /** @example Cafes & Restaurants */
-      categoryName: string;
-    };
-    RefreshTokenRequest: {
-      /** @example def50200a73dbf49... */
-      refreshToken: string;
-    };
-    Token: {
-      /**
-       * @description Newly issued access token
-       * @example eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
-       */
-      accessToken: string;
-      /**
-       * @description Newly issued refresh token
-       * @example def502007a8c42b9a3b3f5c4e6283b...
-       */
-      refreshToken: string;
-    };
-  };
-  responses: never;
-  parameters: never;
-  requestBodies: never;
-  headers: never;
-  pathItems: never;
+    responses: never;
+    parameters: never;
+    requestBodies: never;
+    headers: never;
+    pathItems: never;
 }
 export type $defs = Record<string, never>;
 export type operations = Record<string, never>;

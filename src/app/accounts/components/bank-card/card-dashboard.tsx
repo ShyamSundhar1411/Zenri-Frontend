@@ -27,7 +27,7 @@ export function CardDashboard() {
             onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full pl-10 pr-4 py-2 rounded-lg border bg-white dark:bg-neutral-900 dark:text-white focus:ring-2 focus:ring-blue-500"
           />
-          <Button className="flex items-center gap-2 rounded-lg">
+          <Button className="flex items-center gap-2 rounded-lg bg-foreground">
             <IconPlus size={20} />
             Add Card
           </Button>

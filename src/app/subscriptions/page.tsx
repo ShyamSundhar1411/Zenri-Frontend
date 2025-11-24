@@ -11,7 +11,7 @@ export default function MySubscriptions() {
           <h1 className="text-4xl font-bold text-foreground">
             My Subscriptions
           </h1>
-          <Button className="flex items-center gap-2 py-4 transition">
+          <Button className="flex items-center gap-2 py-4 transition bg-foreground">
             <IconPlus className="w-4 h-4" />
             New Subscription
           </Button>

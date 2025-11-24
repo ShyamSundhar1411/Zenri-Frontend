@@ -7,7 +7,7 @@ export default function DashboardComponent() {
     <div className="flex flex-col w-full px-4 py-6">
       <div className="flex flex-col sm:flex-row w-full items-start sm:items-center justify-between gap-4">
         <h1 className="text-4xl font-bold text-foreground">Dashboard</h1>
-        <Button className="flex items-center gap-2 py-4 transition">
+        <Button className="flex items-center gap-2 py-4 transition bg-foreground">
           <IconPlus className="w-4 h-4" />
           New Ledger
         </Button>

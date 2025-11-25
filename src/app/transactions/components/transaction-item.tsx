@@ -17,7 +17,7 @@ interface TransactionItemProps {
   transaction: Transaction;
 }
 
-const getIcon = (categoryName: string|undefined) => {
+const getIcon = (categoryName: string | undefined) => {
   if (!categoryName) return <IconWallet className="h-4 w-4 text-gray-500" />;
   const category = categoryName.toLowerCase();
 
@@ -36,16 +36,20 @@ const getIcon = (categoryName: string|undefined) => {
 
   return <IconWallet className="h-4 w-4 text-gray-500" />;
 };
-const getCategoryDisplayName = (categoryName: string|undefined) => {
+const getCategoryDisplayName = (categoryName: string | undefined) => {
   if (!categoryName) return "General";
-  return categoryName.charAt(0).toUpperCase() + categoryName.slice(1).toLowerCase();
+  return (
+    categoryName.charAt(0).toUpperCase() + categoryName.slice(1).toLowerCase()
+  );
 };
 export function TransactionItem({ transaction }: TransactionItemProps) {
   const isCredit = transaction.transactionType === "CREDIT";
   const description = transaction.description || "No description";
-  const categoryDisplayName = getCategoryDisplayName(transaction.category?.categoryName);
+  const categoryDisplayName = getCategoryDisplayName(
+    transaction.category?.categoryName,
+  );
   const dateString = formatDateTime(transaction.transactedOn);
-
+  const paymentMethod = transaction.paymentMethod?.providerName;
   const month = formatDateTime(transaction.transactedOn, "MMM");
 
   const sign = isCredit ? "+" : "-";
@@ -75,10 +79,13 @@ export function TransactionItem({ transaction }: TransactionItemProps) {
               <Badge variant="outline" className="text-xs">
                 {categoryDisplayName}
               </Badge>
+              <Badge variant="secondary" className="text-xs">
+                {paymentMethod}
+              </Badge>
               <span className="text-xs text-muted-foreground">
                 {dateString}
               </span>
-              <Badge variant="secondary" className="text-xs">
+              <Badge variant="outline" className="text-xs">
                 {month}
               </Badge>
             </div>

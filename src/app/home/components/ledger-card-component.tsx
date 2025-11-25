@@ -19,7 +19,9 @@ export function LedgerCard({ ledger }: LedgerCardProps) {
           {ledger.month} {ledger.year}
         </CardTitle>
         <div className="flex items-center gap-2">
-          <Badge className="bg-foreground text-primary-foreground">42 Transactions</Badge>
+          <Badge className="bg-foreground text-primary-foreground">
+            42 Transactions
+          </Badge>
         </div>
       </CardHeader>
       <CardContent className="text-sm text-foreground/70">

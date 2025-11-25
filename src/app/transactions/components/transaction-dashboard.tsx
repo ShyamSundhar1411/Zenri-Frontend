@@ -4,14 +4,11 @@ import { TransactionDashboardMetrics } from "./transaction-dashboard-metrics";
 import { TransactionsList } from "./transactions-list";
 import { toast } from "sonner";
 import { useGetMyTransactions } from "@/hooks/transaction/queries/useGetMyTransactions";
+import { useTransactionPageData } from "@/hooks/transaction/queries/useTransactionPageData";
 
 export function TransactionDashboard() {
-  const {
-    data: transactions,
-    isLoading,
-    isError,
-    error,
-  } = useGetMyTransactions();
+  const { transactions, categories, isLoading, isError, error } =
+    useTransactionPageData();
   useEffect(() => {
     if (isError) {
       toast.error(error?.message || "Something went wrong");
@@ -23,6 +20,7 @@ export function TransactionDashboard() {
       <TransactionDashboardMetrics />
       <TransactionsList
         transactions={transactions}
+        categories={categories}
         isLoading={isLoading}
         isError={isError}
       />

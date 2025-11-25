@@ -7,8 +7,14 @@ import { useGetMyTransactions } from "@/hooks/transaction/queries/useGetMyTransa
 import { useTransactionPageData } from "@/hooks/transaction/queries/useTransactionPageData";
 
 export function TransactionDashboard() {
-  const { transactions, categories, isLoading, isError, error } =
-    useTransactionPageData();
+  const {
+    transactions,
+    categories,
+    paymentMethods,
+    isLoading,
+    isError,
+    error,
+  } = useTransactionPageData();
   useEffect(() => {
     if (isError) {
       toast.error(error?.message || "Something went wrong");
@@ -22,6 +28,7 @@ export function TransactionDashboard() {
         transactions={transactions}
         categories={categories}
         isLoading={isLoading}
+        paymentMethods={paymentMethods}
         isError={isError}
       />
     </div>

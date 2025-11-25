@@ -18,25 +18,32 @@ import { ArrowUpDown, Filter } from "lucide-react";
 import { TransactionItem } from "./transaction-item";
 import { TransactionItemSkeleton } from "./transaction-item-skeleton";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Button } from "@/components/ui/button";
+import { IconPlus } from "@tabler/icons-react";
+import { AddTransactionModal } from "./add-transaction-modal";
 
 type Transaction = components["schemas"]["Transaction"];
 type Category = components["schemas"]["Category"];
+type PaymentMethod = components["schemas"]["PaymentMethod"];
 
 interface TransactionListProps {
   transactions: Transaction[] | undefined;
   categories: Category[] | undefined;
+  paymentMethods: PaymentMethod[] | undefined;
   isLoading: boolean;
   isError: boolean;
 }
 export function TransactionsList({
   transactions,
   categories,
+  paymentMethods,
   isLoading,
   isError,
 }: TransactionListProps) {
   const [search, setSearch] = useState("");
   const [filterCategory, setFilterCategory] = useState<string>("all");
   const [sort, setSort] = useState("newest");
+  const [open, setOpen] = useState(false);
   const filteredTransactions = useMemo(() => {
     if (!transactions) return [];
     let list = [...transactions];
@@ -77,81 +84,100 @@ export function TransactionsList({
     return list;
   }, [transactions, search, filterCategory, sort]);
   return (
-    <Card className="mb-8">
-      <CardHeader>
-        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
-          <SearchBarComponent
-            placeHolder="Search transactions"
-            onChange={(e) => setSearch(e.target.value)}
-            value={search}
-            className="pl-9 flex-1"
-          />
+    <>
+      <Card className="mb-8">
+        <CardHeader>
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
+            <SearchBarComponent
+              placeHolder="Search transactions"
+              onChange={(e) => setSearch(e.target.value)}
+              value={search}
+              className="pl-9 flex-1"
+            />
 
-          <div className="flex items-center gap-3 justify-end w-full sm:w-auto sm:ml-auto flex-wrap">
-            <Select onValueChange={setFilterCategory}>
-              <SelectTrigger className="flex-1 min-w-[120px">
-                <Filter className="h-4 w-4 mr-2" />
-                <SelectValue placeholder="All Types" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All</SelectItem>
-                {categories?.map((category) => {
-                  return (
-                    <SelectItem key={category.id} value={category.id}>
-                      {category.categoryName}
-                    </SelectItem>
-                  );
-                })}
-              </SelectContent>
-            </Select>
+            <div className="flex items-center gap-3 justify-end w-full sm:w-auto sm:ml-auto flex-wrap">
+              <Button
+                onClick={() => setOpen(true)}
+                className="flex items-center gap-2 py-4 transition bg-foreground"
+              >
+                <IconPlus className="w-4 h-4" />
+                Add Transaction
+              </Button>
+              <Select onValueChange={setFilterCategory}>
+                <SelectTrigger className="flex-1 min-w-[120px]">
+                  <Filter className="h-4 w-4 mr-2" />
+                  <SelectValue placeholder="All Types" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All</SelectItem>
+                  {categories?.map((category) => {
+                    return (
+                      <SelectItem key={category.id} value={category.id}>
+                        {category.categoryName}
+                      </SelectItem>
+                    );
+                  })}
+                </SelectContent>
+              </Select>
 
-            <Select onValueChange={setSort}>
-              <SelectTrigger className="flex-1 min-w-[120px]">
-                <ArrowUpDown className="h-4 w-4 mr-2" />
-                <SelectValue placeholder="All Categories" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="asc">Ascending</SelectItem>
-                <SelectItem value="desc">Descending</SelectItem>
-                <SelectItem value="recent">Most Recent</SelectItem>
-              </SelectContent>
-            </Select>
+              <Select onValueChange={setSort}>
+                <SelectTrigger className="flex-1 min-w-[120px]">
+                  <ArrowUpDown className="h-4 w-4 mr-2" />
+                  <SelectValue placeholder="All Categories" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="asc">Ascending</SelectItem>
+                  <SelectItem value="desc">Descending</SelectItem>
+                  <SelectItem value="recent">Most Recent</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
           </div>
-        </div>
-      </CardHeader>
-      <CardContent>
-        <ScrollArea className="h-[calc(100vh-400px)]">
-          <div className="space-y-2 pb-4 pr-8 pl-8">
-            {isLoading && (
-              <>
-                <div className="flex items-center justify-between mb-4">
-                  <Skeleton className="h-6 w-48" />
-                  <Skeleton className="h-6 w-32 rounded-full" />
-                </div>
-                {[...Array(6)].map((_, i) => (
-                  <TransactionItemSkeleton key={i} />
-                ))}
-              </>
-            )}
-            {filteredTransactions && (
-              <>
-                <div className="flex items-center justify-between pb-2 pl-2 pr-2">
-                  <h3 className="text-lg font-semibold">
-                    {filteredTransactions.length} Transactions
-                  </h3>
-                  <Badge variant="outline">Sorted by date {sort}</Badge>
-                </div>
-                {filteredTransactions.map((transaction) => (
-                  <TransactionItem
-                    key={transaction.id}
-                    transaction={transaction}
-                  />
-                ))}
-              </>
-            )}
-          </div>
-        </ScrollArea>
-      </CardContent>
-    </Card>
+        </CardHeader>
+        <CardContent>
+          <ScrollArea className="h-[calc(100vh-400px)]">
+            <div className="space-y-2 pb-4 pr-8 pl-8">
+              {isLoading && (
+                <>
+                  <div className="flex items-center justify-between mb-4">
+                    <Skeleton className="h-6 w-48" />
+                    <Skeleton className="h-6 w-32 rounded-full" />
+                  </div>
+                  {[...Array(6)].map((_, i) => (
+                    <TransactionItemSkeleton key={i} />
+                  ))}
+                </>
+              )}
+              {filteredTransactions && (
+                <>
+                  <div className="flex items-center justify-between pb-2 pl-2 pr-2">
+                    <h3 className="text-lg font-semibold">
+                      {filteredTransactions.length} Transactions
+                    </h3>
+                    <Badge variant="outline">Sorted by date {sort}</Badge>
+                  </div>
+                  {filteredTransactions.map((transaction) => (
+                    <TransactionItem
+                      key={transaction.id}
+                      transaction={transaction}
+                    />
+                  ))}
+                </>
+              )}
+            </div>
+          </ScrollArea>
+        </CardContent>
+      </Card>
+      <AddTransactionModal
+        open={open}
+        onOpenChange={setOpen}
+        categories={categories || []}
+        paymentMethods={paymentMethods || []}
+        onSubmit={async (data) => {
+          console.log(data);
+          setOpen(false);
+        }}
+      />
+    </>
   );
 }

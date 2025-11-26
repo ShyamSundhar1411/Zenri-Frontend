@@ -26,11 +26,13 @@ import { useCreateTransaction } from "@/hooks/transaction/mutations/useCreateTra
 type Transaction = components["schemas"]["Transaction"];
 type Category = components["schemas"]["Category"];
 type PaymentMethod = components["schemas"]["PaymentMethod"];
+type Subscription = components["schemas"]["Subscription"];
 
 interface TransactionListProps {
   transactions: Transaction[] | undefined;
   categories: Category[] | undefined;
   paymentMethods: PaymentMethod[] | undefined;
+  subscriptions: Subscription[] | undefined;
   isLoading: boolean;
   isError: boolean;
 }
@@ -38,6 +40,7 @@ export function TransactionsList({
   transactions,
   categories,
   paymentMethods,
+  subscriptions,
   isLoading,
   isError,
 }: TransactionListProps) {
@@ -175,6 +178,7 @@ export function TransactionsList({
         onOpenChange={setOpen}
         categories={categories || []}
         paymentMethods={paymentMethods || []}
+        subscriptions={ subscriptions || []}
         onSubmit={async (data) => {
           await createTransaction.mutateAsync(data);
           setOpen(false);

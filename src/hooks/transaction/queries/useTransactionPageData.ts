@@ -4,10 +4,12 @@ import { getMyCategories } from "@/api/category/getCategories";
 import { useAuthStore } from "@/store/auth-store";
 import { components } from "@/types/api";
 import { getMyPaymentMethods } from "@/api/account/getPaymentMethods";
+import { getMySubscriptions } from "@/api/subscription/getSubscriptions";
 
 type Transaction = components["schemas"]["Transaction"];
 type Category = components["schemas"]["Category"];
 type PaymentMethod = components["schemas"]["PaymentMethod"];
+type Subscription = components["schemas"]["Subscription"];
 
 export function useTransactionPageData() {
   const isAuthLoaded = useAuthStore((state) => state.isAuthLoaded);
@@ -32,29 +34,37 @@ export function useTransactionPageData() {
         queryFn: async (): Promise<PaymentMethod[]> => getMyPaymentMethods(),
         enabled,
       },
+      {
+        queryKey: ["my-subscriptions"],
+        queryFn: async ():Promise<Subscription[]> => getMySubscriptions(),
+        enabled
+      }
     ],
   });
 
-  const [transactionsQ, categoriesQ, paymentMethodsQ] = results;
+  const [transactionsQ, categoriesQ, paymentMethodsQ,subscriptionsQ] = results;
 
   const error =
-    transactionsQ.error ?? categoriesQ.error ?? paymentMethodsQ.error ?? null;
+    transactionsQ.error ?? categoriesQ.error ?? paymentMethodsQ.error ?? subscriptionsQ.error ?? null;
 
   const isError =
-    transactionsQ.isError || categoriesQ.isError || paymentMethodsQ.isError;
+    transactionsQ.isError || categoriesQ.isError || paymentMethodsQ.isError || subscriptionsQ.isError;
 
   const isLoading =
     transactionsQ.isLoading ||
     categoriesQ.isLoading ||
-    paymentMethodsQ.isLoading;
+    paymentMethodsQ.isLoading || 
+    subscriptionsQ.isLoading;
 
   return {
     transactions: transactionsQ.data,
     categories: categoriesQ.data,
     paymentMethods: paymentMethodsQ.data,
+    subsctiptions: subscriptionsQ.data,
     transactionsQ,
     categoriesQ,
     paymentMethodsQ,
+    subscriptionsQ,
     isLoading,
     isError,
     error,

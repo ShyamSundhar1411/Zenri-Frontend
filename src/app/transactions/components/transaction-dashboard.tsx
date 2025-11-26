@@ -11,6 +11,7 @@ export function TransactionDashboard() {
     transactions,
     categories,
     paymentMethods,
+    subsctiptions,
     isLoading,
     isError,
     error,
@@ -25,8 +26,10 @@ export function TransactionDashboard() {
     <div className="space-y-6">
       <TransactionDashboardMetrics />
       <TransactionsList
+      
         transactions={transactions}
         categories={categories}
+        subscriptions={subsctiptions}
         isLoading={isLoading}
         paymentMethods={paymentMethods}
         isError={isError}

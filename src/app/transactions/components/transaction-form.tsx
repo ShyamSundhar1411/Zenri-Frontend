@@ -11,6 +11,8 @@ const transactionSchema = z.object({
   categoryId: z.string().nonempty("Category is required"),
   description: z.string().min(1, "Description is required"),
   transactedOn: z.string().nonempty("Transaction date is required"),
+  isSubscription: z.boolean(),
+  subscriptionId: z.string().optional(),
 });
 
 type TransactionFormData = z.infer<typeof transactionSchema>;
@@ -22,10 +24,12 @@ export function useTransactionForm() {
       amount: 0,
       currencyCode: "INR",
       transactionType: "DEBIT",
+      isSubscription: false,
       paymentMethodId: "",
       categoryId: "",
       description: "",
       transactedOn: "",
+      subscriptionId: "",
     },
   });
 

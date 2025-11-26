@@ -27,18 +27,21 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Checkbox } from "@/components/ui/checkbox";
 import { useState } from "react";
 import { IconPlus } from "@tabler/icons-react";
 import { Spinner } from "@/components/ui/spinner";
 
 type Category = components["schemas"]["Category"];
 type PaymentMethod = components["schemas"]["PaymentMethod"];
+type Subscription = components["schemas"]["Subscription"];
 
 interface AddTransactionModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   categories: Category[];
   paymentMethods: PaymentMethod[];
+  subscriptions: Subscription[];
   onSubmit: (data: any) => Promise<void>;
 }
 
@@ -47,13 +50,21 @@ export function AddTransactionModal({
   onOpenChange,
   categories,
   paymentMethods,
+  subscriptions,
   onSubmit,
 }: AddTransactionModalProps) {
   const form = useTransactionForm();
   const [isSubmitting, setIsSubmitting] = useState(false);
+
   const handleSubmit = async (data: any) => {
     try {
       setIsSubmitting(true);
+
+      
+      if (!data.isSubscription) {
+        data.subscriptionId = "";
+      }
+
       await onSubmit(data);
       form.reset();
       onOpenChange(false);
@@ -61,7 +72,9 @@ export function AddTransactionModal({
       setIsSubmitting(false);
     }
   };
+
   const currencies = Intl.supportedValuesOf("currency");
+
   if (!open) return null;
 
   return (
@@ -70,12 +83,12 @@ export function AddTransactionModal({
         <DialogHeader>
           <DialogTitle>Add Transaction</DialogTitle>
         </DialogHeader>
+
         <Form {...form}>
-          <form
-            onSubmit={form.handleSubmit(handleSubmit)}
-            className="space-y-6"
-          >
+          <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6">
             <div className="grid grid-cols-2 gap-4">
+
+              {/* Amount */}
               <FormField
                 control={form.control}
                 name="amount"
@@ -89,6 +102,8 @@ export function AddTransactionModal({
                   </FormItem>
                 )}
               />
+
+              {/* Currency */}
               <FormField
                 control={form.control}
                 name="currencyCode"
@@ -96,10 +111,7 @@ export function AddTransactionModal({
                   <FormItem>
                     <FormLabel>Currency</FormLabel>
                     <FormControl>
-                      <Select
-                        onValueChange={field.onChange}
-                        value={field.value}
-                      >
+                      <Select onValueChange={field.onChange} value={field.value}>
                         <SelectTrigger className="w-full">
                           <SelectValue placeholder="Select currency" />
                         </SelectTrigger>
@@ -116,6 +128,8 @@ export function AddTransactionModal({
                   </FormItem>
                 )}
               />
+
+              {/* Transaction Type */}
               <FormField
                 control={form.control}
                 name="transactionType"
@@ -123,10 +137,7 @@ export function AddTransactionModal({
                   <FormItem>
                     <FormLabel>Transaction Type</FormLabel>
                     <FormControl>
-                      <Select
-                        onValueChange={field.onChange}
-                        value={field.value}
-                      >
+                      <Select onValueChange={field.onChange} value={field.value}>
                         <SelectTrigger className="w-full">
                           <SelectValue placeholder="Select transaction type" />
                         </SelectTrigger>
@@ -141,6 +152,7 @@ export function AddTransactionModal({
                 )}
               />
 
+              {/* Transacted On */}
               <FormField
                 control={form.control}
                 name="transactedOn"
@@ -154,6 +166,8 @@ export function AddTransactionModal({
                   </FormItem>
                 )}
               />
+
+              {/* Category */}
               <FormField
                 control={form.control}
                 name="categoryId"
@@ -161,10 +175,7 @@ export function AddTransactionModal({
                   <FormItem>
                     <FormLabel>Category</FormLabel>
                     <FormControl>
-                      <Select
-                        onValueChange={field.onChange}
-                        value={field.value}
-                      >
+                      <Select onValueChange={field.onChange} value={field.value}>
                         <SelectTrigger className="w-full">
                           <SelectValue placeholder="Select category" />
                         </SelectTrigger>
@@ -182,6 +193,7 @@ export function AddTransactionModal({
                 )}
               />
 
+              {/* Payment Method */}
               <FormField
                 control={form.control}
                 name="paymentMethodId"
@@ -189,19 +201,13 @@ export function AddTransactionModal({
                   <FormItem>
                     <FormLabel>Payment Method</FormLabel>
                     <FormControl>
-                      <Select
-                        onValueChange={field.onChange}
-                        value={field.value}
-                      >
+                      <Select onValueChange={field.onChange} value={field.value}>
                         <SelectTrigger className="w-full">
                           <SelectValue placeholder="Select payment method" />
                         </SelectTrigger>
                         <SelectContent>
                           {paymentMethods.map((paymentMethod) => (
-                            <SelectItem
-                              key={paymentMethod.id}
-                              value={paymentMethod.id!}
-                            >
+                            <SelectItem key={paymentMethod.id} value={paymentMethod.id!}>
                               {paymentMethod.providerName}
                             </SelectItem>
                           ))}
@@ -212,7 +218,62 @@ export function AddTransactionModal({
                   </FormItem>
                 )}
               />
+
+              {/* Checkbox: Is Subscription */}
+              <FormField
+                control={form.control}
+                name="isSubscription"
+                render={({ field }) => (
+                  <FormItem className="col-span-2 flex items-center gap-3">
+                    <FormControl>
+                      <Checkbox
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                      />
+                    </FormControl>
+                    <FormLabel className="mt-0!">
+                      This transaction is linked to a subscription
+                    </FormLabel>
+                  </FormItem>
+                )}
+              />
+
+              {/* Subscription Dropdown (Conditional) */}
+              {form.watch("isSubscription") && (
+                <FormField
+                  control={form.control}
+                  name="subscriptionId"
+                  render={({ field }) => (
+                    <FormItem className="col-span-2">
+                      <FormLabel>Subscription</FormLabel>
+                      <FormControl>
+                        <Select
+                          onValueChange={(value) =>
+                            field.onChange(value === "" ? undefined : value)
+                          }
+                          value={field.value ?? ""}
+                        >
+                          <SelectTrigger className="w-full">
+                            <SelectValue placeholder="Select subscription" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {subscriptions.map((sub) => (
+                              <SelectItem key={sub.id} value={sub.id}>
+                                {sub.subscriptionName ??
+                                  `Subscription ${sub.id}`}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              )}
             </div>
+
+            {/* Description */}
             <FormField
               control={form.control}
               name="description"
@@ -230,6 +291,8 @@ export function AddTransactionModal({
                 </FormItem>
               )}
             />
+
+            {/* Submit Button */}
             <Button
               type="submit"
               className="w-full bg-foreground"

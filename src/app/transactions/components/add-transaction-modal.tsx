@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
 import { components } from "@/types/api";
 import { useTransactionForm } from "./transaction-form";
 import {
@@ -26,6 +27,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useState } from "react";
+import { IconPlus } from "@tabler/icons-react";
+import { Spinner } from "@/components/ui/spinner";
 
 type Category = components["schemas"]["Category"];
 type PaymentMethod = components["schemas"]["PaymentMethod"];
@@ -46,13 +50,18 @@ export function AddTransactionModal({
   onSubmit,
 }: AddTransactionModalProps) {
   const form = useTransactionForm();
-
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const handleSubmit = async (data: any) => {
-    await onSubmit(data);
-    onOpenChange(false);
-    form.reset();
+    try {
+      setIsSubmitting(true);
+      await onSubmit(data);
+      form.reset();
+      onOpenChange(false);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
-
+  const currencies = Intl.supportedValuesOf("currency");
   if (!open) return null;
 
   return (
@@ -61,14 +70,12 @@ export function AddTransactionModal({
         <DialogHeader>
           <DialogTitle>Add Transaction</DialogTitle>
         </DialogHeader>
-
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(handleSubmit)}
             className="space-y-6"
           >
             <div className="grid grid-cols-2 gap-4">
-              {/* Amount */}
               <FormField
                 control={form.control}
                 name="amount"
@@ -97,9 +104,11 @@ export function AddTransactionModal({
                           <SelectValue placeholder="Select currency" />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="INR">INR</SelectItem>
-                          <SelectItem value="USD">USD</SelectItem>
-                          <SelectItem value="EUR">EUR</SelectItem>
+                          {currencies.map((currency) => (
+                            <SelectItem key={currency} value={currency}>
+                              {currency}
+                            </SelectItem>
+                          ))}
                         </SelectContent>
                       </Select>
                     </FormControl>
@@ -107,7 +116,6 @@ export function AddTransactionModal({
                   </FormItem>
                 )}
               />
-
               <FormField
                 control={form.control}
                 name="transactionType"
@@ -120,11 +128,11 @@ export function AddTransactionModal({
                         value={field.value}
                       >
                         <SelectTrigger className="w-full">
-                          <SelectValue placeholder="Select type" />
+                          <SelectValue placeholder="Select transaction type" />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="DEBIT">DEBIT</SelectItem>
-                          <SelectItem value="CREDIT">CREDIT</SelectItem>
+                          <SelectItem value="DEBIT">Debit</SelectItem>
+                          <SelectItem value="CREDIT">Credit</SelectItem>
                         </SelectContent>
                       </Select>
                     </FormControl>
@@ -140,67 +148,71 @@ export function AddTransactionModal({
                   <FormItem>
                     <FormLabel>Transacted On</FormLabel>
                     <FormControl>
-                      <Input type="date" {...field} />
+                      <Input type="datetime-local" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="categoryId"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Category</FormLabel>
+                    <FormControl>
+                      <Select
+                        onValueChange={field.onChange}
+                        value={field.value}
+                      >
+                        <SelectTrigger className="w-full">
+                          <SelectValue placeholder="Select category" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {categories.map((category) => (
+                            <SelectItem key={category.id} value={category.id}>
+                              {category.categoryName}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="paymentMethodId"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Payment Method</FormLabel>
+                    <FormControl>
+                      <Select
+                        onValueChange={field.onChange}
+                        value={field.value}
+                      >
+                        <SelectTrigger className="w-full">
+                          <SelectValue placeholder="Select payment method" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {paymentMethods.map((paymentMethod) => (
+                            <SelectItem
+                              key={paymentMethod.id}
+                              value={paymentMethod.id!}
+                            >
+                              {paymentMethod.providerName}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
             </div>
-
-            {/* Category */}
-            <FormField
-              control={form.control}
-              name="categoryId"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Category</FormLabel>
-                  <FormControl>
-                    <Select onValueChange={field.onChange} value={field.value}>
-                      <SelectTrigger className="w-full">
-                        <SelectValue placeholder="Select category" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {categories.map((category) => (
-                          <SelectItem key={category.id} value={category.id}>
-                            {category.categoryName}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            {/* Payment Method */}
-            <FormField
-              control={form.control}
-              name="paymentMethodId"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Payment Method</FormLabel>
-                  <FormControl>
-                    <Select onValueChange={field.onChange} value={field.value}>
-                      <SelectTrigger className="w-full">
-                        <SelectValue placeholder="Select payment method" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {paymentMethods.map((pm) => (
-                          <SelectItem key={pm.id!} value={pm.id!}>
-                            {pm.providerName}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            {/* Description */}
             <FormField
               control={form.control}
               name="description"
@@ -208,18 +220,33 @@ export function AddTransactionModal({
                 <FormItem>
                   <FormLabel>Description</FormLabel>
                   <FormControl>
-                    <Input {...field} placeholder="Enter description" />
+                    <Textarea
+                      {...field}
+                      placeholder="Enter detailed description"
+                      className="w-full h-28 resize-none"
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-
-            <DialogFooter>
-              <Button type="submit" className="w-full">
-                Save Transaction
-              </Button>
-            </DialogFooter>
+            <Button
+              type="submit"
+              className="w-full bg-foreground"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? (
+                <div className="flex items-center justify-center gap-2">
+                  <Spinner />
+                  Adding...
+                </div>
+              ) : (
+                <div className="flex items-center justify-center gap-2">
+                  <IconPlus className="h-4 w-4" />
+                  Add Transaction
+                </div>
+              )}
+            </Button>
           </form>
         </Form>
       </DialogContent>

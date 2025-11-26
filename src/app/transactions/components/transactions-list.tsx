@@ -21,6 +21,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
 import { IconPlus } from "@tabler/icons-react";
 import { AddTransactionModal } from "./add-transaction-modal";
+import { useCreateTransaction } from "@/hooks/transaction/mutations/useCreateTransaction";
 
 type Transaction = components["schemas"]["Transaction"];
 type Category = components["schemas"]["Category"];
@@ -44,6 +45,7 @@ export function TransactionsList({
   const [filterCategory, setFilterCategory] = useState<string>("all");
   const [sort, setSort] = useState("newest");
   const [open, setOpen] = useState(false);
+  const createTransaction = useCreateTransaction();
   const filteredTransactions = useMemo(() => {
     if (!transactions) return [];
     let list = [...transactions];
@@ -106,7 +108,7 @@ export function TransactionsList({
               <Select onValueChange={setFilterCategory}>
                 <SelectTrigger className="flex-1 min-w-[120px]">
                   <Filter className="h-4 w-4 mr-2" />
-                  <SelectValue placeholder="All Types" />
+                  <SelectValue placeholder="All Categories" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="all">All</SelectItem>
@@ -123,7 +125,7 @@ export function TransactionsList({
               <Select onValueChange={setSort}>
                 <SelectTrigger className="flex-1 min-w-[120px]">
                   <ArrowUpDown className="h-4 w-4 mr-2" />
-                  <SelectValue placeholder="All Categories" />
+                  <SelectValue placeholder="Sort By" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="asc">Ascending</SelectItem>
@@ -174,7 +176,7 @@ export function TransactionsList({
         categories={categories || []}
         paymentMethods={paymentMethods || []}
         onSubmit={async (data) => {
-          console.log(data);
+          await createTransaction.mutateAsync(data);
           setOpen(false);
         }}
       />

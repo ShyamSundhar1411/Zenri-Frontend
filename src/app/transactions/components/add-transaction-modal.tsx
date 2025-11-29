@@ -60,7 +60,6 @@ export function AddTransactionModal({
     try {
       setIsSubmitting(true);
 
-      
       if (!data.isSubscription) {
         data.subscriptionId = "";
       }
@@ -85,9 +84,11 @@ export function AddTransactionModal({
         </DialogHeader>
 
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6">
+          <form
+            onSubmit={form.handleSubmit(handleSubmit)}
+            className="space-y-6"
+          >
             <div className="grid grid-cols-2 gap-4">
-
               {/* Amount */}
               <FormField
                 control={form.control}
@@ -111,7 +112,10 @@ export function AddTransactionModal({
                   <FormItem>
                     <FormLabel>Currency</FormLabel>
                     <FormControl>
-                      <Select onValueChange={field.onChange} value={field.value}>
+                      <Select
+                        onValueChange={field.onChange}
+                        value={field.value}
+                      >
                         <SelectTrigger className="w-full">
                           <SelectValue placeholder="Select currency" />
                         </SelectTrigger>
@@ -137,7 +141,10 @@ export function AddTransactionModal({
                   <FormItem>
                     <FormLabel>Transaction Type</FormLabel>
                     <FormControl>
-                      <Select onValueChange={field.onChange} value={field.value}>
+                      <Select
+                        onValueChange={field.onChange}
+                        value={field.value}
+                      >
                         <SelectTrigger className="w-full">
                           <SelectValue placeholder="Select transaction type" />
                         </SelectTrigger>
@@ -175,7 +182,10 @@ export function AddTransactionModal({
                   <FormItem>
                     <FormLabel>Category</FormLabel>
                     <FormControl>
-                      <Select onValueChange={field.onChange} value={field.value}>
+                      <Select
+                        onValueChange={field.onChange}
+                        value={field.value}
+                      >
                         <SelectTrigger className="w-full">
                           <SelectValue placeholder="Select category" />
                         </SelectTrigger>
@@ -201,13 +211,19 @@ export function AddTransactionModal({
                   <FormItem>
                     <FormLabel>Payment Method</FormLabel>
                     <FormControl>
-                      <Select onValueChange={field.onChange} value={field.value}>
+                      <Select
+                        onValueChange={field.onChange}
+                        value={field.value}
+                      >
                         <SelectTrigger className="w-full">
                           <SelectValue placeholder="Select payment method" />
                         </SelectTrigger>
                         <SelectContent>
                           {paymentMethods.map((paymentMethod) => (
-                            <SelectItem key={paymentMethod.id} value={paymentMethod.id!}>
+                            <SelectItem
+                              key={paymentMethod.id}
+                              value={paymentMethod.id!}
+                            >
                               {paymentMethod.providerName}
                             </SelectItem>
                           ))}

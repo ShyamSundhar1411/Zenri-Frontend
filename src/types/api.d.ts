@@ -1851,6 +1851,52 @@ export interface components {
       /** @example 200 */
       statusCode?: number;
     };
+    /** @description Computed metadata for a ledger. */
+    TransactionMetadata: {
+      /**
+       * @description Total number of transactions.
+       * @example 42
+       */
+      transactions?: number;
+      /**
+       * Format: float
+       * @description Net balance (credits - debits) for the ledger.
+       * @example 15000
+       */
+      netBalance?: number;
+      /**
+       * Format: float
+       * @example 40000
+       */
+      totalCredits?: number;
+      /** @example INR */
+      currencyCode?: string;
+      /**
+       * Format: float
+       * @example 25000
+       */
+      totalDebits?: number;
+      /**
+       * Format: float
+       * @example 15000
+       */
+      totalSavings?: number;
+      /**
+       * Format: float
+       * @example 37.5
+       */
+      totalSavingsPercentage?: number;
+      /**
+       * Format: float
+       * @example 61.5
+       */
+      totalCreditsPercentage?: number;
+      /**
+       * Format: float
+       * @example 38.5
+       */
+      totalDebitsPercentage?: number;
+    };
     /**
      * Ledger
      * @description Represents a user's financial ledger entry.
@@ -1893,10 +1939,12 @@ export interface components {
        * @example 2025-10-08T12:34:56Z
        */
       updatedAt: string;
+      /** @description Computed metadata for this ledger. */
+      transactionMetadata?: components["schemas"]["TransactionMetadata"];
     };
     /**
      * Ledgers
-     * @description List of ledger entries.
+     * @description List of ledger entries with metadata.
      */
     Ledgers: components["schemas"]["Ledger"][];
     GetMyLedgersResponse: {

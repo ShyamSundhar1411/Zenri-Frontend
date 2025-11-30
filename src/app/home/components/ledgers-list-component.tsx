@@ -6,27 +6,24 @@ import { useEffect, useState } from "react";
 import { LedgerSkeleton } from "./ledger-skeleton-component";
 import { LedgerCard } from "./ledger-card-component";
 import { SearchBarComponent } from "@/app/components/search-bar";
+import { Ledger } from "@/di/ledger";
 
-export default function LedgerListComponent() {
-  const { data: ledgers, isLoading, isError, error } = useGetMyLedgers();
-
-  const [searchQuery, setSearchQuery] = useState("");
-
-  useEffect(() => {
-    if (isError) {
-      toast.error(error?.message || "Something went wrong");
-    }
-  }, [isError, error]);
-
-  const filteredLedgers =
-    ledgers?.filter((ledger) =>
-      `${ledger.month} ${ledger.year}`
-        .toLowerCase()
-        .includes(searchQuery.toLowerCase()),
-    ) || [];
-
+interface LedgerListComponentProps {
+  ledgers: Ledger[];
+  isLoading: boolean;
+  searchQuery: string;
+  isError: boolean;
+  setSearchQuery: (query: string) => void;
+}
+export default function LedgerListComponent({
+  ledgers,
+  isLoading,
+  searchQuery,
+  setSearchQuery,
+  isError,
+}: LedgerListComponentProps) {
   return (
-    <div className="flex flex-col w-full px-4 py-6">
+    <div className="flex flex-col w-full py-4">
       <div className="flex flex-col sm:flex-row w-full items-start sm:items-center justify-between gap-4">
         <h1 className="text-4xl font-bold text-foreground">My Ledgers</h1>
 
@@ -43,12 +40,12 @@ export default function LedgerListComponent() {
 
         {!isLoading && !isError && (
           <>
-            {filteredLedgers.length === 0 ? (
+            {ledgers.length === 0 ? (
               <p className="text-gray-500 dark:text-gray-400">
                 No ledgers found.
               </p>
             ) : (
-              filteredLedgers.map((ledger) => (
+              ledgers.map((ledger) => (
                 <LedgerCard key={ledger.id} ledger={ledger} />
               ))
             )}

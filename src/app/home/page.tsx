@@ -3,7 +3,7 @@ import { useAuthStore } from "@/store/auth-store";
 import { WelcomeMessage } from "./components/welcome-message";
 import LedgerListComponent from "./components/ledgers-list-component";
 import { Loader } from "../components/loader";
-import DashboardComponent from "./components/dashboard-component";
+import Dashboard from "./components/dashboard-component";
 
 export default function Home() {
   const isAuthLoaded = useAuthStore((state) => state.isAuthLoaded);
@@ -15,8 +15,7 @@ export default function Home() {
   return (
     <div className="flex flex-col h-full w-full p-6 overflow-y-auto">
       <WelcomeMessage />
-      <DashboardComponent />
-      <LedgerListComponent />
+      <Dashboard />
     </div>
   );
 }

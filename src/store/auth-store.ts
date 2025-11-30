@@ -1,10 +1,8 @@
 import { create } from "zustand";
 import type { components } from "@/types/api";
 import { isAccessTokenExpired } from "@/lib/jwt-utils";
+import { LoginResponse, SignupResponse, TokenResponse } from "@/di/auth";
 
-type LoginResponse = components["schemas"]["LoginResponse"];
-type SignupResponse = components["schemas"]["SignupResponse"];
-type TokenResponse = components["schemas"]["Token"];
 interface AuthState {
   user: LoginResponse["user"] | SignupResponse["user"] | null;
   tokens: LoginResponse["tokens"] | SignupResponse["tokens"] | null;

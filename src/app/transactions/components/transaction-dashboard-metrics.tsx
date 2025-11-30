@@ -6,11 +6,9 @@ import {
   IconTrendingUp,
 } from "@tabler/icons-react";
 
-import type { components } from "@/types/api";
 import { useMemo } from "react";
 import { TransactionDashboardMetricsSkeleton } from "./transaction-dashboard-metrics-skeleton";
-
-type Transaction = components["schemas"]["Transaction"];
+import { Transaction } from "@/di/transaction";
 
 interface TransactionDashboardMetricsProps {
   transactions: Transaction[];

@@ -3,9 +3,7 @@ import { useMutation } from "@tanstack/react-query";
 import { login } from "@/api/auth/login";
 import type { components } from "@/types/api";
 import { useAuthStore } from "@/store/auth-store";
-
-type LoginRequest = components["schemas"]["LoginRequest"];
-type LoginResponse = components["schemas"]["LoginResponse"];
+import { LoginRequest, LoginResponse } from "@/di/auth";
 
 export function useLogin() {
   const setAuth = useAuthStore((state) => state.setAuth);

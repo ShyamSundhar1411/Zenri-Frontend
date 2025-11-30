@@ -8,12 +8,10 @@ import {
   CardDescription,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import type { components } from "@/types/api";
 import { Badge } from "@/components/ui/badge";
 import { maskNumber } from "@/lib/string-utils";
 import { formatDate, formatExpiry } from "@/lib/date-utils";
-
-type PaymentMethod = components["schemas"]["PaymentMethod"];
+import { PaymentMethod } from "@/di/account";
 
 interface PaymentMethodCardProps {
   method: PaymentMethod;

@@ -23,11 +23,10 @@ import { IconPlus } from "@tabler/icons-react";
 import { AddTransactionModal } from "./add-transaction-modal";
 import { useCreateTransaction } from "@/hooks/transaction/mutations/useCreateTransaction";
 import { FilterPopover } from "@/app/components/filter-popover";
-
-type Transaction = components["schemas"]["Transaction"];
-type Category = components["schemas"]["Category"];
-type PaymentMethod = components["schemas"]["PaymentMethod"];
-type Subscription = components["schemas"]["Subscription"];
+import { Transaction } from "@/di/transaction";
+import { Category } from "@/di/category";
+import { PaymentMethod } from "@/di/account";
+import { Subscription } from "@/di/subscription";
 
 interface TransactionListProps {
   transactions: Transaction[] | undefined;

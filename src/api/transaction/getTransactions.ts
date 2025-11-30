@@ -1,9 +1,6 @@
+import { GetMyTransactionResponse, Transaction } from "@/di/transaction";
 import { api } from "../apiClient";
 import type { components } from "@/types/api";
-
-type GetMyTransactionResponse =
-  components["schemas"]["GetMyTransactionsResponse"];
-type Transaction = components["schemas"]["Transaction"];
 
 export async function getMyTransactions(): Promise<Transaction[]> {
   const res = await api.get<GetMyTransactionResponse>(

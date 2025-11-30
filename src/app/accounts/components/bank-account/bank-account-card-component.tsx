@@ -4,11 +4,10 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { formatDate } from "@/lib/date-utils";
 import { cn } from "@/lib/utils";
-import { components } from "@/types/api";
+
 import { Clock } from "lucide-react";
 import { motion } from "framer-motion";
-
-type BankAccount = components["schemas"]["BankAccount"];
+import { BankAccount } from "@/di/account";
 
 interface BankAcccountCardProps {
   account: BankAccount;

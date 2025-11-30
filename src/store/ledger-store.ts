@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import type { components } from "@/types/api";
-type Ledger = components["schemas"]["Ledger"];
+import { Ledger } from "@/di/ledger";
 
 interface LedgerState {
   selectedLedger: Ledger | null;

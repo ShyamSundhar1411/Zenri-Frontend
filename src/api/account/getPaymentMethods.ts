@@ -1,8 +1,7 @@
 import { APIResponse } from "@/types/common";
 import { api } from "../apiClient";
 import type { components } from "@/types/api";
-
-type PaymentMethod = components["schemas"]["PaymentMethod"];
+import { PaymentMethod } from "@/di/account";
 
 export async function getMyPaymentMethods(): Promise<PaymentMethod[]> {
   const res = await api.get<APIResponse<PaymentMethod[]>>(

@@ -1,9 +1,8 @@
 import { getMyBankAccounts } from "@/api/account/getAccounts";
+import { BankAccount } from "@/di/account";
 import { useAuthStore } from "@/store/auth-store";
 import type { components } from "@/types/api";
 import { useQuery } from "@tanstack/react-query";
-
-type BankAccount = components["schemas"]["BankAccount"];
 
 export function useGetMyBankAccounts() {
   const isAuthLoaded = useAuthStore((state) => state.isAuthLoaded);

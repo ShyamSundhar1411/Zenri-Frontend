@@ -1,9 +1,7 @@
 import { APIResponse } from "@/types/common";
 import { api } from "../apiClient";
 import type { components } from "@/types/api";
-
-type Subscription = components["schemas"]["Subscription"];
-type Subscriptions = components["schemas"]["Subscriptions"];
+import { Subscriptions } from "@/di/subscription";
 
 export async function getMySubscriptions(): Promise<Subscriptions> {
   const res = await api.get<APIResponse<Subscriptions>>(

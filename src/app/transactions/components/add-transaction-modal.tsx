@@ -5,12 +5,11 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
-  DialogFooter,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { components } from "@/types/api";
+
 import { useTransactionForm } from "./transaction-form";
 import {
   Form,
@@ -31,10 +30,9 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { useState } from "react";
 import { IconPlus } from "@tabler/icons-react";
 import { Spinner } from "@/components/ui/spinner";
-
-type Category = components["schemas"]["Category"];
-type PaymentMethod = components["schemas"]["PaymentMethod"];
-type Subscription = components["schemas"]["Subscription"];
+import { Category } from "@/di/category";
+import { PaymentMethod } from "@/di/account";
+import { Subscription } from "@/di/subscription";
 
 interface AddTransactionModalProps {
   open: boolean;

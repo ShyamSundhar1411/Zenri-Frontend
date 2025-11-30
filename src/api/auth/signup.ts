@@ -1,9 +1,7 @@
+import { SignupRequest, SignupResponse } from "@/di/auth";
 import { api } from "../apiClient";
 import type { components } from "@/types/api";
 import { APIResponse } from "@/types/common";
-
-type SignupRequest = components["schemas"]["SignupRequest"];
-type SignupResponse = components["schemas"]["SignupResponse"];
 
 // type RefreshTokenRequest = components["schemas"]["RefreshTokenRequest"];
 // type TokenResponse = components["schemas"]["Token"];

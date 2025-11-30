@@ -2,17 +2,11 @@
 
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
-import {
-  IconBrandVisa,
-  IconBrandMastercard,
-  IconCreditCard,
-} from "@tabler/icons-react";
+
 import { components } from "@/types/api";
 import { getNetworkLogo } from "./get-network-logo";
 import { formatExpiry } from "@/lib/date-utils";
-
-type DebitCard = components["schemas"]["DebitCard"];
-type CreditCard = components["schemas"]["CreditCard"];
+import { CreditCard, DebitCard } from "@/di/account";
 
 interface MotionBankCardProps {
   card: DebitCard | CreditCard;

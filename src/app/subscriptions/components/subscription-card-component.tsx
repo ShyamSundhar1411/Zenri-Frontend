@@ -8,11 +8,9 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Subscription } from "@/di/subscription";
 import { formatDate } from "@/lib/date-utils";
-import type { components } from "@/types/api";
 import { MoreVertical, Pencil, Trash2 } from "lucide-react";
-
-type Subscription = components["schemas"]["Subscription"];
 
 interface SusbcriptionCardProps {
   subscription: Subscription;

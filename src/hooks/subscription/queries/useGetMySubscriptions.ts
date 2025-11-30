@@ -2,7 +2,8 @@ import { getMySubscriptions } from "@/api/subscription/getSubscriptions";
 import { useAuthStore } from "@/store/auth-store";
 import { useQuery } from "@tanstack/react-query";
 import type { components } from "@/types/api";
-type Subscriptions = components["schemas"]["Subscriptions"];
+import { Subscriptions } from "@/di/subscription";
+
 export function useGetMySubscriptions() {
   const isAuthLoaded = useAuthStore((state) => state.isAuthLoaded);
   const tokens = useAuthStore((state) => state.tokens);

@@ -1,11 +1,10 @@
+import {
+  CreateTransactionRequest,
+  CreateTransactionResponse,
+  Transaction,
+} from "@/di/transaction";
 import { api } from "../apiClient";
 import type { components } from "@/types/api";
-
-type CreateTransactionRequest =
-  components["schemas"]["TransactionCreateRequest"];
-type CreateTransactionResponse =
-  components["schemas"]["CreateTransactionResponse"];
-type Transaction = components["schemas"]["Transaction"];
 
 export async function createTransaction(
   data: CreateTransactionRequest,

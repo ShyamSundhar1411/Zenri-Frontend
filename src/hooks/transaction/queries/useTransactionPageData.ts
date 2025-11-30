@@ -5,11 +5,10 @@ import { useAuthStore } from "@/store/auth-store";
 import { components } from "@/types/api";
 import { getMyPaymentMethods } from "@/api/account/getPaymentMethods";
 import { getMySubscriptions } from "@/api/subscription/getSubscriptions";
-
-type Transaction = components["schemas"]["Transaction"];
-type Category = components["schemas"]["Category"];
-type PaymentMethod = components["schemas"]["PaymentMethod"];
-type Subscription = components["schemas"]["Subscription"];
+import { Transaction } from "@/di/transaction";
+import { Category } from "@/di/category";
+import { PaymentMethod } from "@/di/account";
+import { Subscription } from "@/di/subscription";
 
 export function useTransactionPageData() {
   const isAuthLoaded = useAuthStore((state) => state.isAuthLoaded);

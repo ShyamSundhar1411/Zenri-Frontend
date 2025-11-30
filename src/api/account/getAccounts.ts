@@ -1,9 +1,6 @@
+import { BankAccount, GetMyBankAccountsResponse } from "@/di/account";
 import { api } from "../apiClient";
 import type { components } from "@/types/api";
-
-type GetMyBankAccountsResponse =
-  components["schemas"]["GetMyBankAccountsResponse"];
-type BankAccount = components["schemas"]["BankAccount"];
 
 export async function getMyBankAccounts(): Promise<BankAccount[]> {
   const res = await api.get<GetMyBankAccountsResponse>(

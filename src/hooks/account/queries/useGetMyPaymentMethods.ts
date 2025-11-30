@@ -1,9 +1,9 @@
 import { getMyPaymentMethods } from "@/api/account/getPaymentMethods";
+import { PaymentMethod } from "@/di/account";
 import { useAuthStore } from "@/store/auth-store";
 import { components } from "@/types/api";
 import { useQuery } from "@tanstack/react-query";
 
-type PaymentMethod = components["schemas"]["PaymentMethod"];
 export function useGetMyPaymentMethods() {
   const isAuthLoaded = useAuthStore((state) => state.isAuthLoaded);
   const tokens = useAuthStore((state) => state.tokens);

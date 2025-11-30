@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import type { components } from "@/types/api";
 import { getMyLedgers } from "@/api/ledger/getLedgers";
 import { useAuthStore } from "@/store/auth-store";
-type Ledger = components["schemas"]["Ledger"];
+import { Ledger } from "@/di/ledger";
 
 export function useGetMyLedgers() {
   const isAuthLoaded = useAuthStore((state) => state.isAuthLoaded);

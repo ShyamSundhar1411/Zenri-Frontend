@@ -1,8 +1,7 @@
 import { APIResponse } from "@/types/common";
 import { api } from "../apiClient";
 import type { components } from "@/types/api";
-
-type Card = components["schemas"]["Card"];
+import { Card } from "@/di/account";
 
 export async function getMyCards(): Promise<Card> {
   const res = await api.get<APIResponse<Card>>("/api/v1/cards/my-cards");

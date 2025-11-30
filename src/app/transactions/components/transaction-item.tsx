@@ -1,6 +1,7 @@
 "use client";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
+import { Transaction } from "@/di/transaction";
 import { formatDate, formatDateTime } from "@/lib/date-utils";
 import type { components } from "@/types/api";
 import {
@@ -10,8 +11,6 @@ import {
   IconTrendingUp,
   IconWallet,
 } from "@tabler/icons-react";
-
-type Transaction = components["schemas"]["Transaction"];
 
 interface TransactionItemProps {
   transaction: Transaction;

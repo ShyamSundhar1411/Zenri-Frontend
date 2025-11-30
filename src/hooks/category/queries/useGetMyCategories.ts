@@ -1,8 +1,8 @@
 import { getMyCategories } from "@/api/category/getCategories";
+import { Category } from "@/di/category";
 import { useAuthStore } from "@/store/auth-store";
 import { components } from "@/types/api";
 import { useQuery } from "@tanstack/react-query";
-type Category = components["schemas"]["Category"];
 
 export function useGetMyCategories() {
   const isAuthLoaded = useAuthStore((state) => state.isAuthLoaded);

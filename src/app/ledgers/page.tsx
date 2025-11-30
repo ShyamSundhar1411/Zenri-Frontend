@@ -1,8 +1,9 @@
+"use client";
 import { useAuthStore } from "@/store/auth-store";
 import { Loader } from "../components/loader";
-import { WelcomeMessage } from "./components/welcome-message";
+import LedgerDashboard from "./components/ledger-dashboard-component";
 
-export default function Home() {
+export default function MyLedgers() {
   const isAuthLoaded = useAuthStore((state) => state.isAuthLoaded);
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
 
@@ -11,8 +12,7 @@ export default function Home() {
   }
   return (
     <div className="flex flex-col h-full w-full p-6 overflow-y-auto">
-      <WelcomeMessage />
-
+      <LedgerDashboard />
     </div>
   );
 }

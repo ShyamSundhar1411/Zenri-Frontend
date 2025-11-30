@@ -3,7 +3,7 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 
-export function DashboardMetricsSkeleton() {
+export function LedgerDashboardMetricsSkeleton() {
   return (
     <div className="grid sm:grid-cols-1 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-4 gap-4 sm:gap-4 mt-4">
       {Array(4)

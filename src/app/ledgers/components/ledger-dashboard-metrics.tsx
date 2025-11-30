@@ -5,18 +5,18 @@ import {
   IconTrendingDown,
   IconWallet,
 } from "@tabler/icons-react";
-import { DashboardMetricsSkeleton } from "./dashboard-metrics-skeleton";
+import { LedgerDashboardMetricsSkeleton } from "./ledger-dashboard-metrics-skeleton";
 
-interface DashboardMetricsProps {
+interface LedgerDashboardMetricsProps {
   currentMonthLedger: Ledger | undefined;
   isLoading: boolean;
   isError: boolean;
 }
-export function DashboardMetrics({
+export function LedgerDashboardMetrics({
   currentMonthLedger,
   isLoading,
   isError,
-}: DashboardMetricsProps) {
+}: LedgerDashboardMetricsProps) {
   const currencyCode = currentMonthLedger?.transactionMetadata?.currencyCode;
   const totalBalance = currentMonthLedger?.transactionMetadata?.netBalance;
   const totalInflow = currentMonthLedger?.transactionMetadata?.totalCredits;
@@ -57,7 +57,7 @@ export function DashboardMetrics({
   return (
     <>
       {isLoading ? (
-        <DashboardMetricsSkeleton />
+        <LedgerDashboardMetricsSkeleton />
       ) : (
         <div className="grid sm:grid-cols-1 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-4 gap-4 sm:gap-4 mt-4">
           {metrics.map((metric, idx) => (

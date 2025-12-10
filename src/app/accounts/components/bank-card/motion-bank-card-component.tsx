@@ -11,13 +11,34 @@ import { CreditCard, DebitCard } from "@/di/account";
 interface MotionBankCardProps {
   card: DebitCard | CreditCard;
   className?: string;
+  inputMode: boolean;
 }
 
-export function MotionBankCard({ card, className }: MotionBankCardProps) {
-  const masked =
-    card.cardNumber && card.cardNumber.length >= 4
-      ? `•••• •••• •••• ${card.cardNumber.slice(-4)}`
-      : "•••• •••• •••• ••••";
+export function MotionBankCard({
+  card,
+  className,
+  inputMode,
+}: MotionBankCardProps) {
+  const digits = card.cardNumber?.replace(/\D/g, "") ?? "";
+  const padded = digits.padEnd(16, "-");
+  const groups = padded.match(/.{1,4}/g) ?? ["----", "----", "----", "----"];
+  let masked: string;
+  if (inputMode) {
+    masked = groups.join(" ");
+  } else {
+    const maskedGroups = groups.map((group, index) => {
+      const start = index * 4;
+      const end = start + 4;
+      const actualDigits = digits.slice(start, end);
+
+      if (!actualDigits) return "----";
+      if (digits.length > 12 && index == 3) {
+        return actualDigits;
+      }
+      return "•".repeat(actualDigits.length).padEnd(4, "•");
+    });
+    masked = maskedGroups.join(" ");
+  }
 
   const gradients = [
     "bg-gradient-to-br from-[#1b4e9b] via-[#123b7a] to-[#0c2b5a]",

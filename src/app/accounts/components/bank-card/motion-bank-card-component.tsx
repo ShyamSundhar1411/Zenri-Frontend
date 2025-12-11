@@ -20,6 +20,7 @@ export function MotionBankCard({
   inputMode,
 }: MotionBankCardProps) {
   const digits = card.cardNumber?.replace(/\D/g, "") ?? "";
+
   const padded = digits.padEnd(16, "-");
   const groups = padded.match(/.{1,4}/g) ?? ["----", "----", "----", "----"];
   let masked: string;

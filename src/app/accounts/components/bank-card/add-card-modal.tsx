@@ -7,7 +7,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 
-import { useCardForm } from "./card-creation-form";
+import { CardFormData, useCardForm } from "./card-creation-form";
 import { useState, useEffect } from "react";
 import { MotionBankCard } from "./motion-bank-card-component";
 import {
@@ -29,7 +29,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
 import { IconPlus } from "@tabler/icons-react";
-import { formatCardNumber } from "@/lib/string-utils";
+import { expiryToTimeStamp, formatCardNumber } from "@/lib/string-utils";
 import { useGetCardNetworks } from "@/hooks/account/queries/useGetCardNetworks";
 import { Loader } from "@/app/components/loader";
 import { useGetMyBankAccounts } from "@/hooks/account/queries/useGetMyBankAccounts";
@@ -37,10 +37,14 @@ import { useGetMyBankAccounts } from "@/hooks/account/queries/useGetMyBankAccoun
 interface AddCardModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  onSubmit: (data: any) => Promise<void>;
+  onSubmit: (data: CardFormData) => Promise<void>;
 }
 
-export function AddCardModal({ open, onOpenChange }: AddCardModalProps) {
+export function AddCardModal({
+  open,
+  onOpenChange,
+  onSubmit,
+}: AddCardModalProps) {
   const form = useCardForm();
   const cardType = form.watch("type");
   const cardNumber = form.watch("cardNumber");
@@ -62,13 +66,15 @@ export function AddCardModal({ open, onOpenChange }: AddCardModalProps) {
     else if (/^3[47]/.test(nn)) form.setValue("cardNetwork", "amex");
   }, [cardNumber, form]);
 
-  const onSubmit = async (data: any) => {
+  const handleSubmit = async (data: CardFormData) => {
     setIsSubmitting(true);
-
     try {
-      console.log("CARD SUBMITTED:", data);
-      // await apiCall();
       onOpenChange(false);
+      const payload = {
+        ...data,
+        expiresAt: expiryToTimeStamp(data.expiresAt)!,
+      };
+      await onSubmit(payload);
       form.reset();
     } finally {
       setIsSubmitting(false);
@@ -93,7 +99,7 @@ export function AddCardModal({ open, onOpenChange }: AddCardModalProps) {
                 card={{
                   cardNumber: form.watch("cardNumber"),
                   cardHolderName: form.watch("cardHolderName"),
-                  expiresAt: form.watch("expiresAt"),
+                  expiresAt: expiryToTimeStamp(form.watch("expiresAt"))!,
                   cardNetwork: {
                     networkName: form.watch("cardNetwork"),
                   },
@@ -104,7 +110,7 @@ export function AddCardModal({ open, onOpenChange }: AddCardModalProps) {
 
             <Form {...form}>
               <form
-                onSubmit={form.handleSubmit(onSubmit)}
+                onSubmit={form.handleSubmit(handleSubmit)}
                 className="space-y-6"
               >
                 <FormField
@@ -212,7 +218,26 @@ export function AddCardModal({ open, onOpenChange }: AddCardModalProps) {
                       <FormItem>
                         <FormLabel>Expiry</FormLabel>
                         <FormControl>
-                          <Input {...field} placeholder="MM/YY" />
+                          <Input
+                            {...field}
+                            placeholder="MM/YY"
+                            maxLength={5}
+                            onChange={(e) => {
+                              let v = e.target.value.replace(/\D/g, "");
+
+                              if (v.length > 2) {
+                                v = v.slice(0, 2) + "/" + v.slice(2, 4);
+                              }
+
+                              const [mm] = v.split("/");
+                              if (mm && Number(mm) > 12) {
+                                v = "12" + (v.slice(2) ? "/" + v.slice(3) : "");
+                              }
+
+                              field.onChange(v);
+                            }}
+                            value={field.value || ""}
+                          />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -309,7 +334,6 @@ export function AddCardModal({ open, onOpenChange }: AddCardModalProps) {
                   </>
                 )}
 
-                {/* SUBMIT BUTTON */}
                 <Button
                   type="submit"
                   className="w-full bg-foreground"

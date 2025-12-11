@@ -8,11 +8,15 @@ import { toast } from "sonner";
 import { MotionBankCard } from "./motion-bank-card-component";
 import { MotionBankCardSkeleton } from "./motion-bank-card-skeleton-component";
 import { AddCardModal } from "./add-card-modal";
+import { CardFormData } from "./card-creation-form";
+import { CreateCreditCardRequest, CreateDebitCardRequest } from "@/di/account";
+import { useCreateCard } from "@/hooks/account/mutations/createCard";
 
 export function CardDashboard() {
   const [searchQuery, setSearchQuery] = useState("");
   const { data: cards, isLoading, isError, error } = useGetMyCards();
   const [open, setOpen] = useState(false);
+  const createCard = useCreateCard();
   useEffect(() => {
     if (isError) {
       toast.error(error?.message || "Something went wrong");
@@ -69,8 +73,29 @@ export function CardDashboard() {
       <AddCardModal
         open={open}
         onOpenChange={setOpen}
-        onSubmit={async (data) => {
-          console.log(data);
+        onSubmit={async (data: CardFormData) => {
+          if (data.type === "debit") {
+            const debitCardCreateRequest: CreateDebitCardRequest = {
+              cardNumber: data.cardNumber,
+              bankAccount: data.bankAccount,
+              cardHolderName: data.cardHolderName,
+              cardNetwork: data.cardNetwork,
+              expiresAt: data.expiresAt,
+            };
+            await createCard.mutateAsync(debitCardCreateRequest);
+          } else {
+            const creditCardCreateRequest: CreateCreditCardRequest = {
+              cardNumber: data.cardNumber,
+              issuer: data.issuer,
+              limit: data.limit,
+              balance: data.balance,
+              cardHolderName: data.cardHolderName,
+              cardNetwork: data.cardNetwork,
+              expiresAt: data.expiresAt,
+            };
+            await createCard.mutateAsync(creditCardCreateRequest);
+          }
+          setOpen(false);
         }}
       />
     </div>

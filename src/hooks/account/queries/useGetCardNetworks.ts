@@ -6,7 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 export function useGetCardNetworks(enabled: boolean) {
   const isAuthLoaded = useAuthStore((state) => state.isAuthLoaded);
   const tokens = useAuthStore((state) => state.tokens);
-  const isEnabled = isAuthLoaded && tokens! && enabled;
+  const isEnabled = isAuthLoaded && !!tokens?.accessToken && enabled;
   return useQuery({
     queryKey: ["card-networks"],
     queryFn: async (): Promise<CardNetwork[]> => {

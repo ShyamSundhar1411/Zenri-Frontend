@@ -13,7 +13,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { components } from "@/types/api";
 import { ArrowUpDown, Filter } from "lucide-react";
 import { TransactionItem } from "./transaction-item";
 import { TransactionItemSkeleton } from "./transaction-item-skeleton";
@@ -53,7 +52,6 @@ export function TransactionsList({
   paymentMethods,
   subscriptions,
   isLoading,
-  isError,
   search,
   setSearch,
   filterCategories,

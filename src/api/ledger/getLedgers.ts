@@ -1,4 +1,4 @@
-import { api } from "@/api/apiClient";
+import { api } from "@/api/client";
 import { GetMyLedgersResponse, Ledger } from "@/di/ledger";
 import { components } from "@/types/api";
 

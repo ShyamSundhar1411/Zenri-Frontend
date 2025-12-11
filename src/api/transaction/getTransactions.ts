@@ -1,5 +1,5 @@
 import { GetMyTransactionResponse, Transaction } from "@/di/transaction";
-import { api } from "../apiClient";
+import { api } from "../client";
 import type { components } from "@/types/api";
 
 export async function getMyTransactions(): Promise<Transaction[]> {

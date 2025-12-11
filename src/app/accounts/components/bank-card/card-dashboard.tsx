@@ -46,7 +46,7 @@ export function CardDashboard() {
             ))}
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
             <>
               {cards?.creditCards?.map((creditCard, index) => (
                 <MotionBankCard
@@ -66,7 +66,13 @@ export function CardDashboard() {
           </div>
         )}
       </div>
-      <AddCardModal open={open} onOpenChange={setOpen} />
+      <AddCardModal
+        open={open}
+        onOpenChange={setOpen}
+        onSubmit={async (data) => {
+          console.log(data);
+        }}
+      />
     </div>
   );
 }

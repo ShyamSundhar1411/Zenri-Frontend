@@ -1,5 +1,5 @@
 import { SignupRequest, SignupResponse } from "@/di/auth";
-import { api } from "../apiClient";
+import { api } from "../client";
 import type { components } from "@/types/api";
 import { APIResponse } from "@/types/common";
 

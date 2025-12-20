@@ -13,5 +13,5 @@ export type CreateCreditCardRequest =
 export type CreateDebitCardRequest =
   components["schemas"]["CreateDebitCardRequest"];
 export type CreateCardRequest =
-  | CreateCreditCardRequest
-  | CreateDebitCardRequest;
+  | ({ type: "debit" } & CreateDebitCardRequest)
+  | ({ type: "credit" } & CreateCreditCardRequest);

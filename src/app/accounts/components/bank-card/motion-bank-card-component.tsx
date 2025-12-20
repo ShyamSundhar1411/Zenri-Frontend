@@ -62,7 +62,6 @@ export function MotionBankCard({
   const gradientIndex = parseInt(last4) % gradients.length;
 
   const selectedGradient = gradients[gradientIndex];
-  console.log(gradientIndex);
 
   const network =
     (card as CreditCard).issuer || card.cardNetwork?.networkName || "Card";
@@ -106,7 +105,7 @@ export function MotionBankCard({
         {status}
       </div>
 
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-center pt-2">
         <span className="text-xl font-semibold tracking-wide">
           {network.toUpperCase()}
         </span>

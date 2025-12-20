@@ -7,8 +7,8 @@ export function formatCardNumber(value: string) {
   return groups ? groups.join(" ") : "";
 }
 
-export function expiryToTimeStamp(expiry: string): string | null {
-  if (!expiry) return null; // empty input
+export function expiryToTimeStamp(expiry: string, mode: "string" | "date" = "string"): string | Date | null {
+  if (!expiry) return null;
 
   const [mmStr, yyStr] = expiry.split("/");
   if (!mmStr || !yyStr) return null;
@@ -20,6 +20,11 @@ export function expiryToTimeStamp(expiry: string): string | null {
   if (mm < 1 || mm > 12) return null;
 
   const fullYear = 2000 + yy;
-  const date = new Date(fullYear, mm, 0);
-  return date.toISOString();
+
+  
+  const date = new Date(fullYear, mm, 0, 23, 59, 59);
+
+  if (isNaN(date.getTime())) return null;
+
+  return mode === "date" ? date : date.toISOString();
 }

@@ -11,16 +11,17 @@ import {
 } from "@/di/account";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-export function useCreateCard(type: "credit" | "debit" = "credit") {
+export function useCreateCard() {
   const queryClient = useQueryClient();
 
   const mutationFn = async (
     data: CreateCardRequest,
   ): Promise<DebitCard | CreditCard> => {
+    const { type, ...payload } = data;
     if (type === "debit") {
-      return await createDebitCard(data as CreateDebitCardRequest);
+      return await createDebitCard(payload as CreateDebitCardRequest);
     }
-    return await createCreditCard(data as CreateCreditCardRequest);
+    return await createCreditCard(payload as CreateCreditCardRequest);
   };
 
   return useMutation({

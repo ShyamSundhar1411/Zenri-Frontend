@@ -9,19 +9,31 @@ import { MotionBankCard } from "./motion-bank-card-component";
 import { MotionBankCardSkeleton } from "./motion-bank-card-skeleton-component";
 import { AddCardModal } from "./add-card-modal";
 import { CardFormData } from "./card-creation-form";
-import { CreateCreditCardRequest, CreateDebitCardRequest } from "@/di/account";
+import { CreateCardRequest, CreateCreditCardRequest, CreateDebitCardRequest } from "@/di/account";
 import { useCreateCard } from "@/hooks/account/mutations/createCard";
 
 export function CardDashboard() {
   const [searchQuery, setSearchQuery] = useState("");
-  const { data: cards, isLoading, isError, error } = useGetMyCards();
+  const {
+    data: cards,
+    isLoading: isCardsLoading,
+    isError: isCardsError,
+    error: cardsError,
+  } = useGetMyCards();
+
   const [open, setOpen] = useState(false);
-  const createCard = useCreateCard();
+
+  const {
+    mutateAsync: createCard,
+    isPending: isCreateLoading,
+    isError: isCreateError,
+    error: createError,
+  } = useCreateCard();
   useEffect(() => {
-    if (isError) {
-      toast.error(error?.message || "Something went wrong");
+    if (isCardsError) {
+      toast.error(cardsError?.message || "Something went wrong");
     }
-  }, [isError, error]);
+  }, [isCardsError, cardsError]);
 
   return (
     <div className="flex flex-col items-start w-full py-6">
@@ -43,7 +55,7 @@ export function CardDashboard() {
         </div>
       </div>
       <div className="mt-6 w-full px-4">
-        {isLoading ? (
+        {isCardsLoading ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {Array.from({ length: 6 }).map((_, i) => (
               <MotionBankCardSkeleton key={i} />
@@ -73,19 +85,26 @@ export function CardDashboard() {
       <AddCardModal
         open={open}
         onOpenChange={setOpen}
+        isLoading={isCreateLoading}
+        isError={isCreateError}
+        error={createError?.message || "Something went wrong"}
         onSubmit={async (data: CardFormData) => {
+
           if (data.type === "debit") {
-            const debitCardCreateRequest: CreateDebitCardRequest = {
-              cardNumber: data.cardNumber,
+            const debitCardCreateRequest: CreateCardRequest = {
+              type: data.type,
+              cardNumber: data.cardNumber.replace(/\s/g,""),
               bankAccount: data.bankAccount,
               cardHolderName: data.cardHolderName,
               cardNetwork: data.cardNetwork,
               expiresAt: data.expiresAt,
             };
-            await createCard.mutateAsync(debitCardCreateRequest);
+
+            await createCard(debitCardCreateRequest);
           } else {
-            const creditCardCreateRequest: CreateCreditCardRequest = {
-              cardNumber: data.cardNumber,
+            const creditCardCreateRequest: CreateCardRequest = {
+              type: data.type,
+              cardNumber: data.cardNumber.replace(/\s/g,""),
               issuer: data.issuer,
               limit: data.limit,
               balance: data.balance,
@@ -93,9 +112,10 @@ export function CardDashboard() {
               cardNetwork: data.cardNetwork,
               expiresAt: data.expiresAt,
             };
-            await createCard.mutateAsync(creditCardCreateRequest);
+            await createCard(creditCardCreateRequest);
           }
           setOpen(false);
+          toast.success("Card added successfully");
         }}
       />
     </div>

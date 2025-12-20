@@ -6,10 +6,6 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-
-import { CardFormData, useCardForm } from "./card-creation-form";
-import { useState, useEffect } from "react";
-import { MotionBankCard } from "./motion-bank-card-component";
 import {
   Form,
   FormControl,
@@ -29,36 +25,44 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
 import { IconPlus } from "@tabler/icons-react";
+
+import { CardFormData, useCardForm } from "./card-creation-form";
+import { MotionBankCard } from "./motion-bank-card-component";
 import { expiryToTimeStamp, formatCardNumber } from "@/lib/string-utils";
 import { useGetCardNetworks } from "@/hooks/account/queries/useGetCardNetworks";
-import { Loader } from "@/app/components/loader";
 import { useGetMyBankAccounts } from "@/hooks/account/queries/useGetMyBankAccounts";
+import { Loader } from "@/app/components/loader";
+import { useEffect } from "react";
+import { toast } from "sonner";
 
 interface AddCardModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   onSubmit: (data: CardFormData) => Promise<void>;
+  isLoading: boolean;
+  isError: boolean;
+  error?: string;
 }
 
 export function AddCardModal({
   open,
   onOpenChange,
   onSubmit,
+  isLoading,
+  isError,
+  error,
 }: AddCardModalProps) {
   const form = useCardForm();
   const cardType = form.watch("type");
   const cardNumber = form.watch("cardNumber");
 
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
   const { data: networks, isLoading: loadingNetworks } =
     useGetCardNetworks(open);
-
   const { data: bankAccounts, isLoading: loadingBankAccounts } =
     useGetMyBankAccounts(open);
+
   useEffect(() => {
     if (!cardNumber) return;
-
     const nn = cardNumber.replace(/\s/g, "");
 
     if (nn.startsWith("4")) form.setValue("cardNetwork", "visa");
@@ -67,22 +71,30 @@ export function AddCardModal({
   }, [cardNumber, form]);
 
   const handleSubmit = async (data: CardFormData) => {
-    setIsSubmitting(true);
-    try {
-      onOpenChange(false);
-      const payload = {
-        ...data,
-        expiresAt: expiryToTimeStamp(data.expiresAt)!,
-      };
-      await onSubmit(payload);
-      form.reset();
-    } finally {
-      setIsSubmitting(false);
+    const expiresAtString = expiryToTimeStamp(data.expiresAt, "string") as string;
+    if (!expiresAtString) {
+      toast.error("Invalid expiry date");
+      return;
     }
+    const payload = {
+      ...data,
+      expiresAt: expiresAtString,
+    };
+
+    await onSubmit(payload);
+    form.reset();
   };
+  useEffect(() => {
+    if (isError && error) {
+      toast.error(error);
+    }
+  }, [isError, error]);
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
+    <Dialog
+      open={open}
+      onOpenChange={(v) => !isLoading && onOpenChange(v)}
+    >
       <DialogContent className="max-w-md p-6">
         <DialogHeader>
           <DialogTitle className="text-lg font-semibold">
@@ -94,17 +106,15 @@ export function AddCardModal({
           <Loader />
         ) : (
           <>
-            <div className="flex flex-col items-center justify-center mb-6">
+            <div className="flex justify-center mb-6">
               <MotionBankCard
+                inputMode
                 card={{
                   cardNumber: form.watch("cardNumber"),
                   cardHolderName: form.watch("cardHolderName"),
-                  expiresAt: expiryToTimeStamp(form.watch("expiresAt"))!,
-                  cardNetwork: {
-                    networkName: form.watch("cardNetwork"),
-                  },
+                  expiresAt: expiryToTimeStamp(form.watch("expiresAt"), "string") as string,
+                  cardNetwork: { networkName: form.watch("cardNetwork") },
                 }}
-                inputMode={true}
               />
             </div>
 
@@ -113,16 +123,18 @@ export function AddCardModal({
                 onSubmit={form.handleSubmit(handleSubmit)}
                 className="space-y-6"
               >
+                {/* Card Type */}
                 <FormField
                   control={form.control}
                   name="type"
+
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Card Type</FormLabel>
                       <FormControl>
                         <Select
-                          onValueChange={field.onChange}
                           value={field.value || ""}
+                          onValueChange={field.onChange}
                         >
                           <SelectTrigger className="w-full">
                             <SelectValue placeholder="Select card type" />
@@ -138,7 +150,8 @@ export function AddCardModal({
                   )}
                 />
 
-                <div className="grid grid-cols-2 gap-2">
+
+                <div className="grid grid-cols-2 gap-4">
                   <FormField
                     control={form.control}
                     name="cardNumber"
@@ -148,15 +161,14 @@ export function AddCardModal({
                         <FormControl>
                           <Input
                             {...field}
-                            placeholder="1234 5678 9012 3456"
                             maxLength={19}
-                            onChange={(e) => {
-                              const formatted = formatCardNumber(
-                                e.target.value,
-                              );
-                              field.onChange(formatted);
-                            }}
+                            placeholder="1234 5678 9012 3456"
                             value={field.value || ""}
+                            onChange={(e) =>
+                              field.onChange(
+                                formatCardNumber(e.target.value),
+                              )
+                            }
                           />
                         </FormControl>
                         <FormMessage />
@@ -172,19 +184,16 @@ export function AddCardModal({
                         <FormLabel>Card Network</FormLabel>
                         <FormControl>
                           <Select
-                            onValueChange={field.onChange}
                             value={field.value || ""}
+                            onValueChange={field.onChange}
                           >
                             <SelectTrigger className="w-full">
-                              <SelectValue placeholder="Select card network" />
+                              <SelectValue placeholder="Network" />
                             </SelectTrigger>
                             <SelectContent>
-                              {networks?.map((network) => (
-                                <SelectItem
-                                  key={network.id}
-                                  value={network.networkName!}
-                                >
-                                  {network.networkName}
+                              {networks?.map((n) => (
+                                <SelectItem key={n.id} value={n.networkName!}>
+                                  {n.networkName}
                                 </SelectItem>
                               ))}
                             </SelectContent>
@@ -200,8 +209,9 @@ export function AddCardModal({
                   <FormField
                     control={form.control}
                     name="cardHolderName"
+
                     render={({ field }) => (
-                      <FormItem>
+                      <FormItem className="w-full">
                         <FormLabel>Name</FormLabel>
                         <FormControl>
                           <Input {...field} placeholder="John Doe" />
@@ -245,6 +255,7 @@ export function AddCardModal({
                   />
                 </div>
 
+                {/* Debit-only */}
                 {cardType === "debit" && (
                   <FormField
                     control={form.control}
@@ -254,19 +265,19 @@ export function AddCardModal({
                         <FormLabel>Bank Account</FormLabel>
                         <FormControl>
                           <Select
-                            onValueChange={field.onChange}
                             value={field.value || ""}
+                            onValueChange={field.onChange}
                           >
                             <SelectTrigger className="w-full">
-                              <SelectValue placeholder="Select bank account" />
+                              <SelectValue placeholder="Select account" />
                             </SelectTrigger>
                             <SelectContent>
-                              {bankAccounts?.map((bankAccount) => (
+                              {bankAccounts?.map((b) => (
                                 <SelectItem
-                                  key={bankAccount.id}
-                                  value={bankAccount.accountNumber!}
+                                  key={b.id}
+                                  value={b.accountNumber!}
                                 >
-                                  {bankAccount.accountNumber!}
+                                  {b.accountNumber}
                                 </SelectItem>
                               ))}
                             </SelectContent>
@@ -278,8 +289,10 @@ export function AddCardModal({
                   />
                 )}
 
+                {/* Credit-only */}
                 {cardType === "credit" && (
                   <>
+
                     <FormField
                       control={form.control}
                       name="issuer"
@@ -287,7 +300,7 @@ export function AddCardModal({
                         <FormItem>
                           <FormLabel>Issuer</FormLabel>
                           <FormControl>
-                            <Input {...field} placeholder="Bank Name" />
+                            <Input {...field} />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -300,13 +313,9 @@ export function AddCardModal({
                         name="limit"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>Credit Limit</FormLabel>
+                            <FormLabel>Limit</FormLabel>
                             <FormControl>
-                              <Input
-                                type="number"
-                                {...field}
-                                placeholder="1000"
-                              />
+                              <Input type="number" {...field} />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -320,11 +329,7 @@ export function AddCardModal({
                           <FormItem>
                             <FormLabel>Balance</FormLabel>
                             <FormControl>
-                              <Input
-                                type="number"
-                                {...field}
-                                placeholder="500"
-                              />
+                              <Input type="number" {...field} />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -334,18 +339,20 @@ export function AddCardModal({
                   </>
                 )}
 
+
+
                 <Button
                   type="submit"
                   className="w-full bg-foreground"
-                  disabled={isSubmitting}
+                  disabled={isLoading}
                 >
-                  {isSubmitting ? (
-                    <div className="flex items-center justify-center gap-2">
+                  {isLoading ? (
+                    <div className="flex items-center gap-2">
                       <Spinner />
                       Adding...
                     </div>
                   ) : (
-                    <div className="flex items-center justify-center gap-2">
+                    <div className="flex items-center gap-2">
                       <IconPlus className="h-4 w-4" />
                       Add Card
                     </div>

@@ -42,7 +42,7 @@ export function TransactionDashboardMetrics({
         totalInflow,
         totalOutflow,
         totalInvested,
-        netBalance: totalInflow - totalOutflow - totalInvested,
+        netBalance: totalInflow - totalOutflow,
       };
     }, [transactions]);
   const metrics = [

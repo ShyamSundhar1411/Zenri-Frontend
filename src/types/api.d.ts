@@ -1561,7 +1561,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** Get all transactions for the given ledger ID */
+        /** Get all transactions and category breakdown for the given ledger ID */
         get: {
             parameters: {
                 query?: never;
@@ -1574,17 +1574,13 @@ export interface paths {
             };
             requestBody?: never;
             responses: {
-                /** @description Successfully fetched transactions */
+                /** @description Successfully fetched transactions with category breakdown */
                 200: {
                     headers: {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": {
-                            /** @example true */
-                            success?: boolean;
-                            transactions?: components["schemas"]["Transaction"][];
-                        };
+                        "application/json": components["schemas"]["TransactionDetailResponse"];
                     };
                 };
                 /** @description Unauthorized */
@@ -2433,6 +2429,47 @@ export interface components {
             error?: string | null;
             /** @example 200 */
             statusCode?: number;
+        };
+        /**
+         * CategoryBreakdown
+         * @description Aggregated category analytics for transactions.
+         */
+        CategoryBreakdown: {
+            /** @example Food */
+            categoryName: string;
+            /**
+             * Format: double
+             * @example 5400.75
+             */
+            totalAmount: number;
+            /** @example USD */
+            currencyCode: string;
+            /**
+             * Format: float
+             * @example 34.5
+             */
+            percentage: number;
+            /** @example 12 */
+            transactionCount: number;
+        };
+        /** CategoriesBreakdown */
+        CategoriesBreakdown: components["schemas"]["CategoryBreakdown"][];
+        /**
+         * TransactionDetail
+         * @description Detailed transaction response with analytics.
+         */
+        TransactionDetail: {
+            transactions: components["schemas"]["Transactions"];
+            categoryBreakdown: components["schemas"]["CategoriesBreakdown"];
+        };
+        /**
+         * TransactionDetailResponse
+         * @description API response for transaction detail with category breakdown.
+         */
+        TransactionDetailResponse: {
+            /** @example 200 */
+            statusCode: number;
+            data: components["schemas"]["TransactionDetail"];
         };
     };
     responses: never;

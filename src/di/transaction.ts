@@ -9,3 +9,4 @@ export type Transaction = components["schemas"]["Transaction"];
 export type GetMyTransactionResponse =
   components["schemas"]["GetMyTransactionsResponse"];
 
+export type TransactionDetail = components["schemas"]["TransactionDetail"]

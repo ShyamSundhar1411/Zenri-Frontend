@@ -28,7 +28,8 @@ export default function LedgerDetailPage() {
 
   const { ledger: ledger, transactions:transactions,isLoading, isError, error } =
     useGetLedgerDetail(ledgerId)
-
+  console.log("Category Breakdown",transactions?.categoryBreakdown)
+  console.log("Transactions",transactions?.transactions)
   useEffect(() => {
     if (isError) {
       toast.error(error?.message || "Something went wrong");

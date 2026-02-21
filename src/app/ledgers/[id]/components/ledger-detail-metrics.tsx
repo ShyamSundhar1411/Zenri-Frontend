@@ -4,15 +4,17 @@ import {
   IconTrendingUp,
   IconTrendingDown,
   IconWallet,
+  IconClock,
 } from "@tabler/icons-react";
-import { LedgerDashboardMetricsSkeleton } from "./ledger-dashboard-metrics-skeleton";
+import { LedgerDetaildMetricsSkeleton } from "./ledger-detail-metric-skeleton";
+import { PieChart } from "lucide-react";
 
 interface LedgerDashboardMetricsProps {
   currentMonthLedger: Ledger | undefined;
   isLoading: boolean;
   isError: boolean;
 }
-export function LedgerDashboardMetrics({
+export function LedgerDetailMetrics({
   currentMonthLedger,
   isLoading,
   isError,
@@ -23,33 +25,36 @@ export function LedgerDashboardMetrics({
   const totalOutflow = currentMonthLedger?.transactionMetadata?.totalDebits ?? 0;
   const totalSavingsPercentage =
     currentMonthLedger?.transactionMetadata?.totalSavingsPercentage ?? 0;
+  const numberOfCredits = currentMonthLedger?.transactionMetadata?.numberOfCredits ?? 0;
+  const numberOfDebits = currentMonthLedger?.transactionMetadata?.numberOfDebits ?? 0;
+  const averageExpense = currentMonthLedger?.transactionMetadata?.avgExpense ?? 0;
   const metrics = [
     {
-      title: "Total Balance",
+      title: "Net Balance",
       value: `${totalBalance} ${currencyCode}`,
-      trend: "This month",
+      trend: `${totalSavingsPercentage} % saved`,
       icon: IconTrendingUp,
       color: "text-green-500",
     },
     {
       title: "Total Inflow",
       value: `${totalInflow} ${currencyCode}`,
-      trend: "This month",
+      trend: `${numberOfCredits} transactions`,
       icon: IconTrendingUp,
       color: "text-green-500",
     },
     {
       title: "Total Outflow",
       value: `${totalOutflow} ${currencyCode}`,
-      trend: "This month",
+      trend: `${numberOfDebits} transactions`,
       icon: IconTrendingDown,
       color: "text-red-500",
     },
     {
-      title: "Savings Rate",
-      value: `${totalSavingsPercentage} %`,
-      trend: "This month",
-      icon: IconWallet,
+      title: "Daily Average",
+      value: `${averageExpense} ${currencyCode}`,
+      trend: "Per day spending",
+      icon: PieChart,
       color: "text-green-500",
     },
   ];
@@ -57,7 +62,7 @@ export function LedgerDashboardMetrics({
   return (
     <>
       {isLoading ? (
-        <LedgerDashboardMetricsSkeleton />
+        <LedgerDetaildMetricsSkeleton />
       ) : (
         <div className="grid sm:grid-cols-1 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-4 gap-4 sm:gap-4 mt-4">
           {metrics.map((metric, idx) => (

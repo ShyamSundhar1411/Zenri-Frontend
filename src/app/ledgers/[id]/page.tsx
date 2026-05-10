@@ -21,6 +21,7 @@ import { useTransactionPageData } from "@/hooks/transaction/queries/useTransacti
 import { useGetLedgerDetail } from "@/hooks/ledger/queries/useGetLedgerDetail";
 import { LedgerDetailMetrics } from "./components/ledger-detail-metrics";
 import { CategoryBreakdownComponent } from "./components/category-breakdown";
+import { TransactionList } from "./components/transaction-list";
 
 export default function LedgerDetailPage() {
   const params = useParams();
@@ -117,15 +118,15 @@ export default function LedgerDetailPage() {
 
             <LedgerDetailMetrics currentMonthLedger={ledger} isError={isError} isLoading={isLoading} />
           </div>
-          <div className="px-4 mt-8 grid grid-cols-1 lg:grid-cols-12 gap-6">
+          <div className="px-4 mt-8 grid grid-cols-2 lg:grid-cols-12 gap-6">
             <div className="lg:col-span-4">
               <CategoryBreakdownComponent
                 categoryBreakdown={categoryBreakdownData}
               />
             </div>
 
-            <div className="lg:col-span-9">
-              {/* <TransactionList transactions={transactionsData} /> */}
+            <div className="lg:col-span-8">
+              <TransactionList transactions={transactionsData} />
             </div>
           </div>
         </div>

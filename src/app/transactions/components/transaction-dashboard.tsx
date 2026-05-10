@@ -17,7 +17,7 @@ export function TransactionDashboard() {
   } = useTransactionPageData();
 
   const [search, setSearch] = useState("");
-  const [filterCategories, setFilterCategories] = useState<string[]>([]); // <-- multi-select
+  const [filterCategories, setFilterCategories] = useState<string[]>([]); 
   const [sort, setSort] = useState("recent");
   const [dateFilter, setDateFilter] = useState("all");
   const [customDateRange, setCustomDateRange] = useState<{

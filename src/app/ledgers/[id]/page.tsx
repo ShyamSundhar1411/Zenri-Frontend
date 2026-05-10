@@ -20,16 +20,18 @@ import { toast } from "sonner";
 import { useTransactionPageData } from "@/hooks/transaction/queries/useTransactionPageData";
 import { useGetLedgerDetail } from "@/hooks/ledger/queries/useGetLedgerDetail";
 import { LedgerDetailMetrics } from "./components/ledger-detail-metrics";
+import { CategoryBreakdownComponent } from "./components/category-breakdown";
 
 export default function LedgerDetailPage() {
   const params = useParams();
   const router = useRouter();
   const ledgerId = params?.id as string;
 
-  const { ledger: ledger, transactions:transactions,isLoading, isError, error } =
+  const { ledger: ledger, transactions: transactions, isLoading, isError, error } =
     useGetLedgerDetail(ledgerId)
-  console.log("Category Breakdown",transactions?.categoryBreakdown)
-  console.log("Transactions",transactions?.transactions)
+  const transactionsData = transactions?.transactions ?? [];
+  const categoryBreakdownData = transactions?.categoryBreakdown ?? [];
+  console.log(categoryBreakdownData)
   useEffect(() => {
     if (isError) {
       toast.error(error?.message || "Something went wrong");
@@ -79,12 +81,12 @@ export default function LedgerDetailPage() {
             </Breadcrumb>
           </div>
 
-  
+
           <div className="flex flex-col sm:flex-row w-full items-start sm:items-center justify-between gap-4 px-4 py-6">
 
-            
+
             <div className="flex items-center gap-3">
-         
+
               <Button
                 variant="ghost"
                 size="icon"
@@ -112,10 +114,20 @@ export default function LedgerDetailPage() {
 
 
           <div className="px-4 mt-6">
-            
-              <LedgerDetailMetrics currentMonthLedger={ledger} isError={isError} isLoading={isLoading}/>
-          </div>
 
+            <LedgerDetailMetrics currentMonthLedger={ledger} isError={isError} isLoading={isLoading} />
+          </div>
+          <div className="px-4 mt-8 grid grid-cols-1 lg:grid-cols-12 gap-6">
+            <div className="lg:col-span-4">
+              <CategoryBreakdownComponent
+                categoryBreakdown={categoryBreakdownData}
+              />
+            </div>
+
+            <div className="lg:col-span-9">
+              {/* <TransactionList transactions={transactionsData} /> */}
+            </div>
+          </div>
         </div>
       )}
     </div>

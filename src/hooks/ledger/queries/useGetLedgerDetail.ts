@@ -24,6 +24,7 @@ export function useGetLedgerDetail(ledgerId: string){
             }
         ]
     })
+    
     const [ledgerQ, ledgerTransactionQ] = results;
     const error = ledgerQ.error ?? ledgerTransactionQ.error ?? null;
     const isError = ledgerQ.isError || ledgerTransactionQ.isError;

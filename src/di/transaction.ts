@@ -10,3 +10,5 @@ export type GetMyTransactionResponse =
   components["schemas"]["GetMyTransactionsResponse"];
 
 export type TransactionDetail = components["schemas"]["TransactionDetail"]
+
+export type CategoryBreakdown = components["schemas"]["CategoryBreakdown"]

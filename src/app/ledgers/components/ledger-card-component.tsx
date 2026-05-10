@@ -19,7 +19,7 @@ export function LedgerCard({ ledger }: LedgerCardProps) {
     (ledger.transactionMetadata?.totalDebits ?? 0);
   return (
     <Link href={`/ledgers/${ledger.id}`} className="block">
-      <Card className="w-full sm:w-[300px] hover:shadow-lg border border-foreground transition-shadow duration-300">
+      <Card className="w-full sm:w-[300px] hover:shadow-lg border border-foreground/10 transition-shadow duration-300 dark:hover:border-white">
         <CardHeader className="bg-transparent">
           <div className="flex items-center justify-between">
             <CardTitle className="flex items-center gap-2 text-lg font-semibold text-foreground">
